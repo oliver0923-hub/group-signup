@@ -5,7 +5,12 @@ const app = express();
 const PORT = process.env.PORT || 3000; // ✅ Railway 會提供 PORT，否則使用 3000
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public"))); // ✅ 確保靜態文件可用
+app.use(express.static(path.join(__dirname, "public"))); // ✅ 提供靜態文件
+
+// ✅ 確保首頁（/）自動導向 index.html
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // ✅ 確保管理頁面可以訪問
 app.get("/admin", (req, res) => {
