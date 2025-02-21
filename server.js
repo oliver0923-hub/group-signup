@@ -1,7 +1,8 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const PORT = 3000;
+
+const PORT = process.env.PORT || 3000; // ✅ Railway 會提供 PORT，否則使用 3000
 
 app.use(express.json());
 app.use(express.static(__dirname)); // 讓 index.html & style.css 可用
@@ -19,13 +20,7 @@ app.get("/groups", (req, res) => {
     res.json(groups);
 });
 
-// ✅ 啟動伺服器
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
-
-const PORT = process.env.PORT || 3000;
+// ✅ 啟動伺服器（只保留這一個 app.listen）
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
