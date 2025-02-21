@@ -1,0 +1,32 @@
+<h2>分組管理頁面</h2>
+<div id="groupStatus"></div>
+
+<script>
+    async function updateGroups() {
+        let res = await fetch("/groups");
+        let groups = await res.json();
+        let groupDiv = document.getElementById("groupStatus");
+        groupDiv.innerHTML = "";
+
+        groups.forEach((group, index) => {
+            let groupInfo = `<h3>第 ${index + 1} 組 (${group.members.length}/12)</h3>`;
+            group.members.forEach(member => {
+                groupInfo += `<p>${member.name} - ${member.department} - ${member.studentId} 
+                    <button onclick="removeStudent(${index}, '${member.studentId}')">❌ 移除</button></p>`;
+            });
+            groupDiv.innerHTML += groupInfo;
+        });
+    }
+
+    async function removeStudent(groupIndex, studentId) {
+        await fetch("/remove", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ groupIndex, studentId })
+        });
+        updateGroups();
+    }
+
+    setInterval(updateGroups, 3000);
+    updateGroups();
+</script>
