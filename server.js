@@ -12,7 +12,7 @@ app.get("/admin", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
-// ✅ 初始化分組資料（確保 groups 變數存在）
+// ✅ 初始化分組資料
 let groups = Array(10).fill(null).map(() => ({ members: [] }));
 
 // ✅ 取得最新的分組資料
