@@ -45,9 +45,28 @@ app.post("/signup", (req, res) => {
     res.send(`✅ 成功加入第 ${groupIndex + 1} 組！`);
 });
 
+// ✅ 🔥 新增 `/remove` API，處理移除學生請求！
+app.post("/remove", (req, res) => {
+    let { groupIndex, studentId } = req.body;
+
+    // 確保請求資料有效
+    if (groupIndex === undefined || !studentId) {
+        return res.status(400).send("❌ 無效的移除請求！");
+    }
+
+    // 移除指定的學生
+    let originalLength = groups[groupIndex].members.length;
+    groups[groupIndex].members = groups[groupIndex].members.filter(m => m.studentId !== studentId);
+
+    if (groups[groupIndex].members.length === originalLength) {
+        return res.status(404).send("❌ 找不到該學生，請確認學號！");
+    }
+
+    res.send("✅ 學生已被移除！");
+});
+
 // ✅ 啟動伺服器
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
 
