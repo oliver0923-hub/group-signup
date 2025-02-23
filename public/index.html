@@ -113,19 +113,27 @@
                 members.push({ name: extraNames[i], studentId: extraIds[i], department: extraDepts[i] });
             }
 
-            let res = await fetch("/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ groupIndex: selectedGroup, members })
-            });
+            try {
+                let res = await fetch("/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ groupIndex: selectedGroup, members })
+                });
 
-            let msg = await res.text();
-            document.getElementById("message").innerText = msg;
+                let msg = await res.text();
+                document.getElementById("message").innerText = msg;
 
-            hasSubmitted = true;
-            document.getElementById("confirmBtn").disabled = true;
+                if (res.ok) {
+                    hasSubmitted = true;
+                    document.getElementById("confirmBtn").disabled = true;
+                } else {
+                    document.getElementById("confirmBtn").disabled = false; // 失敗時允許重試
+                }
 
-            loadGroups(); // 立即更新組別人數
+                loadGroups(); // 立即更新組別人數
+            } catch (error) {
+                document.getElementById("message").innerText = "⚠️ 發生錯誤，請稍後再試！";
+            }
         }
 
         loadGroups();
@@ -133,5 +141,3 @@
     </script>
 </body>
 </html>
-
-
