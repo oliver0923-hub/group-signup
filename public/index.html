@@ -18,7 +18,7 @@
         <label>系所：</label>
         <input type="text" id="department" placeholder="請輸入系所">
 
-        <label>報名人數（最多 12 人）：</label>
+        <label>報名人數（最多 11 人）：</label>
         <select id="groupSize" onchange="updateFields()">
             <option value="1">1 人</option>
             <option value="2">2 人</option>
@@ -30,9 +30,8 @@
             <option value="8">8 人</option>
             <option value="9">9 人</option>
             <option value="10">10 人</option>
-            <option value="11">11 人</option>
-            <option value="12">12 人</option>
-        </select>
+            <option value="11">11 人</option> 
+            </select>
 
         <div id="extraMembers"></div>
 
@@ -73,15 +72,19 @@
 
             groups.forEach((group, index) => {
                 let btn = document.createElement("button");
-                btn.innerText = `第 ${index + 1} 組 (${group.members.length}/12)`;
-                btn.disabled = group.members.length >= 12;
+                // 修改點 3：顯示文字改為 /11
+                btn.innerText = `第 ${index + 1} 組 (${group.members.length}/11)`;
+                
+                // 修改點 4：禁用邏輯改為大於等於 11
+                btn.disabled = group.members.length >= 11;
+                
                 btn.onclick = () => selectGroup(index);
                 groupDiv.appendChild(btn);
             });
         }
 
         function selectGroup(index) {
-            if (hasSubmitted) return; // 如果已送出，禁止選擇
+            if (hasSubmitted) return; 
             selectedGroup = index;
             document.getElementById("confirmBtn").disabled = false;
         }
@@ -127,17 +130,17 @@
                     hasSubmitted = true;
                     document.getElementById("confirmBtn").disabled = true;
                 } else {
-                    document.getElementById("confirmBtn").disabled = false; // 失敗時允許重試
+                    document.getElementById("confirmBtn").disabled = false; 
                 }
 
-                loadGroups(); // 立即更新組別人數
+                loadGroups(); 
             } catch (error) {
                 document.getElementById("message").innerText = "⚠️ 發生錯誤，請稍後再試！";
             }
         }
 
         loadGroups();
-        setInterval(loadGroups, 5000); // 每 5 秒更新一次
+        setInterval(loadGroups, 5000); 
     </script>
 </body>
 </html>
