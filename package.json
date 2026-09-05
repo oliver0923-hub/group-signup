@@ -1,12 +1,13 @@
 {
   "name": "group-signup",
-  "version": "1.0.0",
-  "description": "A simple course group signup system",
+  "version": "2.0.0",
+  "description": "Course group signup system with persistent PostgreSQL storage",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
   }
 }
