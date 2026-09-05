@@ -7,10 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const GROUP_COUNT = 5;
 const MAX_GROUP_SIZE = 4;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_PASSWORD_HASH = "e688113bcdea4c87bdc6c10c75080c249c6e497714be76c7e0eee185157689d5";
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
-if (!ADMIN_PASSWORD) throw new Error("ADMIN_PASSWORD is required");
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adminSessionToken = crypto.randomBytes(32).toString("hex");
@@ -44,7 +43,8 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public", "index.ht
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "public", "admin.html")));
 
 app.post("/admin/login", (req, res) => {
-    if (String(req.body.password || "") !== ADMIN_PASSWORD) {
+    const inputHash = crypto.createHash("sha256").update(String(req.body.password || "")).digest("hex");
+    if (inputHash !== ADMIN_PASSWORD_HASH) {
         return res.status(401).send("Incorrect password");
     }
     res.setHeader("Set-Cookie", `adminSession=${adminSessionToken}; Path=/; HttpOnly; SameSite=Strict; Secure; Max-Age=28800`);
