@@ -18,7 +18,7 @@ app.get("/admin", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
-// ✅ 初始化 6 組，每組最多 11 人
+// ✅ 初始化 6 組，每組最多 10 人
 let groups = Array(6).fill(null).map(() => ({ members: [] }));
 
 // ✅ 取得最新的分組資料
@@ -36,7 +36,7 @@ app.post("/signup", (req, res) => {
     }
 
     // 檢查組別是否已滿
-    if (groups[groupIndex].members.length + members.length > 11) {
+    if (groups[groupIndex].members.length + members.length > 10) {
         return res.status(400).send("❌ 這組已滿，請選擇其他組！");
     }
 
@@ -69,4 +69,3 @@ app.post("/remove", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
