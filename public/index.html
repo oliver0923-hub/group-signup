@@ -43,6 +43,22 @@
 
         <button id="confirmBtn" onclick="submitForm()" disabled>確認送出</button>
         <p id="message"></p>
+
+        <div class="member-card">
+            <h3>修改或取消既有報名</h3>
+            <p class="hint">輸入任何一位已報名成員的學號，即可查詢該筆共同報名並更換組別或取消整筆報名。</p>
+            <label for="manageStudentId">學號</label>
+            <input type="text" id="manageStudentId" placeholder="請輸入已報名學號">
+            <button type="button" onclick="lookupRegistration()">查詢報名</button>
+            <div id="managePanel" style="display:none;">
+                <p id="registrationInfo"></p>
+                <label for="newGroupIndex">更換至</label>
+                <select id="newGroupIndex"></select>
+                <button type="button" onclick="moveRegistration()">確認換組</button>
+                <button type="button" onclick="cancelRegistration()">取消整筆報名</button>
+            </div>
+            <p id="manageMessage"></p>
+        </div>
     </div>
 
     <script>
@@ -165,6 +181,71 @@
                 loadGroups();
             } catch (error) {
                 document.getElementById("message").innerText = "⚠️ 發生錯誤，請稍後再試！";
+            }
+        }
+
+
+        let managedStudentId = "";
+
+        async function lookupRegistration() {
+            const studentId = document.getElementById("manageStudentId").value.trim();
+            const message = document.getElementById("manageMessage");
+            const panel = document.getElementById("managePanel");
+            if (!studentId) {
+                message.innerText = "⚠️ 請輸入學號。";
+                panel.style.display = "none";
+                return;
+            }
+            const res = await fetch("/registration/" + encodeURIComponent(studentId));
+            if (!res.ok) {
+                message.innerText = await res.text();
+                panel.style.display = "none";
+                return;
+            }
+            const data = await res.json();
+            managedStudentId = studentId;
+            document.getElementById("registrationInfo").innerText =
+                `目前第 ${data.groupIndex + 1} 組；成員：` +
+                data.members.map(m => `${m.name}（${m.studentId}）`).join("、");
+            const select = document.getElementById("newGroupIndex");
+            select.innerHTML = "";
+            for (let i = 0; i < 6; i++) {
+                const opt = document.createElement("option");
+                opt.value = i;
+                opt.textContent = `第 ${i + 1} 組`;
+                if (i === data.groupIndex) opt.selected = true;
+                select.appendChild(opt);
+            }
+            message.innerText = "";
+            panel.style.display = "block";
+        }
+
+        async function moveRegistration() {
+            const newGroupIndex = parseInt(document.getElementById("newGroupIndex").value);
+            const res = await fetch("/registration/move", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ studentId: managedStudentId, newGroupIndex })
+            });
+            document.getElementById("manageMessage").innerText = await res.text();
+            if (res.ok) {
+                await lookupRegistration();
+                loadGroups();
+            }
+        }
+
+        async function cancelRegistration() {
+            if (!confirm("確定要取消這一整筆報名嗎？同一筆共同報名的所有成員都會被移除。")) return;
+            const res = await fetch("/registration/cancel", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ studentId: managedStudentId })
+            });
+            document.getElementById("manageMessage").innerText = await res.text();
+            if (res.ok) {
+                document.getElementById("managePanel").style.display = "none";
+                managedStudentId = "";
+                loadGroups();
             }
         }
 
