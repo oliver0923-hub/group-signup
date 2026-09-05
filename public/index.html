@@ -18,7 +18,7 @@
         <label>系所：</label>
         <input type="text" id="department" placeholder="請輸入系所">
 
-        <label>報名人數（最多 11 人）：</label>
+        <label>報名人數（最多 10 人）：</label>
         <select id="groupSize" onchange="updateFields()">
             <option value="1">1 人</option>
             <option value="2">2 人</option>
@@ -30,8 +30,7 @@
             <option value="8">8 人</option>
             <option value="9">9 人</option>
             <option value="10">10 人</option>
-            <option value="11">11 人</option> 
-            </select>
+</select>
 
         <div id="extraMembers"></div>
 
@@ -72,11 +71,11 @@
 
             groups.forEach((group, index) => {
                 let btn = document.createElement("button");
-                // 修改點 3：顯示文字改為 /11
-                btn.innerText = `第 ${index + 1} 組 (${group.members.length}/11)`;
+                // 修改點 3：顯示文字改為 /10
+                btn.innerText = `第 ${index + 1} 組 (${group.members.length}/10)`;
                 
-                // 修改點 4：禁用邏輯改為大於等於 11
-                btn.disabled = group.members.length >= 11;
+                // 修改點 4：禁用邏輯改為大於等於 10
+                btn.disabled = group.members.length >= 10;
                 
                 btn.onclick = () => selectGroup(index);
                 groupDiv.appendChild(btn);
