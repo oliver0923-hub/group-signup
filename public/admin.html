@@ -9,14 +9,64 @@
 <body>
     <div class="container">
         <h2>分組管理頁面</h2>
-        <p><a href="/export.csv"><button type="button">下載 CSV 名單</button></a></p>
-        <div id="groupStatus"></div>
+
+        <div id="loginPanel" class="member-card">
+            <h3>管理員登入</h3>
+            <label for="adminPassword">密碼</label>
+            <input type="password" id="adminPassword" placeholder="請輸入管理員密碼">
+            <button type="button" onclick="login()">登入</button>
+            <p id="loginMessage"></p>
+        </div>
+
+        <div id="adminPanel" style="display:none;">
+            <p>
+                <button type="button" onclick="downloadCsv()">下載 CSV 名單</button>
+                <button type="button" onclick="logout()">登出</button>
+            </p>
+            <div id="groupStatus"></div>
+        </div>
     </div>
 
     <script>
+        async function login() {
+            const password = document.getElementById("adminPassword").value;
+            const res = await fetch("/admin/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password })
+            });
+
+            const msg = await res.text();
+            document.getElementById("loginMessage").innerText = msg;
+
+            if (res.ok) {
+                document.getElementById("loginPanel").style.display = "none";
+                document.getElementById("adminPanel").style.display = "block";
+                updateGroups();
+            }
+        }
+
+        async function checkSession() {
+            const res = await fetch("/admin/groups");
+            if (res.ok) {
+                document.getElementById("loginPanel").style.display = "none";
+                document.getElementById("adminPanel").style.display = "block";
+                renderGroups(await res.json());
+            }
+        }
+
         async function updateGroups() {
-            const res = await fetch("/groups");
-            const groups = await res.json();
+            const res = await fetch("/admin/groups");
+            if (res.status === 401) {
+                document.getElementById("adminPanel").style.display = "none";
+                document.getElementById("loginPanel").style.display = "block";
+                return;
+            }
+            if (!res.ok) return;
+            renderGroups(await res.json());
+        }
+
+        function renderGroups(groups) {
             const groupDiv = document.getElementById("groupStatus");
             groupDiv.innerHTML = "";
 
@@ -46,18 +96,54 @@
 
         async function removeStudent(groupIndex, studentId) {
             if (!confirm(`確定要移除學號 ${studentId} 嗎？`)) return;
+
             const res = await fetch("/remove", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ groupIndex, studentId })
             });
+
+            if (res.status === 401) {
+                document.getElementById("adminPanel").style.display = "none";
+                document.getElementById("loginPanel").style.display = "block";
+                return;
+            }
+
             const msg = await res.text();
             if (!res.ok) alert(msg);
             updateGroups();
         }
 
-        setInterval(updateGroups, 3000);
-        updateGroups();
+        async function downloadCsv() {
+            const res = await fetch("/export.csv");
+            if (res.status === 401) {
+                document.getElementById("adminPanel").style.display = "none";
+                document.getElementById("loginPanel").style.display = "block";
+                return;
+            }
+            if (!res.ok) return;
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "group-signup.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        async function logout() {
+            await fetch("/admin/logout", { method: "POST" });
+            document.getElementById("adminPanel").style.display = "none";
+            document.getElementById("loginPanel").style.display = "block";
+            document.getElementById("adminPassword").value = "";
+            document.getElementById("loginMessage").innerText = "";
+        }
+
+        checkSession();
+        setInterval(() => {
+            if (document.getElementById("adminPanel").style.display !== "none") updateGroups();
+        }, 3000);
     </script>
 </body>
 </html>
