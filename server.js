@@ -1,24 +1,60 @@
 const express = require("express");
 const path = require("path");
+const crypto = require("crypto");
 const { Pool } = require("pg");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const GROUP_COUNT = 6;
 const MAX_GROUP_SIZE = 10;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL is required");
-}
+if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
+if (!ADMIN_PASSWORD) throw new Error("ADMIN_PASSWORD is required");
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const adminSessionToken = crypto.randomBytes(32).toString("hex");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+function parseCookies(req) {
+    const raw = req.headers.cookie || "";
+    return Object.fromEntries(
+        raw.split(";")
+           .map(v => v.trim())
+           .filter(Boolean)
+           .map(v => {
+               const i = v.indexOf("=");
+               return [decodeURIComponent(v.slice(0, i)), decodeURIComponent(v.slice(i + 1))];
+           })
+    );
+}
+
+function requireAdmin(req, res, next) {
+    const cookies = parseCookies(req);
+    if (cookies.adminSession !== adminSessionToken) {
+        return res.status(401).send("未授權");
+    }
+    next();
+}
+
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "public", "admin.html")));
+
+app.post("/admin/login", (req, res) => {
+    if (String(req.body.password || "") !== ADMIN_PASSWORD) {
+        return res.status(401).send("密碼錯誤");
+    }
+    res.setHeader("Set-Cookie", `adminSession=${adminSessionToken}; Path=/; HttpOnly; SameSite=Strict; Secure; Max-Age=28800`);
+    res.send("登入成功");
+});
+
+app.post("/admin/logout", requireAdmin, (req, res) => {
+    res.setHeader("Set-Cookie", "adminSession=; Path=/; HttpOnly; SameSite=Strict; Secure; Max-Age=0");
+    res.send("已登出");
+});
 
 async function initDb() {
     await pool.query(`
@@ -56,32 +92,47 @@ function validGroupIndex(value) {
     return Number.isInteger(value) && value >= 0 && value < GROUP_COUNT;
 }
 
-async function getGroups() {
-    const result = await pool.query(`
-        SELECT r.group_index, r.id AS registration_id,
-               m.name, m.student_id, m.department
-        FROM registrations r
-        JOIN members m ON m.registration_id = r.id
-        ORDER BY r.group_index, r.id, m.id
-    `);
-
-    const groups = Array.from({ length: GROUP_COUNT }, () => ({ members: [] }));
-    for (const row of result.rows) {
-        if (row.group_index >= 0 && row.group_index < GROUP_COUNT) {
-            groups[row.group_index].members.push({
-                name: row.name,
-                studentId: row.student_id,
-                department: row.department,
-                registrationId: row.registration_id
-            });
-        }
-    }
-    return groups;
-}
-
 app.get("/groups", async (req, res) => {
     try {
-        res.json(await getGroups());
+        const result = await pool.query(`
+            SELECT r.group_index, COUNT(m.id)::int AS count
+            FROM registrations r
+            JOIN members m ON m.registration_id = r.id
+            GROUP BY r.group_index
+        `);
+        const groups = Array.from({ length: GROUP_COUNT }, () => ({ members: [] }));
+        for (const row of result.rows) {
+            if (row.group_index >= 0 && row.group_index < GROUP_COUNT) {
+                groups[row.group_index].members = Array.from({ length: row.count }, () => ({}));
+            }
+        }
+        res.json(groups);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("⚠️ 伺服器錯誤，請稍後再試。");
+    }
+});
+
+app.get("/admin/groups", requireAdmin, async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT r.group_index, m.name, m.student_id, m.department
+            FROM registrations r
+            JOIN members m ON m.registration_id = r.id
+            ORDER BY r.group_index, r.id, m.id
+        `);
+
+        const groups = Array.from({ length: GROUP_COUNT }, () => ({ members: [] }));
+        for (const row of result.rows) {
+            if (row.group_index >= 0 && row.group_index < GROUP_COUNT) {
+                groups[row.group_index].members.push({
+                    name: row.name,
+                    studentId: row.student_id,
+                    department: row.department
+                });
+            }
+        }
+        res.json(groups);
     } catch (error) {
         console.error(error);
         res.status(500).send("⚠️ 伺服器錯誤，請稍後再試。");
@@ -143,7 +194,7 @@ app.post("/signup", async (req, res) => {
         }
 
         await client.query("COMMIT");
-        res.send("✅ 成功加入第 999 組！".replace("999", String(groupIndex + 1)));
+        res.send("✅ 報名成功！");
     } catch (error) {
         await client.query("ROLLBACK");
         console.error(error);
@@ -154,109 +205,7 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-app.get("/registration/:studentId", async (req, res) => {
-    try {
-        const studentId = String(req.params.studentId || "").trim();
-        const reg = await pool.query(`
-            SELECT r.id, r.group_index
-            FROM registrations r
-            JOIN members m ON m.registration_id = r.id
-            WHERE m.student_id = $1
-            LIMIT 1
-        `, [studentId]);
-
-        if (!reg.rowCount) return res.status(404).send("❌ 找不到此學號的報名資料。");
-
-        const members = await pool.query(
-            "SELECT name, student_id, department FROM members WHERE registration_id=$1 ORDER BY id",
-            [reg.rows[0].id]
-        );
-
-        res.json({
-            registrationId: reg.rows[0].id,
-            groupIndex: reg.rows[0].group_index,
-            members: members.rows.map(r => ({ name:r.name, studentId:r.student_id, department:r.department }))
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("⚠️ 伺服器錯誤，請稍後再試。");
-    }
-});
-
-app.post("/registration/move", async (req, res) => {
-    const studentId = String(req.body.studentId || "").trim();
-    const newGroupIndex = req.body.newGroupIndex;
-    if (!studentId || !validGroupIndex(newGroupIndex)) return res.status(400).send("❌ 無效的報名資訊！");
-
-    const client = await pool.connect();
-    try {
-        await client.query("BEGIN");
-        const reg = await client.query(`
-            SELECT r.id, r.group_index,
-                   (SELECT COUNT(*)::int FROM members WHERE registration_id=r.id) AS size
-            FROM registrations r
-            JOIN members m ON m.registration_id=r.id
-            WHERE m.student_id=$1
-            LIMIT 1
-        `, [studentId]);
-
-        if (!reg.rowCount) {
-            await client.query("ROLLBACK");
-            return res.status(404).send("❌ 找不到此學號的報名資料。");
-        }
-
-        const current = reg.rows[0];
-        if (current.group_index === newGroupIndex) {
-            await client.query("COMMIT");
-            return res.send("✅ 已改到第 999 組！".replace("999", String(newGroupIndex + 1)));
-        }
-
-        const locks = [current.group_index, newGroupIndex].sort((a,b)=>a-b);
-        for (const key of locks) await client.query("SELECT pg_advisory_xact_lock($1)", [key]);
-
-        const countResult = await client.query(`
-            SELECT COUNT(*)::int AS count
-            FROM members m JOIN registrations r ON r.id=m.registration_id
-            WHERE r.group_index=$1
-        `, [newGroupIndex]);
-
-        if (countResult.rows[0].count + current.size > MAX_GROUP_SIZE) {
-            await client.query("ROLLBACK");
-            return res.status(409).send("❌ 這組剩餘名額不足！");
-        }
-
-        await client.query("UPDATE registrations SET group_index=$1 WHERE id=$2", [newGroupIndex, current.id]);
-        await client.query("COMMIT");
-        res.send("✅ 已改到第 999 組！".replace("999", String(newGroupIndex + 1)));
-    } catch (error) {
-        await client.query("ROLLBACK");
-        console.error(error);
-        res.status(500).send("⚠️ 伺服器錯誤，請稍後再試。");
-    } finally {
-        client.release();
-    }
-});
-
-app.post("/registration/cancel", async (req, res) => {
-    try {
-        const studentId = String(req.body.studentId || "").trim();
-        if (!studentId) return res.status(400).send("❌ 無效的報名資訊！");
-        const result = await pool.query(`
-            DELETE FROM registrations
-            WHERE id IN (
-                SELECT registration_id FROM members WHERE student_id=$1
-            )
-            RETURNING id
-        `, [studentId]);
-        if (!result.rowCount) return res.status(404).send("❌ 找不到此學號的報名資料。");
-        res.send("✅ 報名已取消。");
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("⚠️ 伺服器錯誤，請稍後再試。");
-    }
-});
-
-app.post("/remove", async (req, res) => {
+app.post("/remove", requireAdmin, async (req, res) => {
     try {
         const groupIndex = req.body.groupIndex;
         const studentId = String(req.body.studentId || "").trim();
@@ -273,6 +222,7 @@ app.post("/remove", async (req, res) => {
         `, [groupIndex, studentId]);
 
         if (!result.rowCount) return res.status(404).send("❌ 找不到此學號的報名資料。");
+
         await pool.query(`
             DELETE FROM registrations r
             WHERE r.id=$1 AND NOT EXISTS (
@@ -287,7 +237,7 @@ app.post("/remove", async (req, res) => {
     }
 });
 
-app.get("/export.csv", async (req, res) => {
+app.get("/export.csv", requireAdmin, async (req, res) => {
     try {
         const result = await pool.query(`
             SELECT r.group_index, m.name, m.student_id, m.department
@@ -295,11 +245,13 @@ app.get("/export.csv", async (req, res) => {
             JOIN members m ON m.registration_id=r.id
             ORDER BY r.group_index, r.id, m.id
         `);
+
         const esc = value => '"' + String(value ?? "").replace(/"/g, '""') + '"';
         const rows = [["Group","Name","Student ID","Department"]];
         for (const row of result.rows) {
             rows.push([row.group_index + 1, row.name, row.student_id, row.department]);
         }
+
         const csv = "\uFEFF" + rows.map(row => row.map(esc).join(",")).join("\r\n");
         res.setHeader("Content-Type", "text/csv; charset=utf-8");
         res.setHeader("Content-Disposition", "attachment; filename=group-signup.csv");
