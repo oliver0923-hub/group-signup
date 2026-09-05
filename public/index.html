@@ -71,38 +71,47 @@
                 `;
             }
 
+            selectedGroup = null;
+            document.getElementById("confirmBtn").disabled = true;
             loadGroups();
         }
 
         async function loadGroups() {
-            const res = await fetch("/groups");
-            const groups = await res.json();
-            const groupDiv = document.getElementById("groups");
-            const requestedSize = parseInt(document.getElementById("groupSize").value);
-            groupDiv.innerHTML = "";
+            try {
+                const res = await fetch("/groups");
+                if (!res.ok) throw new Error("Failed to load groups");
 
-            groups.forEach((group, index) => {
-                const btn = document.createElement("button");
-                const remaining = 10 - group.members.length;
+                const groups = await res.json();
+                const groupDiv = document.getElementById("groups");
+                const requestedSize = parseInt(document.getElementById("groupSize").value);
+                groupDiv.innerHTML = "";
 
-                btn.innerText = `第 ${index + 1} 組 (${group.members.length}/10)`;
-                btn.disabled = remaining < requestedSize;
+                groups.forEach((group, index) => {
+                    const btn = document.createElement("button");
+                    const remaining = 10 - group.members.length;
 
-                if (selectedGroup === index && !btn.disabled) {
-                    btn.classList.add("selected");
+                    btn.innerText = `第 ${index + 1} 組 (${group.members.length}/10)`;
+                    btn.disabled = hasSubmitted || remaining < requestedSize;
+
+                    if (selectedGroup === index && !btn.disabled) {
+                        btn.classList.add("selected");
+                    }
+
+                    btn.onclick = () => selectGroup(index);
+                    groupDiv.appendChild(btn);
+                });
+
+                if (
+                    selectedGroup !== null &&
+                    groups[selectedGroup] &&
+                    (10 - groups[selectedGroup].members.length) < requestedSize
+                ) {
+                    selectedGroup = null;
+                    document.getElementById("confirmBtn").disabled = true;
                 }
-
-                btn.onclick = () => selectGroup(index);
-                groupDiv.appendChild(btn);
-            });
-
-            if (
-                selectedGroup !== null &&
-                groups[selectedGroup] &&
-                (10 - groups[selectedGroup].members.length) < requestedSize
-            ) {
-                selectedGroup = null;
-                document.getElementById("confirmBtn").disabled = true;
+            } catch (error) {
+                document.getElementById("message").innerText =
+                    "⚠️ 無法載入組別資料，請重新整理頁面。";
             }
         }
 
@@ -125,12 +134,14 @@
             const extraDepts = Array.from(document.querySelectorAll(".extraDept")).map(input => input.value.trim());
 
             if (!name || !studentId || !department || extraNames.includes("") || extraIds.includes("") || extraDepts.includes("")) {
-                document.getElementById("message").innerText = "⚠️ 請填寫所有姓名、學號、系所！";
+                document.getElementById("message").innerText =
+                    "⚠️ 請填寫所有姓名、學號、系所！";
                 return;
             }
 
             if (selectedGroup === null) {
-                document.getElementById("message").innerText = "⚠️ 請先選擇組別！";
+                document.getElementById("message").innerText =
+                    "⚠️ 請先選擇組別！";
                 return;
             }
 
@@ -164,30 +175,12 @@
 
                 loadGroups();
             } catch (error) {
-                document.getElementById("message").innerText = "⚠️ 發生錯誤，請稍後再試！";
+                document.getElementById("message").innerText =
+                    "⚠️ 發生錯誤，請稍後再試！";
             }
         }
 
-                loadGroups();
-            }
-        }
-
-        async function cancelRegistration() {
-            if (!confirm("確定要取消這一整筆報名嗎？同一筆共同報名的所有成員都會被移除。")) return;
-            const res = await fetch("/registration/cancel", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ studentId: managedStudentId })
-            });
-            document.getElementById("manageMessage").innerText = await res.text();
-            if (res.ok) {
-                document.getElementById("managePanel").style.display = "none";
-                managedStudentId = "";
-                loadGroups();
-            }
-        }
-
-        loadGroups();
+        updateFields();
         setInterval(loadGroups, 5000);
     </script>
 </body>
