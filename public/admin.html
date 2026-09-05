@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <h2>分組管理頁面</h2>
+        <p><a href="/export.csv"><button type="button">下載 CSV 名單</button></a></p>
         <div id="groupStatus"></div>
     </div>
 
@@ -44,11 +45,14 @@
         }
 
         async function removeStudent(groupIndex, studentId) {
-            await fetch("/remove", {
+            if (!confirm(`確定要移除學號 ${studentId} 嗎？`)) return;
+            const res = await fetch("/remove", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ groupIndex, studentId })
             });
+            const msg = await res.text();
+            if (!res.ok) alert(msg);
             updateGroups();
         }
 
