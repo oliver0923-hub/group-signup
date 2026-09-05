@@ -65,38 +65,47 @@
                 `;
             }
 
+            selectedGroup = null;
+            document.getElementById("confirmBtn").disabled = true;
             loadGroups();
         }
 
         async function loadGroups() {
-            const res = await fetch("/groups");
-            const groups = await res.json();
-            const groupDiv = document.getElementById("groups");
-            const requestedSize = parseInt(document.getElementById("groupSize").value);
-            groupDiv.innerHTML = "";
+            try {
+                const res = await fetch("/groups");
+                if (!res.ok) throw new Error("Failed to load groups");
 
-            groups.forEach((group, index) => {
-                const btn = document.createElement("button");
-                const remaining = 4 - group.members.length;
+                const groups = await res.json();
+                const groupDiv = document.getElementById("groups");
+                const requestedSize = parseInt(document.getElementById("groupSize").value);
+                groupDiv.innerHTML = "";
 
-                btn.innerText = `Group ${index + 1} (${group.members.length}/4)`;
-                btn.disabled = remaining < requestedSize;
+                groups.forEach((group, index) => {
+                    const btn = document.createElement("button");
+                    const remaining = 4 - group.members.length;
 
-                if (selectedGroup === index && !btn.disabled) {
-                    btn.classList.add("selected");
+                    btn.innerText = `Group ${index + 1} (${group.members.length}/4)`;
+                    btn.disabled = hasSubmitted || remaining < requestedSize;
+
+                    if (selectedGroup === index && !btn.disabled) {
+                        btn.classList.add("selected");
+                    }
+
+                    btn.onclick = () => selectGroup(index);
+                    groupDiv.appendChild(btn);
+                });
+
+                if (
+                    selectedGroup !== null &&
+                    groups[selectedGroup] &&
+                    (4 - groups[selectedGroup].members.length) < requestedSize
+                ) {
+                    selectedGroup = null;
+                    document.getElementById("confirmBtn").disabled = true;
                 }
-
-                btn.onclick = () => selectGroup(index);
-                groupDiv.appendChild(btn);
-            });
-
-            if (
-                selectedGroup !== null &&
-                groups[selectedGroup] &&
-                (4 - groups[selectedGroup].members.length) < requestedSize
-            ) {
-                selectedGroup = null;
-                document.getElementById("confirmBtn").disabled = true;
+            } catch (error) {
+                document.getElementById("message").innerText =
+                    "Unable to load group information. Please refresh the page.";
             }
         }
 
@@ -119,12 +128,14 @@
             const extraDepts = Array.from(document.querySelectorAll(".extraDept")).map(input => input.value.trim());
 
             if (!name || !studentId || !department || extraNames.includes("") || extraIds.includes("") || extraDepts.includes("")) {
-                document.getElementById("message").innerText = "Please complete all student information.";
+                document.getElementById("message").innerText =
+                    "Please complete all student information.";
                 return;
             }
 
             if (selectedGroup === null) {
-                document.getElementById("message").innerText = "Please select a group.";
+                document.getElementById("message").innerText =
+                    "Please select a group.";
                 return;
             }
 
@@ -158,30 +169,12 @@
 
                 loadGroups();
             } catch (error) {
-                document.getElementById("message").innerText = "Something went wrong. Please try again.";
+                document.getElementById("message").innerText =
+                    "Something went wrong. Please try again.";
             }
         }
 
-                loadGroups();
-            }
-        }
-
-        async function cancelRegistration() {
-            if (!confirm("Cancel this entire registration? All students in the shared registration will be removed.")) return;
-            const res = await fetch("/registration/cancel", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ studentId: managedStudentId })
-            });
-            document.getElementById("manageMessage").innerText = await res.text();
-            if (res.ok) {
-                document.getElementById("managePanel").style.display = "none";
-                managedStudentId = "";
-                loadGroups();
-            }
-        }
-
-        loadGroups();
+        updateFields();
         setInterval(loadGroups, 5000);
     </script>
 </body>
