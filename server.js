@@ -143,45 +143,6 @@ app.get("/admin/groups", requireAdmin, async (req, res) => {
     }
 });
 
-// Temporary E2E-only endpoints. They expose/delete TEST-E2E-* fake rows only.
-app.get("/__e2e_test_records_20260905", async (req, res) => {
-    try {
-        const groups = await getAdminGroupsData();
-        res.json(groups.map(group => ({
-            members: group.members.filter(member => member.studentId.startsWith("TEST-E2E-"))
-        })));
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("E2E read failed");
-    }
-});
-
-app.post("/__e2e_cleanup_20260905", async (req, res) => {
-    const client = await pool.connect();
-    try {
-        await client.query("BEGIN");
-        const deleted = await client.query(`
-            DELETE FROM members
-            WHERE student_id LIKE 'TEST-E2E-%'
-            RETURNING registration_id, student_id
-        `);
-        await client.query(`
-            DELETE FROM registrations r
-            WHERE NOT EXISTS (
-                SELECT 1 FROM members m WHERE m.registration_id = r.id
-            )
-        `);
-        await client.query("COMMIT");
-        res.json({ deleted: deleted.rows.map(r => r.student_id) });
-    } catch (error) {
-        await client.query("ROLLBACK");
-        console.error(error);
-        res.status(500).send("E2E cleanup failed");
-    } finally {
-        client.release();
-    }
-});
-
 app.post("/signup", async (req, res) => {
     const groupIndex = req.body.groupIndex;
     const members = Array.isArray(req.body.members) ? req.body.members.map(cleanMember) : [];
