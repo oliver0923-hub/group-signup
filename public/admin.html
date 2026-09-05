@@ -1,32 +1,59 @@
-<h2>分組管理頁面</h2>
-<div id="groupStatus"></div>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分組管理頁面</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>分組管理頁面</h2>
+        <div id="groupStatus"></div>
+    </div>
 
-<script>
-    async function updateGroups() {
-        let res = await fetch("/groups");
-        let groups = await res.json();
-        let groupDiv = document.getElementById("groupStatus");
-        groupDiv.innerHTML = "";
+    <script>
+        async function updateGroups() {
+            const res = await fetch("/groups");
+            const groups = await res.json();
+            const groupDiv = document.getElementById("groupStatus");
+            groupDiv.innerHTML = "";
 
-        groups.forEach((group, index) => {
-            let groupInfo = `<h3>第 ${index + 1} 組 (${group.members.length}/10)</h3>`;
-            group.members.forEach(member => {
-                groupInfo += `<p>${member.name} - ${member.department} - ${member.studentId} 
-                    <button onclick="removeStudent(${index}, '${member.studentId}')">❌ 移除</button></p>`;
+            groups.forEach((group, index) => {
+                let groupInfo = `
+                    <div class="admin-group">
+                        <h3>第 ${index + 1} 組 (${group.members.length}/10)</h3>
+                `;
+
+                if (group.members.length === 0) {
+                    groupInfo += "<p>目前尚無學生。</p>";
+                }
+
+                group.members.forEach(member => {
+                    groupInfo += `
+                        <p>
+                            ${member.name} — ${member.department} — ${member.studentId}
+                            <button class="remove-btn" onclick="removeStudent(${index}, '${member.studentId}')">移除</button>
+                        </p>
+                    `;
+                });
+
+                groupInfo += "</div>";
+                groupDiv.innerHTML += groupInfo;
             });
-            groupDiv.innerHTML += groupInfo;
-        });
-    }
+        }
 
-    async function removeStudent(groupIndex, studentId) {
-        await fetch("/remove", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ groupIndex, studentId })
-        });
+        async function removeStudent(groupIndex, studentId) {
+            await fetch("/remove", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ groupIndex, studentId })
+            });
+            updateGroups();
+        }
+
+        setInterval(updateGroups, 3000);
         updateGroups();
-    }
-
-    setInterval(updateGroups, 3000);
-    updateGroups();
-</script>
+    </script>
+</body>
+</html>
