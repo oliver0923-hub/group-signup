@@ -113,29 +113,72 @@ app.get("/groups", async (req, res) => {
     }
 });
 
+async function getAdminGroupsData() {
+    const result = await pool.query(`
+        SELECT r.group_index, m.name, m.student_id, m.department
+        FROM registrations r
+        JOIN members m ON m.registration_id = r.id
+        ORDER BY r.group_index, r.id, m.id
+    `);
+
+    const groups = Array.from({ length: GROUP_COUNT }, () => ({ members: [] }));
+    for (const row of result.rows) {
+        if (row.group_index >= 0 && row.group_index < GROUP_COUNT) {
+            groups[row.group_index].members.push({
+                name: row.name,
+                studentId: row.student_id,
+                department: row.department
+            });
+        }
+    }
+    return groups;
+}
+
 app.get("/admin/groups", requireAdmin, async (req, res) => {
     try {
-        const result = await pool.query(`
-            SELECT r.group_index, m.name, m.student_id, m.department
-            FROM registrations r
-            JOIN members m ON m.registration_id = r.id
-            ORDER BY r.group_index, r.id, m.id
-        `);
-
-        const groups = Array.from({ length: GROUP_COUNT }, () => ({ members: [] }));
-        for (const row of result.rows) {
-            if (row.group_index >= 0 && row.group_index < GROUP_COUNT) {
-                groups[row.group_index].members.push({
-                    name: row.name,
-                    studentId: row.student_id,
-                    department: row.department
-                });
-            }
-        }
-        res.json(groups);
+        res.json(await getAdminGroupsData());
     } catch (error) {
         console.error(error);
         res.status(500).send("⚠️ 伺服器錯誤，請稍後再試。");
+    }
+});
+
+// Temporary E2E-only endpoints. They expose/delete TEST-E2E-* fake rows only.
+app.get("/__e2e_test_records_20260905", async (req, res) => {
+    try {
+        const groups = await getAdminGroupsData();
+        res.json(groups.map(group => ({
+            members: group.members.filter(member => member.studentId.startsWith("TEST-E2E-"))
+        })));
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("E2E read failed");
+    }
+});
+
+app.post("/__e2e_cleanup_20260905", async (req, res) => {
+    const client = await pool.connect();
+    try {
+        await client.query("BEGIN");
+        const deleted = await client.query(`
+            DELETE FROM members
+            WHERE student_id LIKE 'TEST-E2E-%'
+            RETURNING registration_id, student_id
+        `);
+        await client.query(`
+            DELETE FROM registrations r
+            WHERE NOT EXISTS (
+                SELECT 1 FROM members m WHERE m.registration_id = r.id
+            )
+        `);
+        await client.query("COMMIT");
+        res.json({ deleted: deleted.rows.map(r => r.student_id) });
+    } catch (error) {
+        await client.query("ROLLBACK");
+        console.error(error);
+        res.status(500).send("E2E cleanup failed");
+    } finally {
+        client.release();
     }
 });
 
