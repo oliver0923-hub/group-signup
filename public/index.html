@@ -37,6 +37,22 @@
 
         <button id="confirmBtn" onclick="submitForm()" disabled>Submit</button>
         <p id="message"></p>
+
+        <div class="member-card">
+            <h3>Modify or Cancel an Existing Registration</h3>
+            <p class="hint">Enter the Student ID of any registered member to find the shared registration, move the whole registration, or cancel it.</p>
+            <label for="manageStudentId">Student ID</label>
+            <input type="text" id="manageStudentId" placeholder="Enter a registered Student ID">
+            <button type="button" onclick="lookupRegistration()">Find Registration</button>
+            <div id="managePanel" style="display:none;">
+                <p id="registrationInfo"></p>
+                <label for="newGroupIndex">Move to</label>
+                <select id="newGroupIndex"></select>
+                <button type="button" onclick="moveRegistration()">Move Registration</button>
+                <button type="button" onclick="cancelRegistration()">Cancel Registration</button>
+            </div>
+            <p id="manageMessage"></p>
+        </div>
     </div>
 
     <script>
@@ -159,6 +175,71 @@
                 loadGroups();
             } catch (error) {
                 document.getElementById("message").innerText = "Something went wrong. Please try again.";
+            }
+        }
+
+
+        let managedStudentId = "";
+
+        async function lookupRegistration() {
+            const studentId = document.getElementById("manageStudentId").value.trim();
+            const message = document.getElementById("manageMessage");
+            const panel = document.getElementById("managePanel");
+            if (!studentId) {
+                message.innerText = "Please enter a Student ID.";
+                panel.style.display = "none";
+                return;
+            }
+            const res = await fetch("/registration/" + encodeURIComponent(studentId));
+            if (!res.ok) {
+                message.innerText = await res.text();
+                panel.style.display = "none";
+                return;
+            }
+            const data = await res.json();
+            managedStudentId = studentId;
+            document.getElementById("registrationInfo").innerText =
+                `Current group: Group ${data.groupIndex + 1}; Members: ` +
+                data.members.map(m => `${m.name} (${m.studentId})`).join(", ");
+            const select = document.getElementById("newGroupIndex");
+            select.innerHTML = "";
+            for (let i = 0; i < 5; i++) {
+                const opt = document.createElement("option");
+                opt.value = i;
+                opt.textContent = `Group ${i + 1}`;
+                if (i === data.groupIndex) opt.selected = true;
+                select.appendChild(opt);
+            }
+            message.innerText = "";
+            panel.style.display = "block";
+        }
+
+        async function moveRegistration() {
+            const newGroupIndex = parseInt(document.getElementById("newGroupIndex").value);
+            const res = await fetch("/registration/move", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ studentId: managedStudentId, newGroupIndex })
+            });
+            document.getElementById("manageMessage").innerText = await res.text();
+            if (res.ok) {
+                await lookupRegistration();
+                loadGroups();
+            }
+        }
+
+        async function cancelRegistration() {
+            if (!confirm("Cancel this entire registration? All students in the shared registration will be removed.")) return;
+            const res = await fetch("/registration/cancel", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ studentId: managedStudentId })
+            });
+            document.getElementById("manageMessage").innerText = await res.text();
+            if (res.ok) {
+                document.getElementById("managePanel").style.display = "none";
+                managedStudentId = "";
+                loadGroups();
             }
         }
 
