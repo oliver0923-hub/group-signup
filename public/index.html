@@ -1,43 +1,41 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>課程分組報名</title>
+    <title>Course Group Sign-Up</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h2>課程分組報名</h2>
+        <h2>Course Group Sign-Up</h2>
 
-        <h3>填寫個人資料</h3>
-        <label>姓名：</label>
-        <input type="text" id="name" placeholder="請輸入姓名">
-        <label>學號：</label>
-        <input type="text" id="studentId" placeholder="請輸入學號">
-        <label>系所：</label>
-        <input type="text" id="department" placeholder="請輸入系所">
+        <h3>Student Information</h3>
 
-        <label>報名人數（最多 10 人）：</label>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label for="studentId">Student ID</label>
+        <input type="text" id="studentId" placeholder="Enter your student ID">
+
+        <label for="department">Department / Program</label>
+        <input type="text" id="department" placeholder="Enter your department or program">
+
+        <label for="groupSize">Number of students signing up together (maximum 4)</label>
         <select id="groupSize" onchange="updateFields()">
-            <option value="1">1 人</option>
-            <option value="2">2 人</option>
-            <option value="3">3 人</option>
-            <option value="4">4 人</option>
-            <option value="5">5 人</option>
-            <option value="6">6 人</option>
-            <option value="7">7 人</option>
-            <option value="8">8 人</option>
-            <option value="9">9 人</option>
-            <option value="10">10 人</option>
-</select>
+            <option value="1">1 student</option>
+            <option value="2">2 students</option>
+            <option value="3">3 students</option>
+            <option value="4">4 students</option>
+        </select>
 
         <div id="extraMembers"></div>
 
-        <h3>選擇組別</h3>
+        <h3>Select a Group</h3>
+        <p class="hint">Each group can have up to 4 students.</p>
         <div id="groups"></div>
 
-        <button id="confirmBtn" onclick="submitForm()" disabled>確認送出</button>
+        <button id="confirmBtn" onclick="submitForm()" disabled>Submit</button>
         <p id="message"></p>
     </div>
 
@@ -46,100 +44,126 @@
         let hasSubmitted = false;
 
         function updateFields() {
-            let count = document.getElementById("groupSize").value;
-            let extraMembersDiv = document.getElementById("extraMembers");
+            const count = parseInt(document.getElementById("groupSize").value);
+            const extraMembersDiv = document.getElementById("extraMembers");
             extraMembersDiv.innerHTML = "";
 
             for (let i = 1; i < count; i++) {
                 extraMembersDiv.innerHTML += `
-                    <h4>同行者 ${i}</h4>
-                    <label>姓名：</label>
-                    <input type="text" class="extraName" placeholder="請輸入姓名">
-                    <label>學號：</label>
-                    <input type="text" class="extraId" placeholder="請輸入學號">
-                    <label>系所：</label>
-                    <input type="text" class="extraDept" placeholder="請輸入系所">
+                    <div class="member-card">
+                        <h4>Additional Student ${i}</h4>
+
+                        <label>Name</label>
+                        <input type="text" class="extraName" placeholder="Enter name">
+
+                        <label>Student ID</label>
+                        <input type="text" class="extraId" placeholder="Enter student ID">
+
+                        <label>Department / Program</label>
+                        <input type="text" class="extraDept" placeholder="Enter department or program">
+                    </div>
                 `;
             }
+
+            loadGroups();
         }
 
         async function loadGroups() {
             const res = await fetch("/groups");
             const groups = await res.json();
-            let groupDiv = document.getElementById("groups");
+            const groupDiv = document.getElementById("groups");
+            const requestedSize = parseInt(document.getElementById("groupSize").value);
             groupDiv.innerHTML = "";
 
             groups.forEach((group, index) => {
-                let btn = document.createElement("button");
-                // 修改點 3：顯示文字改為 /10
-                btn.innerText = `第 ${index + 1} 組 (${group.members.length}/10)`;
-                
-                // 修改點 4：禁用邏輯改為大於等於 10
-                btn.disabled = group.members.length >= 10;
-                
+                const btn = document.createElement("button");
+                const remaining = 4 - group.members.length;
+
+                btn.innerText = `Group ${index + 1} (${group.members.length}/4)`;
+                btn.disabled = remaining < requestedSize;
+
+                if (selectedGroup === index && !btn.disabled) {
+                    btn.classList.add("selected");
+                }
+
                 btn.onclick = () => selectGroup(index);
                 groupDiv.appendChild(btn);
             });
+
+            if (
+                selectedGroup !== null &&
+                groups[selectedGroup] &&
+                (4 - groups[selectedGroup].members.length) < requestedSize
+            ) {
+                selectedGroup = null;
+                document.getElementById("confirmBtn").disabled = true;
+            }
         }
 
         function selectGroup(index) {
-            if (hasSubmitted) return; 
+            if (hasSubmitted) return;
             selectedGroup = index;
             document.getElementById("confirmBtn").disabled = false;
+            loadGroups();
         }
 
         async function submitForm() {
             if (hasSubmitted) return;
 
-            let name = document.getElementById("name").value;
-            let studentId = document.getElementById("studentId").value;
-            let department = document.getElementById("department").value;
-            let groupSize = parseInt(document.getElementById("groupSize").value);
+            const name = document.getElementById("name").value.trim();
+            const studentId = document.getElementById("studentId").value.trim();
+            const department = document.getElementById("department").value.trim();
 
-            let extraNames = Array.from(document.querySelectorAll(".extraName")).map(input => input.value);
-            let extraIds = Array.from(document.querySelectorAll(".extraId")).map(input => input.value);
-            let extraDepts = Array.from(document.querySelectorAll(".extraDept")).map(input => input.value);
+            const extraNames = Array.from(document.querySelectorAll(".extraName")).map(input => input.value.trim());
+            const extraIds = Array.from(document.querySelectorAll(".extraId")).map(input => input.value.trim());
+            const extraDepts = Array.from(document.querySelectorAll(".extraDept")).map(input => input.value.trim());
 
             if (!name || !studentId || !department || extraNames.includes("") || extraIds.includes("") || extraDepts.includes("")) {
-                document.getElementById("message").innerText = "⚠️ 請填寫所有姓名、學號、系所！";
+                document.getElementById("message").innerText = "Please complete all student information.";
                 return;
             }
 
             if (selectedGroup === null) {
-                document.getElementById("message").innerText = "⚠️ 請先選擇組別！";
+                document.getElementById("message").innerText = "Please select a group.";
                 return;
             }
 
-            let members = [{ name, studentId, department }];
+            const members = [{ name, studentId, department }];
+
             for (let i = 0; i < extraNames.length; i++) {
-                members.push({ name: extraNames[i], studentId: extraIds[i], department: extraDepts[i] });
+                members.push({
+                    name: extraNames[i],
+                    studentId: extraIds[i],
+                    department: extraDepts[i]
+                });
             }
 
             try {
-                let res = await fetch("/signup", {
+                const res = await fetch("/signup", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ groupIndex: selectedGroup, members })
                 });
 
-                let msg = await res.text();
+                const msg = await res.text();
                 document.getElementById("message").innerText = msg;
 
                 if (res.ok) {
                     hasSubmitted = true;
                     document.getElementById("confirmBtn").disabled = true;
+                    document.querySelectorAll("input, select").forEach(el => el.disabled = true);
                 } else {
-                    document.getElementById("confirmBtn").disabled = false; 
+                    document.getElementById("confirmBtn").disabled = false;
                 }
 
-                loadGroups(); 
+                loadGroups();
             } catch (error) {
-                document.getElementById("message").innerText = "⚠️ 發生錯誤，請稍後再試！";
+                document.getElementById("message").innerText = "Something went wrong. Please try again.";
             }
         }
 
         loadGroups();
-        setInterval(loadGroups, 5000); 
+        setInterval(loadGroups, 5000);
     </script>
 </body>
 </html>
