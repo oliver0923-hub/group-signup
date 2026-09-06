@@ -6,7 +6,7 @@ const { Pool } = require("pg");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const GROUP_COUNT = 6;
-const MAX_GROUP_SIZE = 10;
+const MAX_GROUP_SIZE = 9;
 const ADMIN_PASSWORD_HASH = "e688113bcdea4c87bdc6c10c75080c249c6e497714be76c7e0eee185157689d5";
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
@@ -151,7 +151,7 @@ app.post("/signup", async (req, res) => {
         return res.status(400).send("❌ 無效的報名資訊！");
     }
     if (members.length > MAX_GROUP_SIZE) {
-        return res.status(400).send("❌ 一次最多只能報名 10 人！");
+        return res.status(400).send("❌ 一次最多只能報名 9 人！");
     }
 
     const ids = members.map(m => m.studentId);
