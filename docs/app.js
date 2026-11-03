@@ -52,7 +52,12 @@ quizData[4]=[
 ['哪個敘述最能區分 Signing 與 Closing？',['簽約就是交割完成','簽約後仍可能等待核准與交割條件','只有媒體公告才算交割'],1,'正式契約與實際付款、移轉權益可能發生於不同日期。'],
 ['為什麼不應該只因「熟悉對方」就決定收購標的？',['熟悉一定降低績效','熟悉可能使搜尋範圍變窄或高估預期價值','不熟悉的企業一定比較好'],1,'既有關係有資訊好處，也可能造成搜尋限制和樂觀評估。'],
 ['買方發現新增加 150 萬元的整合風險，較合理的反應是？',['保證價格不變','不再做任何調查','重新評估價格、交割條件或風險分配'],2,'盡職調查影響交易價格與契約條件，不只是程序。'],
-['Adobe 與 Figma 宣布收購但未完成，最能說明什麼？',['所有收購都會失敗','監管核准可能使已簽約交易終止','企業宣布收購即成為股東'],1,'簽約不代表已交割，監管障礙可能影響交易是否完成。']
+['Adobe 與 Figma 宣布收購但未完成，最能說明什麼？',['所有收購都會失敗','監管核准可能使已簽約交易終止','企業宣布收購即成為股東'],1,'簽約不代表已交割，監管障礙可能影響交易是否完成。'],
+['NDA（保密協議）與 LOI（意向書）的差別，何者較正確？',['簽了 NDA 就等於收購完成','NDA 主要限制機密資訊揭露與使用；LOI 記錄部分初步交易共識，須看具體條款','LOI 中的所有條款一定沒有法律效力'],1,'NDA 著重資訊保護，LOI 著重初步交易安排；部分 LOI 條款可能依法具有拘束力。'],
+['Rogan 與 Sorenson（2014）研究共同客戶與併購，最接近的研究發現是什麼？',['共同客戶較多的標的更容易被收購，但合併後績效可能較差','買認識的人一定成功','任何客戶重疊都使企業違法'],0,'研究樣本是全球廣告業，顯示共同客戶與收購選擇及合併後績效存在反向的關聯，不能推論所有產業皆然。'],
+['買方擔心賣方比自己更了解租約、稅務和商標權利，這最接近哪個問題？',['規模經濟','資訊不對稱與不良選擇風險','股東有限責任'],1,'雙方資訊不同可能使交易定價與契約安排更困難，盡職調查與保護條款能協助應對，但不保證消除風險。'],
+['Adobe 和 Figma 在 2023 年終止已簽署的收購協議，哪種說法正確？',['Figma 已被 Adobe 買下','雙方雖已簽約，但因必要監管核准沒有明確可行路徑而終止，並依約支付終止費','只要雙方 CEO 同意，就能不經主管機關審查完成'],1,'依 Adobe 官方公告與 SEC 申報，雙方在未交割前終止，Adobe 依約支付 10 億美元終止費用。'],
+['Graebner（2004）為什麼強調被收購企業原有的管理者？',['他們可能在整合中幫助實現預期價值與意外發現的新價值','收購後應立刻撤換所有原管理者','交易價款只能支付給經理人'],0,'研究在八筆科技公司收購中分析原管理者如何幫助整合，不代表所有情境都有相同效果。']
 ];
 const references={
 1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Jensen & Meckling (1976), Agency Costs and Ownership Structure','https://doi.org/10.1016/0304-405X(76)90026-X'],['Microsoft (2023), acquisition completion SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm']],
@@ -61,6 +66,9 @@ const references={
 };
 references[4]=[
 ['Rogan & Sorenson (2014), Picking a (Poor) Partner, ASQ','https://doi.org/10.1177/0001839214531719'],
+['Reuer & Ragozzino (2008), Adverse selection and M&A design, JEBO','https://doi.org/10.1016/j.jebo.2006.04.003'],
+['Graebner (2004), Acquired leaders and integration, SMJ','https://doi.org/10.1002/smj.419'],
+['Schijven et al. (2026), Thirty-three years after Managing Acquisitions, SMR','https://doi.org/10.1108/SMR-11-2022-0911'],
 ['Arroyabe, Grimpe & Hussinger (2025), Trade Secret Protection, Strategy Science','https://doi.org/10.1287/stsc.2023.0066'],
 ['Graebner et al. (2017), The Process of Postmerger Integration','https://doi.org/10.5465/annals.2014.0078'],
 ['Microsoft / Activision Blizzard: completion SEC 8-K (2023-10-13)','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],
@@ -248,6 +256,14 @@ function render(){
   deep.blocks.forEach(part=>{const target=sectionsBeforeDeep[part.after];if(target)target.insertAdjacentHTML('afterend',part.html)});
  }
 
+ if(n===4&&window.MA_L4_DEEP&&Array.isArray(window.MA_L4_DEEP.blocks)){
+  const baseSections=Array.from(el('main').querySelectorAll('.lesson4-section'));
+  window.MA_L4_DEEP.blocks.forEach(part=>{
+   const target=baseSections[part.after];
+   if(target)target.insertAdjacentHTML('afterend',part.html);
+  });
+ }
+
  if(n>=1&&n<=4){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   const toc=document.createElement('nav');
@@ -264,6 +280,7 @@ function render(){
  if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=4)initQuiz(n);
  if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();
  if((n===2||n===3)&&window['MA_L'+n+'_DEEP'])window['MA_L'+n+'_DEEP'].init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
+ if(n===4&&window.MA_L4_DEEP&&window.MA_L4_DEEP.init)window.MA_L4_DEEP.init();
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
 }
