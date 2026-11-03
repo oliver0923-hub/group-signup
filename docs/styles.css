@@ -121,3 +121,12 @@
 .deep-conclusion p{margin:5px 0 0;font-size:13px}
 @media(max-width:680px){.deep-scene{padding:16px 14px 20px}.deep-progress{padding:13px 14px;gap:8px}.deep-stats{gap:7px}.deep-stats>div{padding:11px}.deep-stats b{font-size:19px}.deep-actions .btn{flex:1}.deep-action-note{flex:1 1 100%;order:4;text-align:left}.deep-choice{padding:11px 12px}}
 @media(prefers-reduced-motion:reduce){.deep-progress-track i,.deep-choice{transition:none!important}}
+
+/* Lesson 02–03 only: long strategy names wrap inside mobile outcome cards. */
+.l2-deep .deep-stats b.small-b,
+.l3-deep .deep-stats b.small-b {font-size:15px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;letter-spacing:0}
+.l2-deep .deep-scene .deep-context,
+.l3-deep .deep-scene .deep-context{line-height:1.75}
+.l2-deep .deep-stats>div,
+.l3-deep .deep-stats>div{min-width:0}
+@media(max-width:560px){.l2-deep .deep-stats b.small-b,.l3-deep .deep-stats b.small-b{font-size:13px}}
