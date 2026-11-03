@@ -189,6 +189,17 @@ function render(){
  document.title=(n?'第 '+String(n).padStart(2,'0')+' 堂｜'+courseTitles[n]:'課程總綱')+' · M&A Academy';
  renderNav(n);
  el('main').innerHTML=n===0?overview():n<=3?lesson(n):future(n);
+
+ if(n>=1&&n<=3){
+  const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
+  const toc=document.createElement('nav');
+  toc.className='lesson-toc card';
+  toc.setAttribute('aria-label','本堂章節索引');
+  toc.innerHTML='<div class="toc-caption">CONTENTS · 本堂章節索引</div><div class="toc-links">'+sections.map((s,i)=>'<button type="button" class="toc-link" data-toc="'+i+'">'+esc(s.querySelector('h2')?.textContent || '延伸內容')+'</button>').join('')+'</div>';
+  el('main').querySelector('.hero')?.insertAdjacentElement('afterend',toc);
+  toc.querySelectorAll('[data-toc]').forEach(btn=>btn.addEventListener('click',()=>{sections[Number(btn.dataset.toc)]?.scrollIntoView({behavior:'smooth',block:'start'})}));
+ }
+
  document.querySelectorAll('[data-go],[data-open]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go??b.dataset.open))));
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
