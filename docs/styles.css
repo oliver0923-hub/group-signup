@@ -130,3 +130,13 @@
 .l2-deep .deep-stats>div,
 .l3-deep .deep-stats>div{min-width:0}
 @media(max-width:560px){.l2-deep .deep-stats b.small-b,.l3-deep .deep-stats b.small-b{font-size:13px}}
+
+/* Lesson 04: readable deal names and progressive diligence simulation. */
+.lesson4-section .deep-stats b.small-b,
+.l4-deep .deep-stats b.small-b {font-size:15px;line-height:1.5;overflow-wrap:anywhere;white-space:normal;letter-spacing:0}
+.lesson4-section .deep-stats>div,.l4-deep .deep-stats>div{min-width:0}
+.lesson4-section .deep-scene .deep-context{line-height:1.85}
+.lesson4-section .deep-scene .deep-feedback p{margin-bottom:0}
+.lesson4-section .deep-scene .deep-choice{line-height:1.6}
+.lesson4-section .deep-scene .deep-fieldset{margin-top:19px}
+@media(max-width:560px){.lesson4-section .deep-stats b.small-b,.l4-deep .deep-stats b.small-b{font-size:13px}}
