@@ -59,6 +59,20 @@ quizData[4]=[
 ['Adobe 和 Figma 在 2023 年終止已簽署的收購協議，哪種說法正確？',['Figma 已被 Adobe 買下','雙方雖已簽約，但因必要監管核准沒有明確可行路徑而終止，並依約支付終止費','只要雙方 CEO 同意，就能不經主管機關審查完成'],1,'依 Adobe 官方公告與 SEC 申報，雙方在未交割前終止，Adobe 依約支付 10 億美元終止費用。'],
 ['Graebner（2004）為什麼強調被收購企業原有的管理者？',['他們可能在整合中幫助實現預期價值與意外發現的新價值','收購後應立刻撤換所有原管理者','交易價款只能支付給經理人'],0,'研究在八筆科技公司收購中分析原管理者如何幫助整合，不代表所有情境都有相同效果。']
 ];
+
+quizData[5]=[
+['晨光買下同商圈直接競爭的咖啡連鎖，最先描述哪一種產業關係？',['水平併購','垂直併購','非相關多角化'],0,'兩間企業原本互相競爭。法律上採資產買賣或股權買賣，並不改變這層競爭關係。'],
+['晨光購買原本供應咖啡豆的烘焙廠，通常屬於？',['向前垂直整合','向後垂直整合','敵意收購'],1,'咖啡門市把上游供應商納入企業邊界，是向後整合。'],
+['買日本咖啡連鎖，同時可能被歸類為？',['只有跨境，不能是水平','水平且跨境','只能算非相關多角化'],1,'跨境是不同法域的地理維度；同為咖啡連鎖的業務關係也可能是水平。'],
+['Teece（1980）提醒我們：兩種事業能共用資源代表什麼？',['一定要併購才能共享','即使存在範疇經濟，也不必然需要同一企業擁有','所有供應商都必須保留在外部'],1,'是否適合內部化，還要看專有知識、共同資產與契約協調的特性。'],
+['買下甜點品牌並共用會員、外送與門市通路，比較接近哪個機制？',['範疇經濟','敵意收購','法定吸收合併的必要條件'],0,'兩項相關業務可共用能力，可能產生範疇經濟，但仍需計入整合成本。'],
+['公司多角化後估值較低，就能確定「多角化使估值下降」嗎？',['可以，相關就是因果','不能，原先較低估值的公司可能更容易選擇多角化','可以，因為每家公司都隨機決定是否多角化'],1,'Campa & Kedia（2002）提醒多角化選擇與企業價值可能有內生性及自我選擇問題。'],
+['友善與敵意收購，主要區分的是哪一件事？',['公司是否在同產業','目標董事會支持收購的互動與談判狀態','是否跨越國境'],1,'友善／敵意主要描述收購與目標董事會之間的關係；不能直接推論交易結果好壞。'],
+['Schwert（2000）研究敵意收購，最接近哪項提醒？',['新聞標為敵意的交易在每項經濟特徵上都更差','新聞中敵意或友善的區分，也可能和談判何時公開有關','敵意收購都不會成功'],1,'Schwert 發現兩種交易在許多經濟特徵上不易區分，敵意標籤也受談判資訊公開影響。'],
+['T-Mobile 與 Sprint 2020 年合併為什麼需要競爭審查及補救？',['兩家公司原本提供競爭性通訊服務，合併可能減弱競爭','只因為其中一家跨境','只因為雙方原本共用會計系統'],0,'水平併購可能有網路整合好處，也可能減少競爭，司法部要求分割部分業務等措施。'],
+['CVS 收購 Aetna，哪個敘述較為精確？',['只有上下游關係，完全不存在水平重疊','既涉及不同健康服務環節整合，某些保險產品也有水平重疊','CVS 買下了世界所有的保險公司'],1,'這個案例說明複雜企業可能在不同產品市場同時存在垂直關係與水平重疊。']
+];
+
 const references={
 1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Jensen & Meckling (1976), Agency Costs and Ownership Structure','https://doi.org/10.1016/0304-405X(76)90026-X'],['Microsoft (2023), acquisition completion SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm']],
 2:[['台灣企業併購法','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080041'],['Microsoft: Activision Blizzard acquisition, SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],['Jensen & Ruback (1983), The Market for Corporate Control','https://doi.org/10.1016/0304-405X(83)90004-1'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Lenovo (2014), IBM x86 server business initial closing','https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/']],
@@ -76,6 +90,22 @@ references[4]=[
 ['Adobe / Figma: termination announcement (2023-12-18)','https://news.adobe.com/news/news-details/2023/adobe-and-figma-mutually-agree-to-terminate-merger-agreement'],
 ['Adobe / Figma: SEC termination filing','https://www.sec.gov/Archives/edgar/data/796343/000079634323000254/adbe-20231217.htm']
 ];
+
+references[5]=[
+['Teece (1980), Economies of scope and the scope of the enterprise, JEBO','https://doi.org/10.1016/0167-2681(80)90002-5'],
+['Ahuja & Novelli (2017), The search for synergy, Academy of Management Annals','https://doi.org/10.5465/annals.2014.0079'],
+['Campa & Kedia (2002), Explaining the diversification discount, Journal of Finance','https://doi.org/10.1111/1540-6261.00476'],
+['Schwert (2000), Hostility in takeovers, Journal of Finance','https://doi.org/10.1111/0022-1082.00301'],
+['Taiwan Fair Trade Commission, Guidelines on Handling Merger Filings','https://www.ftc.gov.tw/internet/english/doc/docDetail.aspx?docid=2719&uid=744'],
+['T-Mobile / Sprint closing announcement (2020-04-01)','https://www.t-mobile.com/news/un-carrier/t-mobile-sprint-one-company'],
+['US DOJ, T-Mobile / Sprint remedy and final judgment (2020)','https://www.justice.gov/archives/opa/pr/court-enters-final-judgment-t-mobilesprint-transaction'],
+['CVS / Aetna completion announcement (2018-11-28)','https://investors.cvshealth.com/news/news-details/2018/CVS-Health-Completes-Acquisition-of-Aetna-Marking-the-Start-of-Transforming-the-Consumer-Health-Experience/default.aspx'],
+['US DOJ, CVS / Aetna Medicare Part D remedy (2018)','https://www.justice.gov/archives/opa/pr/justice-department-requires-cvs-and-aetna-divest-aetna-s-medicare-individual-part-d'],
+['Lenovo / IBM x86 server business initial closing (2014)','https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/'],
+['Oracle / PeopleSoft negotiated merger agreement (2004)','https://www.oracle.com/corporate/pressrelease/oracle-buys-peoplesoft-121304.html'],
+['Oracle / PeopleSoft SEC tender offer closing announcement (2005)','https://www.sec.gov/Archives/edgar/data/875570/000119312505003124/dex99a5clxlxi.htm']
+];
+
 const readProgress=()=>{try{const x=JSON.parse(localStorage.getItem('ma-academy-progress-v1')||'[]');return Array.isArray(x)?x.filter(n=>Number.isInteger(n)&&n>=1&&n<=14):[]}catch{return []}};
 let completed=readProgress();
 const saveProgress=()=>{try{localStorage.setItem('ma-academy-progress-v1',JSON.stringify(completed))}catch{}};
@@ -207,12 +237,12 @@ function overview(){
  return '<div class="main-inner"><section class="hero"><div class="eyebrow">WELCOME TO M&A ACADEMY</div><h1>從零開始，真正理解<br>企業如何被收購與合併。</h1><p>14 堂系統性課程：從公司、股份與控制權開始，逐步走向真實交易、企業估值、PE Fund、LBO，以及策略管理與研究方法。</p><div class="hero-tags"><span>14 LESSONS</span><span>INTERACTIVE LEARNING</span><span>RESEARCH-BASED</span></div></section>'+
  card('你的學習路徑',div2(mini('第一階段｜01–04','核心概念','公司、股權、併購動機與交易流程'),mini('第二階段｜05–08','策略與估值','併購類型、標的選擇與收購價格'))+'<div style="height:14px"></div>'+div2(mini('第三階段｜09–12','PE 與交易實務','基金、LBO、盡職調查、整合'),mini('第四階段｜13–14','研究與實證','理論、公告事件研究與因果識別')))+
  card('生活常識與學術理論，一起學才有意義',p('保留最容易理解的咖啡店故事、名詞解釋與數字例子，再沿著同一個問題加入互動實驗、真實交易與研究機制；學術不是另一套艱深的版本，而是把直覺解釋得更深入。')+p('模擬中的金額與機率都是教學假設，與真實公司資料分開標示；不必先讀懂艱深期刊，也能學習代理問題、公司控制權與併購綜效。'))+
- '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>4?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=4?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
+ '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>4?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=5?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
 }
 function future(n){return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(summaries[n])+'</p><div class="hero-tags"><span>課綱已規劃</span><span>完整內容尚未上架</span></div></section>'+card('這堂課將學習什麼？',p(summaries[n])+call('本課次目前只有課綱，尚未提供完整教學、互動練習與測驗。')+'<p>請先閱讀第 01–04 堂已上架內容。後續新增教材時，此課次即可延伸。</p><button class="btn primary" data-go="0">返回課程總綱</button>')+'</div>'}
 function lesson(n){
  const body=(window.MA_FULL_LESSONS && window.MA_FULL_LESSONS[n]) || (n===1?lesson1():n===2?lesson2():lesson3());
- const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。';
+ const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。';
  return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span></div></section>'+
  body+quizHtml(n)+referencesHtml(n)+
  '<div class="lesson-footer"><button type="button" class="btn" data-go="'+(n-1)+'">← 上一堂</button><button type="button" class="btn primary" id="complete-btn">'+(completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成')+'</button><button type="button" class="btn" data-go="'+(n+1)+'">下一堂 →</button></div><p class="status">完成狀態與測驗結果保留在此瀏覽器的 localStorage；跨裝置不會自動同步。</p></div>';
@@ -222,7 +252,7 @@ function render(){
  const n=Math.min(14,Math.max(0,routeFromHash()));
  document.title=(n?'第 '+String(n).padStart(2,'0')+' 堂｜'+courseTitles[n]:'課程總綱')+' · M&A Academy';
  renderNav(n);
- el('main').innerHTML=n===0?overview():n<=4?lesson(n):future(n);
+ el('main').innerHTML=n===0?overview():n<=5?lesson(n):future(n);
 
  if(n>=1&&n<=3&&window.MA_STORY_ADDITIONS&&window.MA_STORY_ADDITIONS[n]){
   const storySections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
@@ -233,6 +263,8 @@ function render(){
  }
 
  if(n===4)el('main').querySelectorAll('.lesson4-section').forEach(s=>s.classList.add('bridge-section'));
+ if(n===5)el('main').querySelectorAll('.lesson5-section').forEach(s=>s.classList.add('bridge-section'));
+
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n]){
   const originalSections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   window.MA_EXTRA[n].blocks.forEach(part=>{
@@ -264,7 +296,7 @@ function render(){
   });
  }
 
- if(n>=1&&n<=4){
+ if(n>=1&&n<=5){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   const toc=document.createElement('nav');
   toc.className='lesson-toc card';
@@ -277,10 +309,12 @@ function render(){
  document.querySelectorAll('[data-go],[data-open]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go??b.dataset.open))));
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
- if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=4)initQuiz(n);
+ if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=5)initQuiz(n);
  if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();
  if((n===2||n===3)&&window['MA_L'+n+'_DEEP'])window['MA_L'+n+'_DEEP'].init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
  if(n===4&&window.MA_L4_DEEP&&window.MA_L4_DEEP.init)window.MA_L4_DEEP.init();
+ if(n===5&&window.MA_LESSON5&&window.MA_LESSON5.init)window.MA_LESSON5.init();
+
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
 }
