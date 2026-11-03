@@ -83,7 +83,7 @@ window.MA_FULL_LESSONS[2] = String.raw`
 <p>跨國業務收購可能分批交割，並結合資產移轉、合約過渡服務與多國法人安排；因此它是「特定事業收購」的好例子，但不宜簡化成所有國家只有單一資產契約。</p>
 <p class="note">官方來源：<a href="https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm" target="_blank" rel="noopener noreferrer">Microsoft 8-K</a>；<a href="https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/" target="_blank" rel="noopener noreferrer">Lenovo 2014-10-01 公告</a>。</p>
 </div></section>
-<section class="section"><h2>九｜研究橋接：公司控制權為什麼值得被競爭？</h2><div class="card">
+<section class="section"><h2>九｜公司被別人接手後，為什麼可能變得更有價值？</h2><div class="card">
 <p><strong>Jensen & Ruback（1983）</strong>在 <em>Journal of Financial Economics</em> 發表 <em>The Market for Corporate Control: The Scientific Evidence</em>，將公司收購視為管理團隊競爭取得企業資源管理權的重要市場過程。</p>
 <p>它整合當時關於收購及控制權市場的實證文獻，指出目標企業股東往往獲得正向收益，並討論收購是否創造股東價值。這是針對特定年代證據的學術結論，並不是未來每筆交易的必然結果。</p>
 <p>你可以用本堂三個結構問題連結學術研究：（1）公司控制權如何轉移？（2）控制權轉移與資產所有權移轉是否相同？（3）何種結構使收購方承接較多風險？</p>
