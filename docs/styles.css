@@ -177,3 +177,23 @@
 .lesson6-section .deep-scene .deep-fieldset{margin-top:19px}
 @media(max-width:750px){.lesson6-section .model-values{grid-template-columns:1fr}}
 @media(max-width:550px){.lesson6-section .deep-stats b.small-b{font-size:13px}.lesson6-section .model-option>span{font-size:18px}}
+
+/* Lesson 07: finance diagrams, assumptions and multi-step valuation simulator. */
+.lesson7-section .deep-stats b.small-b{font-size:15px;line-height:1.5;white-space:normal;overflow-wrap:anywhere;letter-spacing:0}
+.lesson7-section .deep-stats>div{min-width:0}
+.lesson7-section .controls select{font:inherit;display:block;width:100%;padding:11px;border-radius:9px;border:1px solid #b9d1c8;background:#fff;color:#284f4b;margin:7px 0 18px;font-size:13px}
+.lesson7-section .controls input[type=range]{display:block;width:100%;accent-color:#168c73;margin:6px 0 18px}
+.lesson7-section .controls output{font-weight:800;color:#176e60}
+.lesson7-section .controls select:focus-visible,.lesson7-section .controls input:focus-visible{outline:3px solid #e2b56b;outline-offset:2px}
+.lesson7-section .model-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:17px}
+.lesson7-section .model-option{background:#f2f7f5;border:1px solid #d7e6de;border-radius:10px;padding:12px;min-width:0}
+.lesson7-section .model-option strong{font-size:13px;display:block;line-height:1.45}
+.lesson7-section .model-option>span{font-size:19px;font-weight:800;display:block;margin:6px 0;color:#20584c;overflow-wrap:anywhere}
+.lesson7-section .model-option.winner{border-color:#62ad8d;background:#e4f5e9}
+.lesson7-section .deep-context,.lesson7-section .deep-feedback{line-height:1.85}
+.lesson7-section .deep-scene .deep-fieldset{margin-top:19px}
+.lesson7-section .l7-flow-list{margin:12px 0;display:grid;gap:8px}
+.lesson7-section .l7-flow-list>div{display:flex;justify-content:space-between;gap:12px;background:#f2f7f5;padding:8px 11px;border-radius:8px;font-size:13px;line-height:1.5;flex-wrap:wrap}
+.lesson7-section .l7-flow-list b{font-variant-numeric:tabular-nums}
+@media(max-width:800px){.lesson7-section .model-values{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.lesson7-section .deep-stats b.small-b{font-size:13px}.lesson7-section .model-values{grid-template-columns:1fr}.lesson7-section .model-option>span{font-size:18px}}
