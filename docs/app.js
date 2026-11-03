@@ -206,6 +206,15 @@ function render(){
  document.title=(n?'第 '+String(n).padStart(2,'0')+' 堂｜'+courseTitles[n]:'課程總綱')+' · M&A Academy';
  renderNav(n);
  el('main').innerHTML=n===0?overview():n<=4?lesson(n):future(n);
+
+ if(n>=1&&n<=3&&window.MA_STORY_ADDITIONS&&window.MA_STORY_ADDITIONS[n]){
+  const storySections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
+  window.MA_STORY_ADDITIONS[n].forEach(part=>{
+   const article=storySections[part.section]?.querySelector('.card');
+   if(article)article.insertAdjacentHTML('beforeend',part.html);
+  });
+ }
+
  if(n===4)el('main').querySelectorAll('.lesson4-section').forEach(s=>s.classList.add('bridge-section'));
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n]){
   const originalSections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
