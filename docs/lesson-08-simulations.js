@@ -11,26 +11,72 @@ function cards(parent,items){
 function bargain(){
  if(!el('l8-bargain-tool'))return;
  const ids=['l8-bid','l8-synergy','l8-risk','l8-rival'];
- const draw=()=>{
-  const bid=val('l8-bid'),syn=val('l8-synergy'),risk=val('l8-risk'),rival=val('l8-rival'),max=500+syn-risk-10,min=520+rival,accepted=bid>=min;
-  ids.forEach(id=>{el(id+'-out').textContent=fmt(val(id))+' 萬'});
-  cards('l8-bargain-results',[['買方最高價',fmt(max)+' 萬'],['賣方最低價',fmt(min)+' 萬'],['賣方增量收益',accepted?fmt(bid-500)+' 萬':'未成交'],['買方增量收益',accepted?signed(max-bid)+' 萬':'未成交']]);
-  const msg=min>max?'本組參數沒有雙方都能接受且讓買方非負收益的價格區間。':bid<min?'雖然可能有人認為報價划算，但賣方保留價尚未滿足，假設不成交。':bid>max?'賣方願意接受，但報價超過買方最高合理價，買方預期會損失價值。':'在本組假設下，賣方願意接受且買方仍有非負的預期增量價值。';
-  el('l8-bargain-explain').innerHTML='<strong>'+msg+'</strong><p>買方最高價＝500＋'+syn+'－'+risk+'－10＝'+fmt(max)+' 萬；賣方最低價＝520＋'+rival+'＝'+fmt(min)+' 萬。'+(accepted?'成交價 '+bid+' 萬相對 500 萬參考價的示意加價比率＝'+fmt((bid-500)/500*100)+'%；這不是公開上市公司公告前股價溢價。':'此時不應顯示已完成股權轉移或賣方已收股款。')+'</p>';
- };
- ids.forEach(id=>el(id)?.addEventListener('input',draw));draw();
+ const initial={'l8-bid':560,'l8-synergy':150,'l8-risk':55,'l8-rival':0};
+ let last=null;
+ function draw(changed){
+  const bid=val('l8-bid'),syn=val('l8-synergy'),risk=val('l8-risk'),rival=val('l8-rival'),max=500+syn-risk-10,min=520+rival,accepted=bid>=min,gap=max-min;
+  ids.forEach(id=>el(id+'-out').textContent=fmt(val(id))+' 萬');
+  cards('l8-bargain-results',[
+   ['買方預期最高價',fmt(max)+' 萬'],['賣方最低可接受價',fmt(min)+' 萬'],
+   ['可接受價格區間',gap>=0?fmt(gap)+' 萬':'沒有重疊'],
+   ['賣方相對獨立價值增量',accepted?fmt(bid-500)+' 萬':'未成交'],
+   ['買方預期增量',accepted?signed(max-bid)+' 萬':'未成交']
+  ]);
+  el('l8-b-current').textContent='目前談判假設｜星河開價 '+fmt(bid)+' 萬；綜效 '+fmt(syn)+' 萬；整合與風險 '+fmt(risk)+' 萬；競價者使賣方底價另外提高 '+fmt(rival)+' 萬。';
+  el('l8-bargain-steps').innerHTML=
+   '<div class="ma-guided-step"><span>01</span><div><strong>買方最多能付多少</strong><p>500（標的獨立價值）＋'+fmt(syn)+'（綜效）－'+fmt(risk)+'（整合及風險）－10（查核）＝<strong>'+fmt(max)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>02</span><div><strong>賣方至少想拿多少</strong><p>520（原本底價）＋'+fmt(rival)+'（競價者影響）＝<strong>'+fmt(min)+' 萬</strong>。這是願意接受交易的門檻，不是公司因此更會賺錢。</p></div></div>'+
+   '<div class="ma-guided-step"><span>03</span><div><strong>雙方有沒有合理談判空間</strong><p>'+fmt(max)+'（買方上限）－'+fmt(min)+'（賣方底價）＝<strong>'+(gap>=0?fmt(gap)+' 萬可接受區間':'相差 '+fmt(-gap)+' 萬，無重疊區間')+'</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>04</span><div><strong>若報價 '+fmt(bid)+' 萬，雙方各得到多少</strong><p>'+(accepted?'賣方增量＝'+fmt(bid)+'－500＝'+fmt(bid-500)+' 萬；買方增量＝'+fmt(max)+'－'+fmt(bid)+'＝'+signed(max-bid)+' 萬。':'出價 '+fmt(bid)+' 萬低於賣方最低 '+fmt(min)+' 萬；本情境假設賣方拒絕，因此還沒有交易利益分配。')+'</p></div></div>';
+  const msg=gap<0?'兩方保留價格沒有重疊，除非條件、資訊或替代方案改變，無法同時讓雙方滿意。':!accepted?'價格低於賣方最低底價，假設交易沒有完成。':bid>max?'賣方可能願意接受，但買方出價高於自己的合理上限，預期會損失價值。':'在這組情境下，賣方願意接受且買方仍有非負增量收益。';
+  el('l8-bargain-explain').innerHTML='<strong>'+msg+'</strong><p>當前名目報價 '+fmt(bid)+' 萬相對於獨立股權估價 500 萬的示意加價為 '+fmt((bid-500)/500*100)+'%；這不是上市公司的公告前股價溢價。未成交時不付款，也不轉移股份。</p>';
+  if(last&&changed&&ids.includes(changed)){
+    const reason=changed==='l8-bid'?'你改的是買方實際提出的價格，並沒有直接提高標的獨立價值與綜效。':
+     changed==='l8-synergy'?'你改的是星河預期能多創造的營運價值，買方上限應跟著變。':
+     changed==='l8-risk'?'你改的是為了整合而要承擔的成本及風險，會吃掉可分配的綜效。':
+     '你改的是晨光的外部選擇／議價底線，並未改變星河的營運綜效。';
+    el('l8-bargain-change').innerHTML='<strong>剛才調整：'+({'l8-bid':'收購出價','l8-synergy':'預期綜效','l8-risk':'整合與風險成本','l8-rival':'競價者影響'}[changed])+'</strong><p>'+reason+' 目前雙方可接受範圍'+(gap>=0?'仍有 '+fmt(gap)+' 萬。':'已沒有重疊。')+'</p>';
+  }else if(!last)el('l8-bargain-change').innerHTML='<strong>操作建議：</strong>先只增加競價者影響，看賣方底價而不是買方綜效變化。';
+  last={max,min,gap,bid};
+ }
+ ids.forEach(id=>el(id)?.addEventListener('input',()=>draw(id)));
+ el('l8-b-reset')?.addEventListener('click',()=>{Object.entries(initial).forEach(([id,v])=>el(id).value=v);draw();el('l8-bargain-change').textContent='已恢復 560 萬報價、585 萬買方上限、520 萬賣方底價。'});
+ el('l8-b-rival')?.addEventListener('click',()=>{el('l8-rival').value=60;draw('l8-rival')});
+ draw();
 }
 function pay(){
  if(!el('l8-payment-tool'))return;
- const ids=['l8-total','l8-stockpct','l8-price'];
- const draw=()=>{
- const total=val('l8-total'),stockFrac=val('l8-stockpct')/100,market=val('l8-price');
- const stock=total*stockFrac,cash=total-stock,newShares=stock*10000/1000,oldShares=15000,frac=newShares/(oldShares+newShares),nominal=newShares*market/10000;
- ids.forEach(id=>el(id+'-out').textContent=id==='l8-stockpct'?val(id)+'%':id==='l8-price'?fmt(market)+' 元':fmt(val(id))+' 萬');
- cards('l8-payment-results',[['約定即期現金',fmt(cash)+' 萬'],['新發買方股份',fmt(newShares)+' 股'],['買方原股東持股',pct(1-frac)],['賣方持有買方股份',pct(frac)],['固定股數目前參考市值',fmt(nominal)+' 萬'],['現金＋股份參考總值',fmt(cash+nominal)+' 萬']]);
- el('l8-payment-explain').innerHTML='<strong>股份支付 '+fmt(stock)+' 萬（簽約價值）÷每股 1,000 元＝新增 '+fmt(newShares)+' 股。</strong><p>買方原持有 15,000 股；新增後共 '+fmt(oldShares+newShares)+' 股，舊股東比例 '+pct(1-frac)+'。股數在固定換股的簡化情境下不變；買方股價現在為 '+fmt(market)+' 元，固定發出的股票「參考」市值是 '+fmt(nominal)+' 萬。實際合併後市場價格另受綜效與資訊影響，不能將參考市值視為保證實現的報酬。</p>';
- };
- ids.forEach(id=>el(id)?.addEventListener('input',draw));draw();
+ const ids=['l8-total','l8-stockpct','l8-price'],original={'l8-total':560,'l8-stockpct':100,'l8-price':1000};
+ let last=null;
+ function draw(changed){
+  const total=val('l8-total'),stockFrac=val('l8-stockpct')/100,market=val('l8-price');
+  const stock=total*stockFrac,cash=total-stock,newShares=stock*10000/1000,oldShares=15000,frac=newShares/(oldShares+newShares),nominal=newShares*market/10000;
+  ids.forEach(id=>el(id+'-out').textContent=id==='l8-stockpct'?val(id)+'%':id==='l8-price'?fmt(market)+' 元':fmt(val(id))+' 萬');
+  cards('l8-payment-results',[
+   ['約定固定現金',fmt(cash)+' 萬'],['新增星河股份',fmt(newShares)+' 股'],
+   ['星河原股東比例',pct(1-frac)],['晨光原股東持股比例',pct(frac)],
+   ['新股現時參考市值',fmt(nominal)+' 萬'],['現金＋股份參考總值',fmt(cash+nominal)+' 萬']
+  ]);
+  el('l8-p-current').textContent='目前支付情境｜名目對價 '+fmt(total)+' 萬；股票比率 '+pct(stockFrac)+'；現在星河每股市場參考價 '+fmt(market)+' 元。這是固定股數的教學設定。';
+  el('l8-payment-steps').innerHTML=
+   '<div class="ma-guided-step"><span>01</span><div><strong>把交易總額分成現金與股份</strong><p>'+fmt(total)+'×'+pct(stockFrac)+'＝'+fmt(stock)+' 萬股票部分；剩下 '+fmt(cash)+' 萬在本例以固定現金支付。</p></div></div>'+
+   '<div class="ma-guided-step"><span>02</span><div><strong>以簽約參考價格換算新股數</strong><p>'+fmt(stock)+' 萬×10,000÷每股 1,000 元＝<strong>'+fmt(newShares)+' 股</strong>；若股票比率為 0%，就不發新股。</p></div></div>'+
+   '<div class="ma-guided-step"><span>03</span><div><strong>計算換股後誰擁有多少</strong><p>星河原有 15,000 股，加上新發 '+fmt(newShares)+' 股，總共 '+fmt(oldShares+newShares)+' 股；原星河股東比例 <strong>'+pct(1-frac)+'</strong>，晨光原股東比例 '+pct(frac)+'。</p></div></div>'+
+   '<div class="ma-guided-step"><span>04</span><div><strong>同一股數在不同股價下值多少</strong><p>'+fmt(newShares)+' 股×現在每股 '+fmt(market)+' 元＝<strong>'+fmt(nominal)+' 萬</strong>的股票參考市值；加上固定現金 '+fmt(cash)+' 萬，總參考額 '+fmt(cash+nominal)+' 萬。</p></div></div>';
+  el('l8-payment-explain').innerHTML='<strong>固定股數 '+fmt(newShares)+' 股不因市場參考價改變而自動增加。</strong><p>股票支付不是零成本：原股東的持股比例可能下降；賣方持股則有未來漲跌風險。這裡的「參考市值」不是保證交割後的股票實際成交價。</p>';
+  if(last&&changed&&ids.includes(changed)){
+   let explanation=changed==='l8-price'?'你只動了交割前每股參考市價；固定換股股數和現金金額都沒有改變，變的是新股參考市值。':
+   changed==='l8-stockpct'?'你改變現金與新股的比例，因而改變買方需要付出的現金及原股東的稀釋程度。':
+   '你改變整筆名目出價，因此現金和／或股票部分會按照目前比例重新計算。';
+   el('l8-payment-change').innerHTML='<strong>你剛剛調整：'+(changed==='l8-price'?'星河股價':changed==='l8-stockpct'?'股票支付比例':'約定交易總額')+'</strong><p>'+explanation+'</p>';
+  }else if(!last)el('l8-payment-change').innerHTML='<strong>操作建議：</strong>先切換為 50% 現金，再將每股股價調低到 800 元，觀察固定股數與現金不變的部分。';
+  last={newShares,cash,nominal,frac,market};
+ }
+ ids.forEach(id=>el(id)?.addEventListener('input',()=>draw(id)));
+ el('l8-p-reset')?.addEventListener('click',()=>{Object.entries(original).forEach(([id,v])=>el(id).value=v);draw();el('l8-payment-change').textContent='已恢復全股票基準：560 萬全部以新發 5,600 股支付。'});
+ el('l8-p-half')?.addEventListener('click',()=>{el('l8-stockpct').value=50;draw('l8-stockpct')});
+ el('l8-p-drop')?.addEventListener('click',()=>{el('l8-price').value=800;draw('l8-price')});
+ draw();
 }
 function earnout(){
  if(!el('l8-earnout-tool'))return;
