@@ -41,3 +41,17 @@
 .bridge-section .tab:focus-visible,.bridge-section select:focus-visible,.bridge-section input:focus-visible{outline:3px solid #e2b56b;outline-offset:2px}
 @media(max-width:850px){.bridge-section .model-values{grid-template-columns:1fr}}
 @media(max-width:600px){.bridge-section .choice-grid{grid-template-columns:1fr}.bridge-section .model-options{grid-template-columns:1fr}.bridge-section .mechanism-flow{gap:5px}.bridge-section .mechanism-flow span{font-size:11px}.bridge-section .controls{padding:16px}.bridge-section .model-option>span{font-size:19px}}
+
+
+/* Week 04 M&A deal process: extend existing bridge interactive components */
+.lesson4-section .controls label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;color:#315b55;font-size:13px;font-weight:650}
+.lesson4-section .controls input[type=range]{width:100%;accent-color:#168c73;margin:6px 0 18px}
+.lesson4-section .controls input[type=number],.lesson4-section .controls textarea{display:block;width:100%;border:1px solid #b9d1c8;background:#fff;border-radius:9px;padding:10px 12px;color:#284f4b;font:inherit;font-size:13px;margin:8px 0 16px}
+.lesson4-section .controls input:focus-visible,.lesson4-section .controls textarea:focus-visible,.lesson4-section .controls button:focus-visible{outline:3px solid #e2b56b;outline-offset:2px}
+.lesson4-section .l4-checks label{display:flex;justify-content:flex-start;align-items:flex-start;gap:10px;padding:11px 10px;background:#f2f8f4;border:1px solid #e0eee6;border-radius:9px}
+.lesson4-section .l4-checks input{margin-top:7px}
+.lesson4-section .controls .choice-grid{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
+.lesson4-section .controls .btn{margin-top:9px}
+.lesson4-section .model-result[hidden]{display:none}
+.lesson4-section button:disabled{opacity:.55;cursor:not-allowed}
+@media(max-width:600px){.lesson4-section .controls .choice-grid{grid-template-columns:1fr}.lesson4-section .numbers{grid-template-columns:1fr}}
