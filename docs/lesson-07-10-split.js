@@ -9,7 +9,7 @@ const m7={1:'7.1',2:'7.2',3:'7.3',4:'7.4',5:'7.5',14:'7.6',6:'7.7',15:'7.8',7:'8
 const m8={1:'9.1',2:'9.2',3:'9.3',4:'10.1',5:'10.2',6:'10.3',7:'10.4',8:'10.5',9:'10.6',10:'10.7',11:'10.8'};
 const s=(lesson,title,text)=>'<section class="section chapter lesson'+lesson+'-section"><h2>'+title+'</h2><div class="card">'+text+'</div></section>';
 function reuse(parts,n,from,to){
- return parts[n].replace(new RegExp('lesson'+from+'-section','g'),'lesson'+to+'-section')
+ return parts[n].replace(new RegExp('lesson'+from+'-section','g'),from===to?'lesson'+to+'-section':'lesson'+from+'-section lesson'+to+'-section')
   .replace(from===7?/\b7\.(\d+)\b/g:/\b8\.(\d+)\b/g,(old,num)=>(from===7?m7:m8)[Number(num)]||old);
 }
 full[7]=
