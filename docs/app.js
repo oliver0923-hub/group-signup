@@ -126,7 +126,7 @@ function quizHtml(n){
 let items=quizData[n].map((q,i)=>'<div class="quiz-question"><fieldset><legend>'+(i+1)+'. '+esc(q[0])+'</legend>'+q[1].map((option,j)=>'<label class="answer"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+String.fromCharCode(65+j)+'. '+esc(option)+'</span></label>').join('')+'</fieldset><div id="feedback-'+i+'"></div></div>').join('');
 return card('課後理解檢查｜5 題',p('請先完成五題，再檢查解析。測驗成績會儲存於此瀏覽器。')+'<form id="quiz" novalidate>'+items+'<div class="quiz-actions"><button type="submit" class="btn primary">提交答案並查看解析</button><span class="score" id="quiz-score" aria-live="polite"></span></div></form>');
 }
-function referencesHtml(n){return card('參考來源與指定閱讀','<div class="references">'+references[n].map((r,i)=>'<div class="refs-item"><strong>'+(i+1)+'. '+esc(r[0])+'</strong><p><a href="'+esc(r[1])+'" target="_blank" rel="noopener noreferrer">開啟來源 ↗</a></p></div>').join('')+'</div>');}
+function referencesHtml(n){return card('閱讀依據｜看完故事後再認識原始論文與公告','<div class="references">'+references[n].map((r,i)=>'<div class="refs-item"><strong>'+(i+1)+'. '+esc(r[0])+'</strong><p><a href="'+esc(r[1])+'" target="_blank" rel="noopener noreferrer">開啟來源 ↗</a></p></div>').join('')+'</div>');}
 function initShare(){
  const wrap=el('share-widget');if(!wrap)return;
  let kind='old';
@@ -189,6 +189,14 @@ function render(){
  document.title=(n?'第 '+String(n).padStart(2,'0')+' 堂｜'+courseTitles[n]:'課程總綱')+' · M&A Academy';
  renderNav(n);
  el('main').innerHTML=n===0?overview():n<=3?lesson(n):future(n);
+ if(n>=1&&n<=3&&window.MA_EXTRA&&window.MA_EXTRA[n]){
+  const originalSections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
+  window.MA_EXTRA[n].blocks.forEach(part=>{
+   const anchor=originalSections[part.after];
+   if(anchor)anchor.insertAdjacentHTML('afterend',part.html);
+  });
+ }
+
 
  if(n>=1&&n<=3){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
@@ -204,6 +212,7 @@ function render(){
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
  if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=3)initQuiz(n);
+ if(n>=1&&n<=3&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
 }
 function go(n){if(n<0||n>14)return;const hash='#lesson/'+n;if(location.hash===hash){render();window.scrollTo({top:0,behavior:'smooth'})}else{location.hash=hash;window.scrollTo(0,0)}}
