@@ -68,7 +68,7 @@ window.MA_FULL_LESSONS[1] = String.raw`
 <p>本案例的關鍵不是現在就分析遊戲產業的策略綜效，而是看懂三件事：第一，原有股東的股份權利依交易安排改變；第二，Activision Blizzard 並不是只因為「被收購」就必然停止營運或消失；第三，Microsoft 最終取得該公司所有權及控制權。</p>
 <p class="note">原始文件：<a href="https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm" target="_blank" rel="noopener noreferrer">Microsoft 2023-10-13 Form 8-K</a>。</p>
 </div></section>
-<section class="section"><h2>七｜學術橋接：為什麼所有者與經理人的利益可能不同？</h2><div class="card">
+<section class="section"><h2>七｜回到日常：股東請人管店，為什麼要設計監督制度？</h2><div class="card">
 <p><strong>Jensen & Meckling（1976）</strong>，<em>Theory of the Firm: Managerial Behavior, Agency Costs and Ownership Structure</em>，發表於 <em>Journal of Financial Economics</em>，討論當一方委託另一方管理資源時，雙方利益不一致所產生的代理成本。譬如經理人不一定持股，卻掌握部分支出與投資決策，可能偏好薪酬、名聲或個人便利。</p>
 <p><strong>Fama & Jensen（1983）</strong>，<em>Separation of Ownership and Control</em>，發表於 <em>Journal of Law and Economics</em>，進一步分析承擔經濟風險的人與做決策的人分離時，組織為何需要監督和控制機制。</p>
 <p>博士階段可以把問題往下延伸：董事會與股權結構如何影響收購動機？控制權改變會否改變資源配置？但第一堂只要建立<strong>「誰擁有、誰決策、誰承擔風險」</strong>三個角色就足夠。</p>
