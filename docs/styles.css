@@ -213,3 +213,15 @@
 .lesson8-section .deep-conclusion p{overflow-wrap:anywhere;line-height:1.75}
 @media(max-width:800px){.lesson8-section .model-values{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.lesson8-section .deep-stats b.small-b{font-size:13px}.lesson8-section .model-values{grid-template-columns:1fr}.lesson8-section .model-option>span{font-size:17px}}
+
+
+/* Lesson 08 revised 2026-11-04: continuous deal narrative and in-scene case mirrors. */
+.lesson8-section .lesson8-scene{margin:0 0 22px;padding:13px 16px;border-left:3px solid #3c8b7b;background:#f2f6f4;border-radius:0 9px 9px 0;font-size:14px;line-height:1.85}
+.lesson8-section .lesson8-scene strong{display:block;font-size:12px;letter-spacing:.03em;color:#236958;margin-bottom:4px}
+.lesson8-section .lesson8-realworld{border-top:1px solid #d7e5de;margin:26px 0 20px;padding-top:23px}
+.lesson8-section .lesson8-realworld>h3:first-child{color:#1e6354;margin-top:0;margin-bottom:12px}
+.lesson8-section .lesson8-realworld>p:first-of-type{font-size:13px;color:#60766e}
+.lesson8-section details.lesson8-more{margin:18px 0}
+.lesson8-section details.lesson8-more summary{cursor:pointer;font-weight:700;line-height:1.7}
+.lesson8-section details.lesson8-more:focus-within{outline-offset:3px}
+@media(max-width:550px){.lesson8-section .lesson8-scene{padding:12px 13px;margin-bottom:18px}.lesson8-section .lesson8-realworld{padding-top:18px}}
