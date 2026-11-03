@@ -75,6 +75,12 @@ s(10,'第 10 堂｜收購價款如何支付？','<p class="lesson10-scene"><stro
   full[n]=full[n].replace(oldValue,newValue);
  }
 })();
+
+(function clarifyDcfCashAssumption(){
+ const marker='注意，這裡終值現值約占整個 EV 的';
+ if(!full[8].includes(marker))throw new Error('DCF note anchor missing');
+ full[8]=full[8].replace(marker,'<span class="note"><strong>估值口徑提醒：</strong> 這一張 DCF 表為了演練公式，仍假設帳上 100 萬全部可視為多餘現金，故股權價值約 484.2 萬；如果改採財報查核後「只有 40 萬多餘現金」的另一組條件，股權價值就應降為 464.2－80＋40＝約 424.2 萬。<strong>現金假設一改，不能只改文字而不改股權橋接。</strong></span> '+marker);
+})();
 window.MA_LESSON7_REVISION='2026-11-04 · 獨立財務單元';
 window.MA_LESSON8_REVISION='2026-11-04 · 獨立估值單元';
 window.MA_LESSON9_REVISION='2026-11-04 · 獨立議價單元';
