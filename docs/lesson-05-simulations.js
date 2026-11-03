@@ -27,7 +27,7 @@
      $('l5-burden-out').textContent=b+' / 100';
      const ally=90-.35*s-.25*c,acquire=75+.2*s+.15*c-.45*b,best=Math.max(ally,acquire);
      $('l5-boundary-bars').innerHTML=[['簽約合作',ally],['收購烘豆廠',acquire]].map(v=>'<div class="model-option '+(v[1]===best?'winner':'')+'"><strong>'+v[0]+'</strong><span>'+fmt(v[1])+' 萬</span><div class="model-meter"><span style="width:'+Math.max(0,Math.min(100,v[1]/110*100))+'%"></span></div></div>').join('');
-     $('l5-boundary-result').innerHTML='<strong>在這組教學假設下，較高的示意淨值來自：'+(acquire>ally?'收購烘豆廠':ally>acquire?'維持簽約合作':'兩種安排相近')+'</strong><p>契約難以保障的專屬技術和反覆協調需求提高時，內部組織可能更有吸引力；但公司自行管理工廠的負擔越高，收購也可能不划算。這是用數字演示 Teece（1980）的企業邊界直覺，而不是該論文的估計係數。</p>';
+     $('l5-boundary-result').innerHTML='<strong>在這組教學假設下，較高的示意淨值來自：'+(acquire>ally?'收購烘豆廠':ally>acquire?'維持簽約合作':'兩種安排相近')+'</strong><p>合作淨值：'+fmt(ally)+' 萬；收購淨值：'+fmt(acquire)+' 萬。</p><p>契約難以保障的專屬技術和反覆協調需求提高時，內部組織可能更有吸引力；但公司自行管理工廠的負擔越高，收購也可能不划算。這是用數字演示 Teece（1980）的企業邊界直覺，而不是該論文的估計係數。</p>';
    }
    variables.forEach(id=>$(id)?.addEventListener('input',draw));draw();
  }
