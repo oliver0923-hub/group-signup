@@ -1,21 +1,7 @@
 'use strict';
-const courseTitles=['課程總綱與學習進度','公司、股份與股東','收購、合併與所有權','企業為什麼進行併購','併購交易如何進行','併購的主要類型','企業如何選擇收購標的','企業估值基礎','收購價格與支付方式','Private Equity Fund','Leveraged Buyout（LBO）','盡職調查與交易完成','併購後整合與績效','M&A 策略管理理論','M&A 實證研究方法'];
-const summaries=[
-'14 堂課，從基礎觀念一路學習到 M&A 交易、策略與研究方法。',
-'法人、股份、股東、董事會、經理人、所有權與控制權。',
-'股權收購、資產收購、法定合併、母子公司與私有化。',
-'Buy／Build／Ally、綜效、規模經濟、併購動機與價值分配。',
-'買方、賣方、顧問、初步協商、交易流程與交割。',
-'水平、垂直、多角化、跨國、友善與敵意收購。',
-'策略適配、資源互補、Buy／Build／Ally、估值與整合風險。',
-'財務報表、自由現金流、企業價值、股權價值、DCF。',
-'收購溢價、現金收購、換股收購與綜效分配。',
-'GP、LP、基金募集、控股、投資期間、出場與投資報酬。',
-'股權與債務、槓桿、債務償還、MOIC、IRR 與風險。',
-'盡職調查、交易條款、法規、融資條件與交割。',
-'併購後整合、文化差異、人才留任、綜效與併購失敗。',
-'Agency Theory、RBV、TCE、RDT、組織學習與市場力量。',
-'事件研究、長期績效、選擇偏誤、內生性與研究設計。'];
+const courseTitles=["課程總綱與學習進度","公司、股份與股東","收購、合併與所有權","企業為什麼進行併購","併購交易如何進行","併購的主要類型","企業如何選擇收購標的","讀懂企業的財務資訊","一家公司究竟值多少？","收購價格如何談出來？","收購價款如何支付？","Private Equity Fund（PE Fund）","Leveraged Buyout（LBO）","盡職調查與交易完成","併購後整合與績效","M&A 策略管理理論","M&A 實證研究方法"];
+const COURSE_TOTAL=courseTitles.length-1,PUBLISHED_LESSONS=10;
+const summaries=["16 堂課，從基礎觀念一路學習到併購交易、策略與研究方法。","法人、股份、股東、董事會、經理人、所有權與控制權。","股權收購、資產收購、法定合併、母子公司與私有化。","Buy／Build／Ally、綜效、規模經濟、併購動機與價值分配。","買方、賣方、顧問、初步協商、交易流程與交割。","水平、垂直、多角化、跨國、友善與敵意收購。","策略適配、資源互補、Buy／Build／Ally、估值與整合風險。","三大財報、自由現金流、EBITDA、FCFF、EV／股權價值。","同業倍數、DCF、WACC、終值及估值敏感度。","議價上限、賣方底價、收購溢價與綜效分配。","現金、股票、股權稀釋、Earn-out 與契約風險。","GP、LP、基金募集、控股、投資期間、出場與投資報酬。","股權與債務、槓桿、債務償還、MOIC、IRR 與風險。","盡職調查、交易條款、法規、融資條件與交割。","併購後整合、文化差異、人才留任、綜效與併購失敗。","Agency Theory、RBV、TCE、RDT、組織學習與市場力量。","事件研究、長期績效、選擇偏誤、內生性與研究設計。"];
 const quizData={
 1:[
 ['持有咖啡公司 40% 股份，代表什麼？',['擁有公司 40% 的咖啡機與現金','持有公司 40% 的股權利益','必然是公司的 CEO'],1,'股份是一種權益，公司的設備仍屬公司所有。'],
@@ -115,6 +101,13 @@ quizData[8]=[
 ['如果交易協議使用 Escrow、Earn-out 或終止費，什麼說法最正確？',['全部風險因此在經濟上消失','名目最高價一定等於簽約日已收到的價款','契約可調整付款條件與風險分擔，但不自動消除經濟風險'],2,'特定條款會改變支付時間、條件和責任，並不會使顧客流失、監管或營運風險憑空消失。']
 ];
 
+
+// New 07–10 independent quizzes; preserve original 01–06 questions.
+const prior7=quizData[7].slice(),prior8=quizData[8].slice();
+quizData[7]=[...prior7.slice(0,6),...[["歷史 FCFF 84 萬與下一堂預測 FCFF 45 萬為什麼可以不同？",["兩者是不同期間與假設","FCFF 就是股利","歷史現金流等於 DCF"],0,"必須區分歷史資料與預測設定。"],["CapEx 增加 35 萬、其他不變，原 FCFF 84 萬會變成？",["119 萬","84 萬","49 萬"],2,"FCFF 減少 35 萬。"]]];
+quizData[8]=[...prior7.slice(6,10),...[["FCFF 以 WACC 折現先得到什麼？",["EV","當期營收","股利"],0,"FCFF 和 WACC 對應企業價值。"],["其他不變，WACC 提高，未來正現金流的現值通常？",["提高","降低","固定"],1,"折現率提高使現值下降。"],["選同業估值倍數最重要的是？",["公司名稱相似","只看股價","成長、風險與口徑可比"],2,"不具可比性的倍數沒有直接套用意義。"],["DCF 終值占比高有什麼限制？",["對長期假設很敏感","必然完全準確","無須估 WACC"],0,"長期折現率與成長率假設會主導估值。"]]];
+quizData[9]=[prior8[0],prior8[1],prior8[2],prior8[7],...[["另一買家提高賣方底價，最直接改變？",["賣方外部選擇","EBIT","買方整合能力"],0,"外部選擇改變議價，未必改變營運價值。"],["賣方底價 600 萬、買方上限 585 萬，合理判斷？",["一定成交","沒有共同可接受區間","買方綜效自動提高"],1,"雙方底線沒有交集，可以改條件或退出。"],["上市公司公告溢價應比對？",["公告前參考股價","晨光獨立價值","借款利率"],0,"公告溢價必須明確界定基準日。"],["股價公告時上升能證明長期整合成功？",["能","不能，反映當時預期","只要價款是現金就能"],1,"公告反應不能代替多年後的實際績效。"]]];
+quizData[10]=[...prior8.slice(3,7),prior8[8],prior8[9],...[["新股支付的成本包含？",["原股東持股稀釋與股價風險","永遠零成本","與控制權無關"],0,"股票支付可能改變持股比例。"],["Earn-out 名目最高價與期望現值不同是因為？",["未來有條件付款與折現","股數自動減少","EV 永遠等於最高名目價"],0,"期望現值需考慮達標機率與時點。"]]];
 const references={
 1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Jensen & Meckling (1976), Agency Costs and Ownership Structure','https://doi.org/10.1016/0304-405X(76)90026-X'],['Microsoft (2023), acquisition completion SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm']],
 2:[['台灣企業併購法','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080041'],['Microsoft: Activision Blizzard acquisition, SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],['Jensen & Ruback (1983), The Market for Corporate Control','https://doi.org/10.1016/0304-405X(83)90004-1'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Lenovo (2014), IBM x86 server business initial closing','https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/']],
@@ -214,9 +207,15 @@ references[8]=[
 ['Salesforce (2026) Slackbot product integration announcement','https://www.salesforce.com/news/press-releases/2026/01/13/slackbot-announcement/']
 ];
 
-const readProgress=()=>{try{const x=JSON.parse(localStorage.getItem('ma-academy-progress-v1')||'[]');return Array.isArray(x)?x.filter(n=>Number.isInteger(n)&&n>=1&&n<=14):[]}catch{return []}};
+
+const prior7refs=references[7].slice(),prior8refs=references[8].slice();
+references[7]=prior7refs.filter((r,i)=>[0,1,2,4,7,8,9,10].includes(i));
+references[8]=prior7refs;
+references[9]=prior8refs.filter((r,i)=>[1,2,4,5,6,7,8,9].includes(i));
+references[10]=prior8refs;
+const readProgress=()=>{try{const key='ma-academy-progress-v2',raw=localStorage.getItem(key);if(raw!==null){const v=JSON.parse(raw);return Array.isArray(v)?[...new Set(v.filter(n=>Number.isInteger(n)&&n>=1&&n<=COURSE_TOTAL))]:[]}const old=JSON.parse(localStorage.getItem('ma-academy-progress-v1')||'[]');const v=Array.isArray(old)?old.filter(n=>Number.isInteger(n)&&n>=1&&n<=6):[];localStorage.setItem(key,JSON.stringify(v));return v}catch{return []}};
 let completed=readProgress();
-const saveProgress=()=>{try{localStorage.setItem('ma-academy-progress-v1',JSON.stringify(completed))}catch{}};
+const saveProgress=()=>{try{localStorage.setItem('ma-academy-progress-v2',JSON.stringify(completed))}catch{}};
 const el=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const card=(title,body)=>'<section class="section"><h2>'+title+'</h2><div class="card">'+body+'</div></section>';
@@ -295,7 +294,7 @@ h3('Microsoft × Nokia 手機業務（2014）')+p('Microsoft 希望結合手機�
 h3('Trautwein（1990）')+p('將併購動機分為效率、市場力量、估值、管理者帝國擴張、組織決策過程等多種理論，提醒我們不能只用「綜效」解釋所有併購。'))}
 function quizHtml(n){
 let items=quizData[n].map((q,i)=>'<div class="quiz-question"><fieldset><legend>'+(i+1)+'. '+esc(q[0])+'</legend>'+q[1].map((option,j)=>'<label class="answer"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+String.fromCharCode(65+j)+'. '+esc(option)+'</span></label>').join('')+'</fieldset><div id="feedback-'+i+'"></div></div>').join('');
-return card('課後理解檢查｜'+quizData[n].length+' 題',p('請先完成五題，再檢查解析。測驗成績會儲存於此瀏覽器。')+'<form id="quiz" novalidate>'+items+'<div class="quiz-actions"><button type="submit" class="btn primary">提交答案並查看解析</button><span class="score" id="quiz-score" aria-live="polite"></span></div></form>');
+return card('課後理解檢查｜'+quizData[n].length+' 題',p(n>=7?'完成本堂全部題目，再檢查解析；結果保留於此瀏覽器。':'請先完成五題，再檢查解析。測驗成績會儲存於此瀏覽器。')+'<form id="quiz" novalidate>'+items+'<div class="quiz-actions"><button type="submit" class="btn primary">提交答案並查看解析</button><span class="score" id="quiz-score" aria-live="polite"></span></div></form>');
 }
 function referencesHtml(n){return card('閱讀依據｜看完故事後再認識原始論文與公告','<div class="references">'+references[n].map((r,i)=>'<div class="refs-item"><strong>'+(i+1)+'. '+esc(r[0])+'</strong><p><a href="'+esc(r[1])+'" target="_blank" rel="noopener noreferrer">開啟來源 ↗</a></p></div>').join('')+'</div>');}
 function initShare(){
@@ -332,35 +331,35 @@ function initQuiz(n){
  const score=chosen.filter((v,i)=>v===quizData[n][i][2]).length;
  chosen.forEach((v,i)=>{const q=quizData[n][i],ok=v===q[2];el('feedback-'+i).innerHTML='<div class="feedback '+(ok?'':'bad')+'">'+(ok?'✓ 正確':'答案：'+String.fromCharCode(65+q[2]))+'。'+esc(q[3])+'</div>'});
  el('quiz-score').textContent='得分：'+score+' / '+quizData[n].length+(score===quizData[n].length?' · 已掌握本堂核心觀念':' · 可以依解析再複習');
- try{localStorage.setItem('ma-academy-quiz-'+n,JSON.stringify({score,completedAt:new Date().toISOString()}))}catch{}
+ try{localStorage.setItem((n>=7?'ma-academy-quiz-v2-':'ma-academy-quiz-')+n,JSON.stringify({score,completedAt:new Date().toISOString()}))}catch{}
  });
 }
 function renderNav(active){
  const nav=el('course-nav');
- nav.innerHTML=courseTitles.map((t,i)=>'<button type="button" class="nav-item '+(active===i?'active ':'')+(i>4?'future':'')+'" data-lesson="'+i+'" '+(active===i?'aria-current="page"':'')+'><span class="nav-num">'+String(i).padStart(2,'0')+'</span><span>'+esc(t)+'</span><span class="nav-state">'+(completed.includes(i)?'✓':i>4?'·':'')+'</span></button>').join('');
+ nav.innerHTML=courseTitles.map((t,i)=>'<button type="button" class="nav-item '+(active===i?'active ':'')+(i>PUBLISHED_LESSONS?'future':'')+'" data-lesson="'+i+'" '+(active===i?'aria-current="page"':'')+'><span class="nav-num">'+String(i).padStart(2,'0')+'</span><span>'+esc(t)+'</span><span class="nav-state">'+(completed.includes(i)?'✓':i>PUBLISHED_LESSONS?'·':'')+'</span></button>').join('');
  nav.querySelectorAll('[data-lesson]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.lesson))));
- el('progress-fill').style.width=(completed.length/14*100)+'%';el('progress-text').textContent=completed.length+' / 14';el('progress-percent').textContent=Math.round(completed.length/14*100)+'%';
+ el('progress-fill').style.width=(completed.length/COURSE_TOTAL*100)+'%';el('progress-text').textContent=completed.length+' / '+COURSE_TOTAL;el('progress-percent').textContent=Math.round(completed.length/COURSE_TOTAL*100)+'%';
 }
 function overview(){
- return '<div class="main-inner"><section class="hero"><div class="eyebrow">WELCOME TO M&A ACADEMY</div><h1>從零開始，真正理解<br>企業如何被收購與合併。</h1><p>14 堂系統性課程：從公司、股份與控制權開始，逐步走向真實交易、企業估值、PE Fund、LBO，以及策略管理與研究方法。</p><div class="hero-tags"><span>14 LESSONS</span><span>INTERACTIVE LEARNING</span><span>RESEARCH-BASED</span></div></section>'+
- card('你的學習路徑',div2(mini('第一階段｜01–04','核心概念','公司、股權、併購動機與交易流程'),mini('第二階段｜05–08','策略與估值','併購類型、標的選擇與收購價格'))+'<div style="height:14px"></div>'+div2(mini('第三階段｜09–12','PE 與交易實務','基金、LBO、盡職調查、整合'),mini('第四階段｜13–14','研究與實證','理論、公告事件研究與因果識別')))+
+ return '<div class="main-inner"><section class="hero"><div class="eyebrow">WELCOME TO M&A ACADEMY</div><h1>從零開始，真正理解<br>企業如何被收購與合併。</h1><p>16 堂系統性課程：從公司、股份與控制權開始，逐步走向真實交易、企業估值、PE Fund、LBO，以及策略管理與研究方法。</p><div class="hero-tags"><span>16 LESSONS</span><span>INTERACTIVE LEARNING</span><span>RESEARCH-BASED</span></div></section>'+
+ card('你的學習路徑',div2(mini('第一階段｜01–04','核心概念','公司、股權、併購動機與交易流程'),mini('第二階段｜05–08','策略與估值','併購類型、標的、財報與 DCF'))+'<div style="height:14px"></div>'+div2(mini('第三階段｜09–12','議價、支付與 PE','談判、換股、PE Fund 與 LBO'),mini('第四階段｜13–16','交易執行與研究','盡職調查、整合、策略與實證')))+
  card('生活常識與學術理論，一起學才有意義',p('保留最容易理解的咖啡店故事、名詞解釋與數字例子，再沿著同一個問題加入互動實驗、真實交易與研究機制；學術不是另一套艱深的版本，而是把直覺解釋得更深入。')+p('模擬中的金額與機率都是教學假設，與真實公司資料分開標示；不必先讀懂艱深期刊，也能學習代理問題、公司控制權與併購綜效。'))+
- '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>8?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=8?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
+ '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>PUBLISHED_LESSONS?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=PUBLISHED_LESSONS?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
 }
-function future(n){return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(summaries[n])+'</p><div class="hero-tags"><span>課綱已規劃</span><span>完整內容尚未上架</span></div></section>'+card('這堂課將學習什麼？',p(summaries[n])+call('本課次目前只有課綱，尚未提供完整教學、互動練習與測驗。')+'<p>請先閱讀已上架的第 01–08 堂完整教材。後續新增教材時，此課次即可延伸。</p><button class="btn primary" data-go="0">返回課程總綱</button>')+'</div>'}
+function future(n){return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(summaries[n])+'</p><div class="hero-tags"><span>課綱已規劃</span><span>完整內容尚未上架</span></div></section>'+card('這堂課將學習什麼？',p(summaries[n])+call('本課次目前只有課綱，尚未提供完整教學、互動練習與測驗。')+'<p>請先閱讀已上架的第 01–10 堂完整教材。後續新增教材時，此課次即可延伸。</p><button class="btn primary" data-go="0">返回課程總綱</button>')+'</div>'}
 function lesson(n){
  const body=(window.MA_FULL_LESSONS && window.MA_FULL_LESSONS[n]) || (n===1?lesson1():n===2?lesson2():lesson3());
- const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':n===5?'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。':n===6?'比較候選標的的策略適配、資源互補、關係熟悉、價格與整合風險，做出有依據的收購選擇。':n===7?'從三大財報、自由現金流、EV／股權價值、估值倍數到五年 DCF，理解價格與價值。':'認識收購溢價、議價區間、綜效分配、現金與股票支付及契約上的風險安排。';
- return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span>'+(n===7&&window.MA_LESSON7_REVISION?'<span>'+esc(window.MA_LESSON7_REVISION)+'</span>':n===8&&window.MA_LESSON8_REVISION?'<span>'+esc(window.MA_LESSON8_REVISION)+'</span>':'')+'</div></section>'+
+ const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':n===5?'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。':n===6?'比較候選標的的策略適配、資源互補、關係熟悉、價格與整合風險，做出有依據的收購選擇。':n===7?'從三大財報、FCFF 到 EV／股權價值，先看懂公司的錢。':n===8?'比較倍數、DCF 與折現，理解估值不確定性。':n===9?'認識議價區間、競買者與買賣雙方綜效分配。':'理解現金、股票、混合支付、稀釋與或有對價。';
+ return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / '+COURSE_TOTAL+' · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span>'+(n>=7&&n<=10&&window['MA_LESSON'+n+'_REVISION']?'<span>'+esc(window['MA_LESSON'+n+'_REVISION'])+'</span>':'')+'</div></section>'+
  body+quizHtml(n)+referencesHtml(n)+
  '<div class="lesson-footer"><button type="button" class="btn" data-go="'+(n-1)+'">← 上一堂</button><button type="button" class="btn primary" id="complete-btn">'+(completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成')+'</button><button type="button" class="btn" data-go="'+(n+1)+'">下一堂 →</button></div><p class="status">完成狀態與測驗結果保留在此瀏覽器的 localStorage；跨裝置不會自動同步。</p></div>';
 }
 function routeFromHash(){const m=location.hash.match(/^#lesson\/(\d+)$/);return m?Number(m[1]):0}
 function render(){
- const n=Math.min(14,Math.max(0,routeFromHash()));
+ const n=Math.min(COURSE_TOTAL,Math.max(0,routeFromHash()));
  document.title=(n?'第 '+String(n).padStart(2,'0')+' 堂｜'+courseTitles[n]:'課程總綱')+' · M&A Academy';
  renderNav(n);
- el('main').innerHTML=n===0?overview():n<=8?lesson(n):future(n);
+ el('main').innerHTML=n===0?overview():n<=PUBLISHED_LESSONS?lesson(n):future(n);
 
  if(n>=1&&n<=3&&window.MA_STORY_ADDITIONS&&window.MA_STORY_ADDITIONS[n]){
   const storySections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
@@ -375,6 +374,8 @@ function render(){
  if(n===6)el('main').querySelectorAll('.lesson6-section').forEach(s=>s.classList.add('bridge-section'));
  if(n===7)el('main').querySelectorAll('.lesson7-section').forEach(s=>s.classList.add('bridge-section'));
  if(n===8)el('main').querySelectorAll('.lesson8-section').forEach(s=>s.classList.add('bridge-section'));
+  if(n===9)el('main').querySelectorAll('.lesson9-section').forEach(s=>s.classList.add('bridge-section'));
+  if(n===10)el('main').querySelectorAll('.lesson10-section').forEach(s=>s.classList.add('bridge-section'));
 
 
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n]){
@@ -408,7 +409,7 @@ function render(){
   });
  }
 
- if(n>=1&&n<=8){
+ if(n>=1&&n<=PUBLISHED_LESSONS){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   const toc=document.createElement('nav');
   toc.className='lesson-toc card';
@@ -421,19 +422,21 @@ function render(){
  document.querySelectorAll('[data-go],[data-open]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go??b.dataset.open))));
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
- if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=8)initQuiz(n);
+ if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=PUBLISHED_LESSONS)initQuiz(n);
  if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();
  if((n===2||n===3)&&window['MA_L'+n+'_DEEP'])window['MA_L'+n+'_DEEP'].init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
  if(n===4&&window.MA_L4_DEEP&&window.MA_L4_DEEP.init)window.MA_L4_DEEP.init();
  if(n===5&&window.MA_LESSON5&&window.MA_LESSON5.init)window.MA_LESSON5.init();
  if(n===6&&window.MA_LESSON6&&window.MA_LESSON6.init)window.MA_LESSON6.init();
- if(n===7&&window.MA_LESSON7&&window.MA_LESSON7.init)window.MA_LESSON7.init();
- if(n===8&&window.MA_LESSON8&&window.MA_LESSON8.init)window.MA_LESSON8.init();
+ if((n===7||n===8)&&window.MA_LESSON7&&window.MA_LESSON7.init)window.MA_LESSON7.init();
+  if(n===7&&window.MA_NEW_JOURNEYS)window.MA_NEW_JOURNEYS.init7();
+ if((n===9||n===10)&&window.MA_LESSON8&&window.MA_LESSON8.init)window.MA_LESSON8.init();
+  if(n===9&&window.MA_NEW_JOURNEYS)window.MA_NEW_JOURNEYS.init9();
 
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
 }
-function go(n){if(n<0||n>14)return;const hash='#lesson/'+n;if(location.hash===hash){render();window.scrollTo({top:0,behavior:'smooth'})}else{location.hash=hash;window.scrollTo(0,0)}}
+function go(n){if(n<0||n>COURSE_TOTAL)return;const hash='#lesson/'+n;if(location.hash===hash){render();window.scrollTo({top:0,behavior:'smooth'})}else{location.hash=hash;window.scrollTo(0,0)}}
 el('menu-button').addEventListener('click',()=>{const o=el('sidebar').classList.toggle('open');el('menu-button').setAttribute('aria-expanded',String(o))});
 window.addEventListener('hashchange',render);
 render();
