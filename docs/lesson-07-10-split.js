@@ -48,6 +48,19 @@ s(10,'第 10 堂｜收購價款如何支付？','<p class="lesson10-scene"><stro
  +part.slice(start,end)+'</details>'+part.slice(end);
  full[10]=sections.join('');
 })();
+
+// Narrative correction: fictional comparables are never presented as verified market transactions.
+(function revisePeerValuationStories(){
+ const revisions=[{"n":8,"key":"8.2","heading":"8.2｜用別人的生意估價？先問四倍 EBITDA 從哪裡來","body":"<p class=\"lesson8-scene\"><strong>估值會議｜星河的財務主管拿出一張比較表。</strong>晨光股東希望以 500 萬出售全部舊股，星河不能只靠直覺判斷這個價格。財務主管說：「先學一種估價方法，再檢查它能不能用。」</p>\n<p>他先提醒大家：「目前沒有足夠可靠、能直接拿來比較的私人咖啡店成交資料。下面的<strong>『河岸咖啡』完全是虛構的教學公司</strong>，不是市場上的真實成交案例，也不是咖啡產業的平均倍數。」</p>\n<div class=\"story-timeline\"><div><b>第一步｜假設別家公司的數字</b><p>河岸咖啡年度 EBITDA（息稅折舊攤銷前利益）為 100 萬元，營運企業價值 EV（Enterprise Value）為 400 萬元。所以 EV／EBITDA＝400 ÷ 100＝<strong>4 倍</strong>。這個 4 倍只是為了學會倍數怎麼算。</p></div><div><b>第二步｜試算晨光的企業價值</b><p>第七堂已知道晨光歷史 EBITDA＝220 萬元。<strong>暫時假設兩家真的可以比較</strong>，晨光的示意 EV＝220 × 4＝<strong>880 萬元</strong>。這還不是賣股份的價格。</p></div><div><b>第三步｜換算成股權價值</b><p>若同時假設晨光計息負債 80 萬、帳上 100 萬現金全部可算多餘現金，股權價值＝880－80＋100＝<strong>900 萬元</strong>。若查核後發現只有 40 萬現金可加回，則變成 880－80＋40＝<strong>840 萬元</strong>。</p></div></div>\n<p>朋友 A 問：「我想賣 500 萬，怎麼算出來是 900 萬？難道我們開價太便宜？」財務主管回答：「<strong>還不能下結論。</strong>500 萬是賣方的初步要價；900 萬是靠虛構同業倍數和一組現金假設推導的試算。兩個數字差很大，代表我們需要查證，而不是證明有人出價太低。」</p>\n<p>例如河岸可能有更穩定的顧客和較少設備更新需求，而晨光可能要更換咖啡機、企業團購客戶也還沒續約。<strong>EBITDA 不會直接扣除購買設備的現金支出</strong>，因此兩家即使有相同的 EBITDA，也未必能產生相同的自由現金流。</p>\n<div class=\"callout\"><strong>請分清楚：</strong>500 萬是股東的示意要價；880 萬是套用假設倍數的企業價值；900 萬及 840 萬是在兩種現金條件下推算的股權價值。<strong>它們都不是已被市場證實的公允成交價。</strong></div>\n<details class=\"think-detail\"><summary>自己算算看：EV 880 萬不變，為何股權價值會從 900 變 840 萬？</summary><p>股權價值＝EV－計息債務＋可自由運用的多餘現金。當多餘現金從 100 降為 40 萬，股權價值便降低 60 萬。公司仍有 100 萬存款，但其中 60 萬必須留作營運。</p></details>\n<p>研究連結：Liu、Nissim 與 Thomas（2002）比較不同估值倍數的表現，提醒我們應理解指標選擇與資料限制，而不是相信一個萬用倍數。<a href=\"https://doi.org/10.1111/1475-679X.00042\" target=\"_blank\" rel=\"noopener noreferrer\">Liu et al.（2002），Journal of Accounting Research ↗</a></p>"},{"n":8,"key":"8.3","heading":"8.3｜找可比較企業：同樣賣咖啡，就能用相同倍數嗎？","body":"<p class=\"lesson8-scene\"><strong>隔天｜顧問真正開始找資料。</strong>昨天的河岸咖啡只是教學假設，不是市場資料。星河要用倍數出價，必須先找到財務口徑一致、營運風險相近的比較對象。</p>\n<p>顧問列出三個候選：一家主要做外帶的街角咖啡店、一家快速展店的精品咖啡連鎖，以及一家同樣賣咖啡的大型便利商店。它們都賣咖啡，<strong>但賺錢的方式、設備投資與顧客結構未必相同</strong>。</p>\n<table><thead><tr><th>要核對的條件</th><th>原因</th></tr></thead><tbody><tr><td>客人從哪裡來？</td><td>散客、企業團購與會員訂單的流失風險不同</td></tr><tr><td>需要多少新設備？</td><td>相同 EBITDA 不等於相同自由現金流</td></tr><tr><td>規模與成長速度接近嗎？</td><td>快速展店可能意味不同的租金、風險與預期</td></tr><tr><td>比較的是 EV 還是股權市值？</td><td>估值指標的分子和分母必須正確對應</td></tr></tbody></table>\n<p>所以「有在賣咖啡」只是開始，<strong>不是已經找到可靠同業</strong>。缺少可信的交易和財務資料時，倍數法只能作為理解估值敏感度的參考，不能當成最後一口價的鐵律。</p>\n<p>Bhojraj 與 Lee（2002）研究如何依影響估值的公司特徵選取比較企業，而不只是看產業分類。它提供比較對象選擇的研究思路，但不能保證私人咖啡店的成交價格。<a href=\"https://doi.org/10.1111/1475-679X.00054\" target=\"_blank\" rel=\"noopener noreferrer\">Bhojraj &amp; Lee（2002），Journal of Accounting Research ↗</a></p>\n<p><strong>接下來：</strong>如果同業資料無法完全信任，那麼能否回頭估計晨光自己明年、後年真正可能產生的現金流？這就是 DCF 的起點。</p>"}];
+ for(const r of revisions){
+  const parts=full[r.n].split(/(?=<section class="section chapter)/g).filter(Boolean);
+  const i=parts.findIndex(x=>x.includes('<h2>'+r.key+'｜'));
+  if(i<0)throw new Error('Cannot locate lesson '+r.n+' '+r.key);
+  const opening=parts[i].slice(0,parts[i].indexOf('<h2>'));
+  parts[i]=opening+'<h2>'+r.heading+'</h2><div class="card">'+r.body+'</div></section>';
+  full[r.n]=parts.join('');
+ }
+})();
 window.MA_LESSON7_REVISION='2026-11-04 · 獨立財務單元';
 window.MA_LESSON8_REVISION='2026-11-04 · 獨立估值單元';
 window.MA_LESSON9_REVISION='2026-11-04 · 獨立議價單元';
