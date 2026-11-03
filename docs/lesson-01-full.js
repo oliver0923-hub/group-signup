@@ -48,7 +48,7 @@ window.MA_FULL_LESSONS[1] = String.raw`
 <p>一家公司有「誰擁有股份」、「誰決定重要事項」、「誰每天管理業務」三個不同層次。以一般董事會治理制度作簡化：</p>
 <div class="visual"><div class="diagram-node">股東（Shareholders）｜持有股份與行使股東權利</div><div class="arrow">↓ 依法律選任董事</div><div class="diagram-node">董事會（Board of Directors）｜重大決策、監督與治理</div><div class="arrow">↓ 授權、任用、監督管理團隊</div><div class="diagram-node">CEO／總經理（Management）｜執行策略、管理日常營運</div></div>
 <table><thead><tr><th>身分</th><th>主要角色</th><th>一定要持股嗎？</th></tr></thead><tbody><tr><td>創辦人 Founder</td><td>建立企業的人</td><td>現在未必仍持股</td></tr><tr><td>股東 Shareholder</td><td>持有股份</td><td>是</td></tr><tr><td>董事 Director</td><td>參與治理與監督</td><td>不一定</td></tr><tr><td>董事長 Chairperson</td><td>依組織制度主持董事會等職務</td><td>不一定</td></tr><tr><td>CEO／總經理</td><td>依授權管理營運與執行策略</td><td>不一定</td></tr></tbody></table>
-<p>例如你持股 50%，卻因為攻讀博士無暇管理店面。公司可能聘請完全不持股的專業經理人負責營運。這個人可能決定每日菜單、排班、採購，但不能因此推論他個人擁有公司的資產或股份。</p>
+<p>例如你持股 50%，但白天還有自己的工作，沒辦法每天待在店裡。公司可能聘請完全不持股的專業經理人負責營運。這個人可能決定每日菜單、排班、採購，但不能因此推論他個人擁有公司的資產或股份。</p>
 <h3>Ownership（所有權）與 Control（控制權）</h3>
 <p>持有股份是所有權的一種表現；控制權則涉及對董事任免、營運與重大決策的實際影響。持股 60% 的人在一股一票制度下通常有強大的治理影響力，但不能忽略法定特殊決議。持股 30% 的人在股權極度分散的情況下，仍可能是最具影響力的股東。</p>
 <div class="callout">所有權 ≠ 經營權；經營權 ≠ 可任意處分公司資產；控制權也不必然等於 100% 持股。</div>
@@ -71,7 +71,7 @@ window.MA_FULL_LESSONS[1] = String.raw`
 <section class="section"><h2>七｜回到日常：股東請人管店，為什麼要設計監督制度？</h2><div class="card">
 <p><strong>Jensen & Meckling（1976）</strong>，<em>Theory of the Firm: Managerial Behavior, Agency Costs and Ownership Structure</em>，發表於 <em>Journal of Financial Economics</em>，討論當一方委託另一方管理資源時，雙方利益不一致所產生的代理成本。譬如經理人不一定持股，卻掌握部分支出與投資決策，可能偏好薪酬、名聲或個人便利。</p>
 <p><strong>Fama & Jensen（1983）</strong>，<em>Separation of Ownership and Control</em>，發表於 <em>Journal of Law and Economics</em>，進一步分析承擔經濟風險的人與做決策的人分離時，組織為何需要監督和控制機制。</p>
-<p>博士階段可以把問題往下延伸：董事會與股權結構如何影響收購動機？控制權改變會否改變資源配置？但第一堂只要建立<strong>「誰擁有、誰決策、誰承擔風險」</strong>三個角色就足夠。</p>
+<p>如果你想再往下一層思考，可以問：董事會與股權結構如何影響收購決策？控制權改變後，公司使用資源的方式會跟著變嗎？但第一堂只要先建立<strong>「誰擁有、誰決策、誰承擔風險」</strong>三個角色就足夠。</p>
 <p class="note">閱讀：<a href="https://doi.org/10.1016/0304-405X(76)90026-X" target="_blank" rel="noopener noreferrer">Jensen & Meckling（1976）</a>；<a href="https://doi.org/10.1086/467037" target="_blank" rel="noopener noreferrer">Fama & Jensen（1983）</a>。</p>
 </div></section>
 <section class="section"><h2>八｜本堂速查與進階自我練習</h2><div class="card">
