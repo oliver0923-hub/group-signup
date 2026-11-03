@@ -35,6 +35,19 @@ s(10,'第 10 堂｜收購價款如何支付？','<p class="lesson10-scene"><stro
 [4,5,6,7,8,9,10,11].map(i=>reuse(b,i,8,10)).join('')
 .replaceAll('第 10 堂 LBO','第 12 堂 LBO')
 .replaceAll('第 09 堂接著會介紹 Private Equity Fund','第 11 堂接著會介紹 Private Equity Fund');
+
+// 第十堂 Earn-out 是重要但偏進階的財務契約內容：預設可自主展開，降低首次閱讀的負荷。
+(function foldOptionalEarnout(){
+ const sections=full[10].split(/(?=<section class="section chapter)/g).filter(Boolean);
+ const index=sections.findIndex(v=>v.includes('<h2>10.6｜或有對價'));
+ if(index<0)throw new Error('Earn-out section 10.6 not found after split');
+ const part=sections[index],start=part.indexOf('<div class="card">')+'<div class="card">'.length,end=part.lastIndexOf('</div></section>');
+ if(start<17||end<=start)throw new Error('Cannot create optional Earn-out accordion');
+ sections[index]=part.slice(0,start)
+ +'<p class="note">本節為進階選讀：想先掌握現金與股票的差別，可先完成第 10.7 節的個人決策；若要理解績效對價、條件付款與現值，再展開下方導讀與完整試算。</p><details class="think-detail"><summary>展開進階單元｜Earn-out 的完整導讀、計算與風險分攤</summary>'
+ +part.slice(start,end)+'</details>'+part.slice(end);
+ full[10]=sections.join('');
+})();
 window.MA_LESSON7_REVISION='2026-11-04 · 獨立財務單元';
 window.MA_LESSON8_REVISION='2026-11-04 · 獨立估值單元';
 window.MA_LESSON9_REVISION='2026-11-04 · 獨立議價單元';
