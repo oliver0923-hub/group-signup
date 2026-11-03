@@ -73,6 +73,20 @@ quizData[5]=[
 ['CVS 收購 Aetna，哪個敘述較為精確？',['只有上下游關係，完全不存在水平重疊','既涉及不同健康服務環節整合，某些保險產品也有水平重疊','CVS 買下了世界所有的保險公司'],1,'這個案例說明複雜企業可能在不同產品市場同時存在垂直關係與水平重疊。']
 ];
 
+
+quizData[6]=[
+['企業挑選收購標的之前，最先應該回答哪個問題？',['哪家收購新聞最多','我們究竟缺少什麼能力，以及為什麼要買','哪家公司老闆最熟悉'],1,'先訂策略目的，再看標的能否補上缺口。'],
+['A 是合作十年的熟悉品牌，B 是不熟悉但技術互補的公司。哪個推論最合理？',['A 一定比 B 便宜且有價值','B 一定沒有整合風險','熟悉可能降低搜尋成本，也可能限制候選範圍'],2,'Rogan 與 Sorenson（2014）說明共同顧客與併購選擇、後續績效可能存在不同方向的關聯。'],
+['Rogan 與 Sorenson（2014）的研究樣本與結果最接近？',['全球廣告業共同客戶較多，收購機率較高但合併後顧客表現可能較差','所有咖啡公司都應避免熟人','所有產業共同客戶都一定創造綜效'],0,'作者利用 1995–2003 全球廣告業資料研究收購選擇及合併後績效，不能直接推論所有產業。'],
+['企業透過收購取得程式碼，但工程師離職、授權不完整。這說明什麼？',['只要取得股票就必然取得全部人才與創新能力','資源互補的綜效需要考慮人才、權利及整合安排','所有技術收購都沒有任何價值'],1,'法律所有權與可實現的組織能力不同。'],
+['Ransbotham 與 Mitra（2010）關於年輕科技標的的研究提醒什麼？',['越年輕越保證成功','收購時機有提早取得成長選擇權與資訊不確定的取捨','等待越久價格一定越低'],1,'年齡、估值不確定、成長選擇權及專利、私人公司等條件影響收購時機判斷。'],
+['某標的獨立股權價值 700 萬、可實現綜效 180 萬、整合花 40 萬、其他風險 30 萬。忽略其他費用，買方最高合理價格約為？',['700 萬','810 萬','950 萬'],1,'700＋180－40－30＝810 萬。實際估值需另看現金流時間價值與資本結構。'],
+['公司開價 650 萬，比其他公司的 800 萬便宜，代表一定更值得買嗎？',['是，標價低就是價值高','不，還要考慮獨立價值、客戶集中、整合成本及可實現綜效','是，因為現金支付沒有機會成本'],1,'收購價是否划算必須相對於標的價值與買方增量收益判斷。'],
+['如果買方只想試用一套點餐技術，而技術能可靠授權，什麼選項可能值得比較？',['只可以買全部股份','合作或授權、自己建立與收購都可能是替代方案','一定要讓目標公司法律主體消失'],1,'Buy／Build／Ally 的比較可以在不轉移所有權的情況下取得能力。'],
+['Disney 收購 Pixar 的人才整合案例，最重要的標的選擇教訓？',['買下創意公司就可以忽略原團隊','原本互補的能力能否保留並部署到買方業務很重要','所有綜效都在簽約當日實現'],1,'Disney 在交易後安排原 Pixar 主管參與動畫業務領導，說明標的的組織人才需納入整合。'],
+['eBay 收購 Skype 後曾認列減損又出售多數股權，最合理的解讀？',['會計減損就是當年的全部現金流出','Skype 沒有任何商業價值','策略綜效可能未如預期；減損、出售價與最終現金報酬需分開判斷'],2,'eBay 後來坦承與核心電商業務綜效不足；減損不等於全部投資報酬，因出售後仍保留部分 Skype 股權。']
+];
+
 const references={
 1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Jensen & Meckling (1976), Agency Costs and Ownership Structure','https://doi.org/10.1016/0304-405X(76)90026-X'],['Microsoft (2023), acquisition completion SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm']],
 2:[['台灣企業併購法','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080041'],['Microsoft: Activision Blizzard acquisition, SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],['Jensen & Ruback (1983), The Market for Corporate Control','https://doi.org/10.1016/0304-405X(83)90004-1'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Lenovo (2014), IBM x86 server business initial closing','https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/']],
@@ -114,6 +128,25 @@ references[5]=[
 ["Oracle 2005 integration and restructuring SEC report","https://www.sec.gov/Archives/edgar/data/777676/000119312505248838/d10ka.htm"],
 ["Oracle PeopleSoft support commitment to at least 2037","https://blogs.oracle.com/peoplesoft/peoplesoft-support-extended-through-at-least-2037-long-term-confidence-continued-innovation"],
 ["Oracle PeopleTools 8.63 on-premise release (2026-10-20)","https://blogs.oracle.com/peoplesoft/peopletools-8-63-is-now-available-for-on-premises-installation"]
+];
+
+
+references[6]=[
+['Rogan & Sorenson (2014), Picking a (Poor) Partner, ASQ','https://doi.org/10.1177/0001839214531719'],
+['Ransbotham & Mitra (2010), Target Age and the Acquisition of Innovation, Management Science','https://doi.org/10.1287/mnsc.1100.1223'],
+['Capron, Dussauge & Mitchell (1998), Resource Redeployment Following Horizontal Acquisitions, SMJ','https://doi.org/10.1002/%28SICI%291097-0266%28199807%2919%3A7%3C631%3A%3AAID-SMJ963%3E3.0.CO%3B2-9'],
+['Graebner (2004), Momentum and Serendipity, SMJ','https://doi.org/10.1002/smj.419'],
+['Disney / Pixar January 2006 acquisition agreement','https://thewaltdisneycompany.com/press-releases/disney-to-acquire-pixar/'],
+['Disney / Pixar May 2006 acquisition completion','https://thewaltdisneycompany.com/press-releases/disney-completes-pixar-acquisition/'],
+['Pixar official studio history','https://www.pixar.com/our-story'],
+['Disney / Pixar 2026 film lineup','https://thewaltdisneycompany.com/news/disney-movies-theaters-spring-2026/'],
+['Salesforce / Slack 2020 agreement and deal price','https://investor.salesforce.com/news/news-details/2020/Salesforce-Signs-Definitive-Agreement-to-Acquire-Slack/default.aspx'],
+['Salesforce / Slack 2021 completion','https://www.salesforce.com/news/press-releases/2021/07/21/salesforce-slack-deal-close/'],
+['Salesforce Slackbot Jan 2026 launch','https://www.salesforce.com/news/press-releases/2026/01/13/slackbot-announcement/'],
+['Slack at Dreamforce Sept 2026','https://slack.com/blog/news/ai-powered-interface-for-work'],
+['eBay / Skype 2005 acquisition SEC Form 8-K','https://www.sec.gov/Archives/edgar/data/1065088/000095013405019311/f13541e8vk.htm'],
+['eBay / Skype 2009 majority divestiture','https://investors.ebayinc.com/investor-news/press-release-details/2009/EBay-Inc-Completes-Sale-of-Skype/default.aspx'],
+['eBay 2014 final investment and synergy commentary','https://investors.ebayinc.com/investor-news/press-release-details/2014/Statement-by-eBay-Inc-eBay-Inc-Reiterates-The-Truth-About-Skype/default.aspx']
 ];
 
 const readProgress=()=>{try{const x=JSON.parse(localStorage.getItem('ma-academy-progress-v1')||'[]');return Array.isArray(x)?x.filter(n=>Number.isInteger(n)&&n>=1&&n<=14):[]}catch{return []}};
@@ -247,12 +280,12 @@ function overview(){
  return '<div class="main-inner"><section class="hero"><div class="eyebrow">WELCOME TO M&A ACADEMY</div><h1>從零開始，真正理解<br>企業如何被收購與合併。</h1><p>14 堂系統性課程：從公司、股份與控制權開始，逐步走向真實交易、企業估值、PE Fund、LBO，以及策略管理與研究方法。</p><div class="hero-tags"><span>14 LESSONS</span><span>INTERACTIVE LEARNING</span><span>RESEARCH-BASED</span></div></section>'+
  card('你的學習路徑',div2(mini('第一階段｜01–04','核心概念','公司、股權、併購動機與交易流程'),mini('第二階段｜05–08','策略與估值','併購類型、標的選擇與收購價格'))+'<div style="height:14px"></div>'+div2(mini('第三階段｜09–12','PE 與交易實務','基金、LBO、盡職調查、整合'),mini('第四階段｜13–14','研究與實證','理論、公告事件研究與因果識別')))+
  card('生活常識與學術理論，一起學才有意義',p('保留最容易理解的咖啡店故事、名詞解釋與數字例子，再沿著同一個問題加入互動實驗、真實交易與研究機制；學術不是另一套艱深的版本，而是把直覺解釋得更深入。')+p('模擬中的金額與機率都是教學假設，與真實公司資料分開標示；不必先讀懂艱深期刊，也能學習代理問題、公司控制權與併購綜效。'))+
- '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>4?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=5?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
+ '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>4?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=6?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
 }
 function future(n){return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(summaries[n])+'</p><div class="hero-tags"><span>課綱已規劃</span><span>完整內容尚未上架</span></div></section>'+card('這堂課將學習什麼？',p(summaries[n])+call('本課次目前只有課綱，尚未提供完整教學、互動練習與測驗。')+'<p>請先閱讀第 01–04 堂已上架內容。後續新增教材時，此課次即可延伸。</p><button class="btn primary" data-go="0">返回課程總綱</button>')+'</div>'}
 function lesson(n){
  const body=(window.MA_FULL_LESSONS && window.MA_FULL_LESSONS[n]) || (n===1?lesson1():n===2?lesson2():lesson3());
- const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。';
+ const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':n===5?'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。':'比較候選標的的策略適配、資源互補、關係熟悉、價格與整合風險，做出有依據的收購選擇。';
  return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span></div></section>'+
  body+quizHtml(n)+referencesHtml(n)+
  '<div class="lesson-footer"><button type="button" class="btn" data-go="'+(n-1)+'">← 上一堂</button><button type="button" class="btn primary" id="complete-btn">'+(completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成')+'</button><button type="button" class="btn" data-go="'+(n+1)+'">下一堂 →</button></div><p class="status">完成狀態與測驗結果保留在此瀏覽器的 localStorage；跨裝置不會自動同步。</p></div>';
@@ -262,7 +295,7 @@ function render(){
  const n=Math.min(14,Math.max(0,routeFromHash()));
  document.title=(n?'第 '+String(n).padStart(2,'0')+' 堂｜'+courseTitles[n]:'課程總綱')+' · M&A Academy';
  renderNav(n);
- el('main').innerHTML=n===0?overview():n<=5?lesson(n):future(n);
+ el('main').innerHTML=n===0?overview():n<=6?lesson(n):future(n);
 
  if(n>=1&&n<=3&&window.MA_STORY_ADDITIONS&&window.MA_STORY_ADDITIONS[n]){
   const storySections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
@@ -274,6 +307,8 @@ function render(){
 
  if(n===4)el('main').querySelectorAll('.lesson4-section').forEach(s=>s.classList.add('bridge-section'));
  if(n===5)el('main').querySelectorAll('.lesson5-section').forEach(s=>s.classList.add('bridge-section'));
+ if(n===6)el('main').querySelectorAll('.lesson6-section').forEach(s=>s.classList.add('bridge-section'));
+
 
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n]){
   const originalSections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
@@ -306,7 +341,7 @@ function render(){
   });
  }
 
- if(n>=1&&n<=5){
+ if(n>=1&&n<=6){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   const toc=document.createElement('nav');
   toc.className='lesson-toc card';
@@ -319,11 +354,12 @@ function render(){
  document.querySelectorAll('[data-go],[data-open]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go??b.dataset.open))));
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
- if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=5)initQuiz(n);
+ if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=6)initQuiz(n);
  if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();
  if((n===2||n===3)&&window['MA_L'+n+'_DEEP'])window['MA_L'+n+'_DEEP'].init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
  if(n===4&&window.MA_L4_DEEP&&window.MA_L4_DEEP.init)window.MA_L4_DEEP.init();
  if(n===5&&window.MA_LESSON5&&window.MA_LESSON5.init)window.MA_LESSON5.init();
+ if(n===6&&window.MA_LESSON6&&window.MA_LESSON6.init)window.MA_LESSON6.init();
 
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
