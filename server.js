@@ -266,9 +266,18 @@ app.get("/export.csv", requireAdmin, async (req, res) => {
     }
 });
 
-initDb()
-    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
-    .catch(error => {
-        console.error("Database initialization failed:", error);
-        process.exit(1);
-    });
+// Keep read-only static resources such as /ma-course available even when
+// the registration database is temporarily unreachable.
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+async function initializeDatabaseWithRetry() {
+    try {
+        await initDb();
+        console.log("Registration database initialized.");
+    } catch (error) {
+        console.error("Registration database unavailable; static pages remain accessible:", error);
+        const retry = setTimeout(initializeDatabaseWithRetry, 30000);
+        if (typeof retry.unref === "function") retry.unref();
+    }
+}
+initializeDatabaseWithRetry();
