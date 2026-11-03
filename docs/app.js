@@ -169,7 +169,7 @@ references[7]=[
 ['Liu, Nissim & Thomas (2002), Equity Valuation Using Multiples, Journal of Accounting Research','https://doi.org/10.1111/1475-679X.00042'],
 ['Bhojraj & Lee (2002), Who Is My Peer?, Journal of Accounting Research','https://doi.org/10.1111/1475-679X.00054'],
 ['Andrade, Mitchell & Stafford (2001), New Evidence and Perspectives on Mergers, JEP','https://doi.org/10.1257/jep.15.2.103'],
-['Bromiley (1990), On the Use of Finance Theory in Strategic Management, Advances in Strategic Management Vol. 6 (book chapter)','https://onlinelibrary.wiley.com/doi/10.1111/b.9780631218616.2006.00010.x'],
+['Bromiley (1990), book chapter cited in later Wiley review (bibliographic pointer, not the original chapter)','https://onlinelibrary.wiley.com/doi/10.1111/b.9780631218616.2006.00010.x'],
 ['Microsoft 2022 offer announcement: Activision Blizzard $95 per share','https://news.microsoft.com/source/2022/01/18/microsoft-to-acquire-activision-blizzard-to-bring-the-joy-and-community-of-gaming-to-everyone-across-every-device/'],
 ['Microsoft 2023 SEC 8-K confirming Activision Blizzard closing','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],
 ['Microsoft 2026 Annual Report (Xbox revenue and gaming content)','https://www.microsoft.com/investor/reports/ar26/'],
