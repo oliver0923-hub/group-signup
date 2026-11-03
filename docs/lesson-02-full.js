@@ -87,7 +87,7 @@ window.MA_FULL_LESSONS[2] = String.raw`
 <p><strong>Jensen & Ruback（1983）</strong>在 <em>Journal of Financial Economics</em> 發表 <em>The Market for Corporate Control: The Scientific Evidence</em>，將公司收購視為管理團隊競爭取得企業資源管理權的重要市場過程。</p>
 <p>它整合當時關於收購及控制權市場的實證文獻，指出目標企業股東往往獲得正向收益，並討論收購是否創造股東價值。這是針對特定年代證據的學術結論，並不是未來每筆交易的必然結果。</p>
 <p>你可以用本堂三個結構問題連結學術研究：（1）公司控制權如何轉移？（2）控制權轉移與資產所有權移轉是否相同？（3）何種結構使收購方承接較多風險？</p>
-<p class="note">閱讀：<a href="https://doi.org/10.1016/0304-405X(83)90004-1" target="_blank" rel="noopener noreferrer">Jensen & Ruback（1983）</a>；法律背景：<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080028" target="_blank" rel="noopener noreferrer">台灣企業併購法</a>。</p>
+<p class="note">閱讀：<a href="https://doi.org/10.1016/0304-405X(83)90004-1" target="_blank" rel="noopener noreferrer">Jensen & Ruback（1983）</a>；法律背景：<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080041" target="_blank" rel="noopener noreferrer">台灣企業併購法</a>。</p>
 </div></section>
 <section class="section"><h2>十｜把自己當成買方：三個案例決策</h2><div class="card">
 <ol><li><strong>只想買品牌及配方，不想取得公司全部股份：</strong>你先考慮哪一類交易？答案：資產／營業收購可能較接近目的，但仍須查核契約移轉、勞工、許可及債務風險。</li>
