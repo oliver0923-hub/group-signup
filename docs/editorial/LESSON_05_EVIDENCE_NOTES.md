@@ -63,3 +63,29 @@
 - 所有玩法一個人就能完成；沒有分組、人數分配、討論時間或課堂主持人設定。
 - 更新 `docs/app.js`、`docs/index.html`、`docs/styles.css` 時回歸檢查第 01–04 堂。
 - 不把靜態程式碼測試當成外部瀏覽器已驗證 GitHub Pages 的證據。
+
+## 7. 第 5.10–5.12 節擴寫：背景、交易、整合與 2026 年狀況
+
+**資料截止：2026-11-03。** 以下區分公司公告與後續營運、主管機關對競爭的評估、作者的教學歸納。第 05 堂其餘章節與互動程式均未更動。
+
+| 案例 | 併購前雙方背景與交易安排 | 收購後整合機制／時間線 | 目前發展及證據限制 |
+|---|---|---|---|
+| T-Mobile × Sprint | T-Mobile（Deutsche Telekom 控制）與 Sprint（SoftBank 控制）是競爭性的美國無線電信商。2017 曾談判破局；2018-04-29 宣布全股票合併；2020-04-01 完成交割。 | 主管機關要求向 Dish 分割 Boost 等預付卡業務、部分頻譜，以及網路與通路過渡安排；合併企業將 Sprint 用戶移往 T-Mobile 網路、停用重複基地台，2022 年基本完成主要遷移。T-Mobile 在 2022 年致股東報告估計當年約 60 億美元合併綜效。 | [2026-10-28 公司第三季公告](https://www.t-mobile.com/news/business/t-mobile-q3-2026-earnings)披露服務營收約 194 億美元、淨利約 35 億美元。2025 另取得 UScellular 無線營運。**不可把 2026 年全部績效歸因於 2020 年交易**。 |
+| CVS × Aetna | CVS：藥局／Caremark PBM／診所；Aetna：醫療保險；2018-11-28 完成交易，Aetna 每股 145 美元現金加 0.8378 股 CVS 股票；約 700 億美元股權價值，含承接債務約 780 億美元。 | DOJ 要求分割 Aetna 獨立 Medicare Part D 保險計畫給 WellCare；Aetna 保留集團內獨立單位及原管理人才；CVS 推進藥局、保險與健康服務整合，2019–2020 年提出 HealthHUB 擴張目標。**目標不等於已實現門市數**。 | [CVS 2026 Q2 公告](https://investors.cvshealth.com/news/news-details/2026/CVS-HEALTH-CORPORATION-REPORTS-STRONG-SECOND-QUARTER-2026-RESULTS-AND-RAISES-FULL-YEAR-2026-GUIDANCE/default.aspx)：集團營收 1,061 億美元，Health Care Benefits 部門營收 375 億美元、調整後營業利益 24.3 億美元，MBR 87.4%，會員約 2,600 萬。**屬當期部門結果，不是收購因果效果**。 |
+| Lenovo × IBM x86 | Lenovo 2005 先收購 IBM PC 業務；2014 再收購 IBM x86 伺服器業務。2014-01 初步約 23 億美元，2014-09 調整為約 21 億，10-01 主要市場初步交割。IBM 保留大型主機、Power 等業務。 | System x 等產品、團隊與維護合約移入 Lenovo 企業業務集團，原 IBM 負責人持續管理；過渡期間保留 IBM 服務支援、OEM 及軟體儲存合作。跨境交易分法域交割。 | [Lenovo 2025/26 全年公告](https://news.lenovo.com/pressroom/press-releases/fy-2025-26/)：ISG 年營收 192 億美元、營業利益 7,300 萬美元；[2026/27 第一季公告](https://news.lenovo.com/pressroom/press-releases/q1-fy-2026-27/)：營收 85 億美元、營業利益 7.77 億美元。**ISG 不等於 2014 年單筆交易的純粹成果**。 |
+| Oracle × PeopleSoft | Oracle 資料庫／企業軟體公司；PeopleSoft 人資、財務與 ERP 軟體廠商，2003 曾買 JD Edwards。2003-06 提出未經邀請的 16 美元／股要約並遭董事會反對；2004-12-13 達成 26.50 美元／股、約 103 億美元交易；2005-01-07 完成法定合併。 | Oracle 接手產品、客戶及維護支援；2005 SEC 報告揭露公司法律實體、內部系統、職能整併與 Project Fusion 構想，重整成本估計約 5.46 億美元。 | Oracle 2026-03 [PeopleSoft 至少支援到 2037 年](https://blogs.oracle.com/peoplesoft/peoplesoft-support-extended-through-at-least-2037-long-term-confidence-continued-innovation)，2026-10 [PeopleTools 8.63 更新](https://blogs.oracle.com/peoplesoft/peopletools-8-63-is-now-available-for-on-premises-installation)。**被收購軟體沒有立即消失；不代表可推估交易 IRR**。 |
+
+### 重要一手來源
+
+- **T-Mobile／Sprint：** [2018-04-29 收購公告](https://www.t-mobile.com/news/press/5gforall)、[2020-04-01 完成交割](https://www.t-mobile.com/news/un-carrier/t-mobile-sprint-one-company)、[美國 DOJ 競爭補救](https://www.justice.gov/archives/opa/pr/court-enters-final-judgment-t-mobilesprint-transaction)、[T-Mobile 2022 年報](https://investor.t-mobile.com/static-files/e12e6af9-1a63-46ba-b987-8077a0914dfa)。
+- **CVS／Aetna：** [2018-11-28 合併完成](https://investors.cvshealth.com/news/news-details/2018/CVS-Health-Completes-Acquisition-of-Aetna-Marking-the-Start-of-Transforming-the-Consumer-Health-Experience/default.aspx)、[DOJ 要求 Medicare Part D 分割](https://www.justice.gov/archives/opa/pr/justice-department-requires-cvs-and-aetna-divest-aetna-s-medicare-individual-part-d)、[整合管理組織](https://investors.cvshealth.com/news/news-details/2018/CVS-Health-Announces-Management-Team-for-Combined-Company-Following-Close-of-Aetna-Acquisition-Transaction/default.aspx)。
+- **Lenovo／IBM：** [2014-01 原始交易](https://news.lenovo.com/pressroom/press-releases/lenovo-plans-to-acquire-ibms-x86-server-business/)、[2014-09 修正價格](https://news.lenovo.com/pressroom/press-releases/lenovo-set-to-close-acquisition-ibms-x86-server-business/)、[2014-10 初步交割](https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/)。
+- **Oracle／PeopleSoft：** [2003 目標董事會反對](https://www.sec.gov/Archives/edgar/data/777676/000089161803003025/f90771a1exv99wxayx3y.htm)、[2004-12 雙方簽約](https://www.oracle.com/corporate/pressrelease/oracle-buys-peoplesoft-121304.html)、[2005-01-07 SEC 完成交割](https://www.sec.gov/Archives/edgar/data/777676/000095010305000044/jan1005_8ka.htm)、[2005 整合計畫及重整成本](https://www.sec.gov/Archives/edgar/data/777676/000119312505248838/d10ka.htm)。
+
+### 研究判準
+
+原本公司公告預期的協同效益，是事前（ex ante）主張；後來揭露的網路關閉、會員數、營收、利潤與仍維護的產品線，是事後（ex post）觀察；**將後者當作併購直接造成的績效，需要反事實、合理比較及控制後續環境和其他交易的影響**。本堂介紹機制時可連結 Teece（1980）的企業邊界與 Schwert（2000）的敵意收購標籤，但不能宣稱這兩篇直接研究了上述每一案例。
+
+### 技術驗收
+
+原第 05 堂第 0–9、13–14 章保持原樣；第 10–12 章重新撰寫；第 01–04 堂各獨立教材和互動程式均未改動。原有分類器、邊界模型、四回合單人模擬與 10 題測驗都應維持既有行為。公開 GitHub Pages 的手機及實際瀏覽器顯示若未確認，需明確標示「未驗證」。
