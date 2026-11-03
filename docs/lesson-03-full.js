@@ -89,7 +89,7 @@ window.MA_FULL_LESSONS[3] = String.raw`
 <p>但是本案提醒我們：即使想像中硬體和軟體的結合很有道理，也可能因競爭環境、產品、市占率和組織整合等因素未能實現預期。這是<strong>宣布時的策略動機</strong>與<strong>事後的績效</strong>必須分開觀察的例子。</p>
 <p class="note">原始來源：<a href="https://news.microsoft.com/source/2015/07/08/microsoft-announces-restructuring-of-phone-hardware-business" target="_blank" rel="noopener noreferrer">Microsoft 2015-07-08 公告</a>；<a href="https://www.microsoft.com/en-us/investor/earnings/fy-2015-q4/press-release-webcast" target="_blank" rel="noopener noreferrer">Microsoft FY2015 Q4 財報公告</a>。</p>
 </div></section>
-<section class="section"><h2>九｜研究文獻：併購動機到底有哪幾類？</h2><div class="card">
+<section class="section"><h2>九｜同一場收購，為什麼每個人說的理由不一樣？</h2><div class="card">
 <h3>Trautwein（1990）, Strategic Management Journal</h3>
 <p><em>Merger Motives and Merger Prescriptions</em> 將併購動機分類成七組：效率（Efficiency）、獨占或市場力量（Monopoly）、收購者套利或掠奪（Raider）、估值（Valuation）、帝國擴張（Empire-building）、決策過程（Process）和外部擾動（Disturbance）。作者批判管理建議過度偏重「一定有綜效」的思考，而對私人資訊、管理者動機和決策過程注意不足。這是對當時研究證據的評估，不是對每一筆併購的固定判定。</p>
 <h3>Andrade, Mitchell & Stafford（2001）, Journal of Economic Perspectives</h3>
