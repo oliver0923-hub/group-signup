@@ -1,5 +1,6 @@
 # M&A Academy｜第 08 堂〈收購價格與支付方式〉學術、案例與模型驗收
 
+> **2026-11-04 教學修訂後的實際網站載入來源：** `docs/lesson-08-guided-20261104.js`（完整課文）及 `docs/lesson-08-simulations-guided-20261104.js`（互動），與更新後的 `lesson-08-full-professional-20261104.js`、`lesson-08-simulations.js` 一致。歷史描述「互動程式不變」僅適用於前一次敘事重排，不適用於本次計算導讀改版；本次已增加四步動態計算、回復及極端情境，Earn-out 新增 Cain、Denis & Denis（2011）。詳見 `docs/editorial/LESSON_07_08_PEDAGOGICAL_AUDIT_20261104.md`。
 > 更新：2026-11-04。適用 `docs/MA_Academy_Authoring_Standard_v3.md`；主教材 `docs/lesson-08-full.js`，互動 `docs/lesson-08-simulations.js`。  
 > 第 01–07 堂內容維持原狀；第 08 堂全部為單人閱讀、互動與測驗，沒有小組或分組活動。
 
