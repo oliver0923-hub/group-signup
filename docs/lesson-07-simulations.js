@@ -21,42 +21,96 @@ function dcf(fcf1,growth,wacc,terminal){
 function statementTool(){
  if(!el('l7-financial-tool'))return;
  const ids=['l7-revenue','l7-cogs','l7-capex','l7-nwc'];
- function draw(){
-   const revenue=get('l7-revenue'),cogs=get('l7-cogs'),capex=get('l7-capex'),nwc=get('l7-nwc');
-   const ebit=revenue-cogs-220,ebitda=ebit+40,net=(ebit-20)*.8,cfo=net+40-nwc,fcfe=cfo-capex,fcff=ebit*.8+40-capex-nwc;
-   ids.forEach(id=>{el(id+'-out').textContent=fmt(get(id))+' 萬'});
-   const rows=[['營收',revenue],['EBIT',ebit],['EBITDA',ebitda],['稅後淨利',net],['CFO',cfo],['FCFF',fcff],['FCFE',fcfe]];
-   el('l7-financial-results').innerHTML=rows.map(([label,value])=>'<div class="model-option"><strong>'+label+'</strong><span>'+fmt(value)+' 萬</span></div>').join('');
-   el('l7-financial-explain').innerHTML='<strong>FCFF = '+fmt(ebit)+' × 80% ＋ 40 − '+fmt(capex)+' − '+fmt(nwc)+' = '+fmt(fcff)+' 萬元。</strong><p>FCFE = CFO '+fmt(cfo)+' − CapEx '+fmt(capex)+' = '+fmt(fcfe)+' 萬元。由於本例沒有新增借還款，FCFF 與 FCFE 的差距為稅後利息 16 萬元。較高營收不保證較高自由現金：也要觀察成本、設備投資和營運資金。</p>';
+ const initial={'l7-revenue':1000,'l7-cogs':600,'l7-capex':75,'l7-nwc':25};
+ let before=null;
+ function draw(changed){
+  const revenue=get('l7-revenue'),cogs=get('l7-cogs'),capex=get('l7-capex'),nwc=get('l7-nwc');
+  const ebit=revenue-cogs-220,ebitda=ebit+40,net=(ebit-20)*.8,cfo=net+40-nwc,fcfe=cfo-capex,fcff=ebit*.8+40-capex-nwc;
+  ids.forEach(id=>el(id+'-out').textContent=fmt(get(id))+' 萬');
+  const rows=[['營收（收入，Revenue）',revenue],['EBIT（息稅前利益）',ebit],['EBITDA（未扣折舊攤銷）',ebitda],['稅後淨利（Net Income）',net],['CFO（營業現金流）',cfo],['FCFF（企業自由現金流）',fcff],['FCFE（股權自由現金流）',fcfe]];
+  el('l7-financial-results').innerHTML=rows.map(([title,value])=>'<div class="model-option"><strong>'+title+'</strong><span>'+fmt(value)+' 萬</span></div>').join('');
+  el('l7-f-current').textContent='目前情境｜營收 '+fmt(revenue)+' 萬、食材等直接成本 '+fmt(cogs)+' 萬、設備資本支出 '+fmt(capex)+' 萬、營運資金增加 '+fmt(nwc)+' 萬。所有數字均為一年度教學假設。';
+  el('l7-f-steps').innerHTML=
+   '<div class="ma-guided-step"><span>01</span><div><strong>先算營業利益（EBIT）</strong><p>'+fmt(revenue)+'（營收）－'+fmt(cogs)+'（銷貨成本）－220（固定其他營業費用）＝<strong>'+fmt(ebit)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>02</span><div><strong>估算未扣融資利息的稅後營運利益</strong><p>'+fmt(ebit)+' × (1−20%)＝<strong>'+fmt(ebit*.8)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>03</span><div><strong>計算可供全體資金提供者的 FCFF</strong><p>'+fmt(ebit*.8)+'＋40（加回折舊）－'+fmt(capex)+'（投資設備）－'+fmt(nwc)+'（營運資金占用）＝<strong>'+fmt(fcff)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>04</span><div><strong>區分股東可用的 FCFE</strong><p>'+fmt(fcff)+'－20×(1−20%)（稅後利息）＝<strong>'+fmt(fcfe)+' 萬</strong>。本題無新增借款或還本；CFO＝'+fmt(cfo)+' 萬，也不能直接當 FCFF。</p></div></div>';
+  el('l7-financial-explain').innerHTML='<strong>FCFF = '+fmt(ebit)+' × 80% ＋ 40 − '+fmt(capex)+' − '+fmt(nwc)+' = '+fmt(fcff)+' 萬元。</strong><p>FCFE = CFO '+fmt(cfo)+' − CapEx '+fmt(capex)+' = '+fmt(fcfe)+' 萬元。因為沒有新增借還款，FCFF－FCFE＝稅後利息 16 萬元；若 FCFF 為負，表示本期營運及投資現金需求超過這個企業自由現金流來源，並非算式壞掉。</p>';
+  if(before&&changed&&ids.includes(changed)){
+    const delta=fcff-before.fcff;
+    const label={'l7-revenue':'年度營收','l7-cogs':'直接銷貨成本','l7-capex':'設備資本支出','l7-nwc':'營運資金增加'}[changed];
+    const reason=changed==='l7-capex'?'你改的是支付給設備供應商的投資現金；本模型把當年的 EBIT 保持不變，因此淨利不會等額下降，但 FCFF 會下降。':changed==='l7-nwc'?'你改的是被庫存與尚未收款占用的現金；即使帳面營收不變，FCFF 也會受到影響。':changed==='l7-cogs'?'你改的是直接成本，會經由 EBIT 和所得稅連動到 FCFF。':'你改的是營收，會先經過成本、費用與所得稅，再影響 FCFF。';
+    el('l7-f-change').innerHTML='<strong>剛才改的是「'+label+'」：</strong>FCFF 相較上個情境'+(delta>0?'增加 ':delta<0?'減少 ':'不變 ')+fmt(Math.abs(delta))+' 萬元。<p>'+reason+'</p>';
+  }else if(!before)el('l7-f-change').innerHTML='<strong>從這裡開始：</strong>先試試把 CapEx 從 75 調到 125，你會看到 EBIT 不變但 FCFF 減少 50。';
+  before={revenue,cogs,capex,nwc,ebit,fcff};
  }
- ids.forEach(id=>el(id)?.addEventListener('input',draw));draw();
+ ids.forEach(id=>el(id)?.addEventListener('input',()=>draw(id)));
+ el('l7-f-reset')?.addEventListener('click',()=>{Object.entries(initial).forEach(([id,v])=>el(id).value=v);draw();el('l7-f-change').textContent='已回到年度基準假設：FCFF 84 萬，FCFE 68 萬。'});
+ el('l7-f-capex')?.addEventListener('click',()=>{el('l7-capex').value=125;draw('l7-capex')});
+ draw();
 }
 function bridgeTool(){
  if(!el('l7-bridge-tool'))return;
  const ids=['l7-ev','l7-debt','l7-cash'];
- function draw(){
+ const original={'l7-ev':480,'l7-debt':80,'l7-cash':100};
+ let previous=null;
+ function draw(changed){
   const ev=get('l7-ev'),debt=get('l7-debt'),cash=get('l7-cash'),eq=ev-debt+cash;
-  ids.forEach(id=>{el(id+'-out').textContent=fmt(get(id))+' 萬'});
-  const result=[['營運事業 EV',ev],['計息淨負債',debt-cash],['股權 Equity',eq]];
-  el('l7-bridge-results').innerHTML=result.map(([title,value])=>'<div class="model-option"><strong>'+title+'</strong><span>'+signed(value)+' 萬</span></div>').join('');
-  el('l7-bridge-explain').innerHTML='<strong>'+fmt(ev)+'（EV）－'+fmt(debt)+'（計息借款）＋'+fmt(cash)+'（可加回現金）＝'+fmt(eq)+' 萬股權價值。</strong><p>這裡只改變資本結構與非營運現金，不另外改動營運 FCFF；負的淨負債表示此簡化模型中現金超過計息借款。實際企業可能還有其他債務性項目，且部分現金不能自由移出營運。</p>';
+  ids.forEach(id=>el(id+'-out').textContent=fmt(get(id))+' 萬');
+  el('l7-bridge-results').innerHTML=[['EV（營運企業價值）',ev],['淨計息負債（債－現）',debt-cash],['Equity（股權價值）',eq]].map(([name,value])=>'<div class="model-option"><strong>'+name+'</strong><span>'+signed(value)+' 萬</span></div>').join('');
+  el('l7-b-steps').innerHTML=
+   '<div class="ma-guided-step"><span>01</span><div><strong>先看營運事業的價值</strong><p>EV ＝ <strong>'+fmt(ev)+' 萬</strong>，此處假設獨立於非營運的多餘現金。</p></div></div>'+
+   '<div class="ma-guided-step"><span>02</span><div><strong>減掉債權人應有的索取權</strong><p>'+fmt(ev)+'－'+fmt(debt)+'（計息借款）＝<strong>'+fmt(ev-debt)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>03</span><div><strong>加回真正多餘的現金</strong><p>'+fmt(ev-debt)+'＋'+fmt(cash)+'＝<strong>'+fmt(eq)+' 萬股權價值</strong>。</p></div></div>';
+  el('l7-bridge-explain').innerHTML='<strong>'+fmt(ev)+'（EV）－'+fmt(debt)+'（計息借款）＋'+fmt(cash)+'（可加回現金）＝'+fmt(eq)+' 萬股權價值。</strong><p>這是簡化的同一時點價值橋接；若部分現金必須留下來付薪水或進貨，不能直接把它都當作非營運現金加回。它也不表示向銀行借錢在所有現實情況下完全不影響 EV。</p>';
+  if(previous&&changed&&ids.includes(changed)){
+    const delta=eq-previous.eq;
+    const message=changed==='l7-debt'?'這是「銀行對公司的索取權」變多，所以 EV 固定時股東剩餘價值降低。':changed==='l7-cash'?'增加的是假設真正多餘的現金；在同一 EV 下，股東價值增加。':'營運事業自身的估計價值變了，股權價值也隨之改變。';
+    el('l7-b-change').innerHTML='<strong>你剛才改動 '+(changed==='l7-debt'?'計息借款':changed==='l7-cash'?'多餘現金':'EV')+'：</strong>股權價值'+(delta>0?'增加 ':delta<0?'減少 ':'不變 ')+fmt(Math.abs(delta))+' 萬。<p>'+message+'</p>';
+  }else if(!previous)el('l7-b-change').innerHTML='<strong>試一個反例：</strong>現金 100 萬不一定全部屬於可扣的非營運資產；若 60 萬要留下營運，請把可加回現金改為 40 萬觀察結果。';
+  previous={eq,ev,debt,cash};
  }
- ids.forEach(id=>el(id)?.addEventListener('input',draw));draw();
+ ids.forEach(id=>el(id)?.addEventListener('input',()=>draw(id)));
+ el('l7-b-reset')?.addEventListener('click',()=>{Object.entries(original).forEach(([id,v])=>el(id).value=v);draw();el('l7-b-change').textContent='已恢復 EV 480－借款 80＋多餘現金 100＝股權 500 萬。'});
+ el('l7-b-debt')?.addEventListener('click',()=>{el('l7-debt').value=160;draw('l7-debt')});
+ draw();
 }
 function dcfTool(){
  if(!el('l7-dcf-tool'))return;
  const ids=['l7-fcf1','l7-growth','l7-wacc','l7-terminal','l7-peer'];
- function draw(){
+ const original={'l7-fcf1':45,'l7-growth':3,'l7-wacc':12,'l7-terminal':2,'l7-peer':4};
+ let previous=null;
+ function draw(changed){
   const f=get('l7-fcf1'),g=get('l7-growth'),r=get('l7-wacc'),t=get('l7-terminal'),mult=get('l7-peer'),res=dcf(f,g,r,t);
-  for(const id of ids){el(id+'-out').textContent=id==='l7-fcf1'?fmt(f)+' 萬':id==='l7-peer'?mult.toFixed(1)+'×':get(id)+'%'}
+  for(const id of ids)el(id+'-out').textContent=id==='l7-fcf1'?fmt(f)+' 萬':id==='l7-peer'?mult.toFixed(1)+'×':get(id)+'%';
   if(!res){el('l7-dcf-explain').textContent='長期成長率必須低於 WACC。';return}
   const equity=res.ev-80+100,peerEv=mult*220,peerEquity=peerEv-80+100;
-  const rows=[['五年 FCFF 現值',res.pv],['終值現值',res.pvTv],['DCF 企業 EV',res.ev],['DCF 股權',equity],['倍數法股權',peerEquity]];
+  const rows=[['五年 FCFF 現值',res.pv],['終值現值',res.pvTv],['DCF 營運 EV',res.ev],['DCF 股權',equity],['同業倍數股權',peerEquity]];
   el('l7-dcf-results').innerHTML=rows.map(([name,value])=>'<div class="model-option"><strong>'+name+'</strong><span>'+fmt(value)+' 萬</span></div>').join('');
-  el('l7-dcf-explain').innerHTML='<strong>DCF 企業價值約 '+fmt(res.ev)+' 萬元；其中終值占 '+fmt(res.terminalWeight)+'%。</strong><p>DCF 股權＝EV −80（借款）＋100（本段示意全部可加回的現金）。倍數法採 220 萬 EBITDA × '+mult.toFixed(1)+' 倍取得 EV，再用相同淨負債橋接。兩者不必得出相同數字；應追問誰的假設更適合晨光。</p>';
-  el('l7-dcf-flows').innerHTML='<strong>五年現金流與現值（萬元）</strong><div class="l7-flow-list">'+res.flows.map(x=>'<div><span>第 '+x.year+' 年：FCFF '+fmt(x.fcf)+'</span><b>現值 '+fmt(x.pv)+'</b></div>').join('')+'</div><p>第 5 年末終值 '+fmt(res.tv)+' 萬，折回今天 '+fmt(res.pvTv)+' 萬。</p>';
+  el('l7-dcf-explain').innerHTML='<strong>DCF 企業價值約 '+fmt(res.ev)+' 萬元；終值折現後占 '+fmt(res.terminalWeight)+'%。</strong><p>DCF 股權＝EV −80（借款）＋100（本段教學假設全可加回的現金）。同業倍數估值：EBITDA 220 × '+mult.toFixed(1)+' 倍＝EV '+fmt(peerEv)+' 萬，再進行相同橋接。這兩條估值路徑不需要得到相同答案。</p>';
+  el('l7-dcf-flows').innerHTML='<strong>五年 FCFF 和各年的折現現值（萬元）</strong><div class="l7-flow-list">'+res.flows.map(x=>'<div><span>第 '+x.year+' 年：FCFF '+fmt(x.fcf)+'</span><b>折現現值 '+fmt(x.pv)+'</b></div>').join('')+'</div><p>第 5 年末終值 '+fmt(res.tv)+' 萬，折回今日 '+fmt(res.pvTv)+' 萬。</p>';
+  const f5=res.flows[4].fcf,f6=f5*(1+t/100),pvParts=res.flows.map(x=>x.pv).reduce((a,b)=>a+b,0);
+  el('l7-d-steps').innerHTML=
+   '<div class="ma-guided-step"><span>01</span><div><strong>第一年到第五年的企業現金流</strong><p>第一年 '+fmt(f)+' 萬、每年成長 '+fmt(g)+'%；第 5 年 FCFF＝'+fmt(f5)+' 萬。</p></div></div>'+
+   '<div class="ma-guided-step"><span>02</span><div><strong>逐年折回今天</strong><p>例如第 1 年 '+fmt(f)+' ÷(1＋'+fmt(r)+'%)＝'+fmt(res.flows[0].pv)+' 萬；把 5 個年度的現值相加＝<strong>'+fmt(pvParts)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>03</span><div><strong>第六年以後的終值</strong><p>第 6 年 FCFF＝第 5 年 '+fmt(f5)+' ×(1＋'+fmt(t)+'%)＝'+fmt(f6)+'；第 5 年末終值＝'+fmt(f6)+' ÷('+fmt(r)+'%−'+fmt(t)+'%)＝'+fmt(res.tv)+'，再折回今天＝<strong>'+fmt(res.pvTv)+' 萬</strong>。</p></div></div>'+
+   '<div class="ma-guided-step"><span>04</span><div><strong>合成 DCF EV，並和倍數法對照</strong><p>'+fmt(pvParts)+'（五年現值）＋'+fmt(res.pvTv)+'（終值現值）＝<strong>DCF EV '+fmt(res.ev)+' 萬</strong>；同業倍數法 EV＝220×'+mult.toFixed(1)+'＝'+fmt(peerEv)+' 萬。不同時要查核預測與可比較性。</p></div></div>';
+  if(previous&&changed&&ids.includes(changed)){
+    const delta=res.ev-previous.ev;
+    let remark='';
+    if(changed==='l7-peer')remark='你只調整了可比較企業的倍數，<strong>DCF EV 保持不變</strong>；這是兩種不同的估值方法。';
+    else if(changed==='l7-wacc')remark='你提高（或降低）投資人要求的報酬，同一串未來 FCFF 的今天價值會往相反方向變動。';
+    else if(changed==='l7-terminal')remark='你改的是第六年以後的永續成長假設，對終值影響特別大；此假設不是「前五年的成長率」。';
+    else if(changed==='l7-growth')remark='前五年每年 FCFF 成長路徑改變，連第五年末終值的基礎也會改變。';
+    else remark='你改的是未來第一年的正常化 FCFF，不是上一年歷史 FCFF 84 萬；所有預測期現金因此被調整。';
+    el('l7-d-change').innerHTML='<strong>你修改了 '+(changed==='l7-fcf1'?'第一年預測 FCFF':changed==='l7-growth'?'前五年成長率':changed==='l7-wacc'?'WACC':changed==='l7-terminal'?'長期成長率 g':'可比公司倍數')+'。</strong> DCF EV 相比前一組假設'+(delta>0?'增加 ':delta<0?'減少 ':'維持 ')+fmt(Math.abs(delta))+' 萬。<p>'+remark+'</p>';
+  }else if(!previous)el('l7-d-change').innerHTML='<strong>建議第一步：</strong>先只把 WACC 從 12% 調高到 14%，再恢復後只改同業倍數，比較是哪一種估值結果真的被改變。';
+  previous={ev:res.ev,peerEv,f,g,r,t,mult};
  }
- ids.forEach(id=>el(id)?.addEventListener('input',draw));draw();
+ ids.forEach(id=>el(id)?.addEventListener('input',()=>draw(id)));
+ el('l7-d-reset')?.addEventListener('click',()=>{Object.entries(original).forEach(([id,v])=>el(id).value=v);draw();el('l7-d-change').textContent='已回到 DCF 基準：FCFF₁ 45 萬、前五年 3%、WACC 12%、永續 g 2%、可比倍數 4.0。'});
+ el('l7-d-wacc')?.addEventListener('click',()=>{el('l7-wacc').value=14;draw('l7-wacc')});
+ draw();
 }
 function game(){
  const root=el('l7-journey');if(!root)return;
