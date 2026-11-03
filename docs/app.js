@@ -1,7 +1,7 @@
 'use strict';
 const courseTitles=['課程總綱與學習進度','公司、股份與股東','收購、合併與所有權','企業為什麼進行併購','併購交易如何進行','併購的主要類型','企業如何選擇收購標的','企業估值基礎','收購價格與支付方式','Private Equity Fund','Leveraged Buyout（LBO）','盡職調查與交易完成','併購後整合與績效','M&A 策略管理理論','M&A 實證研究方法'];
 const summaries=[
-'14 堂課，從零基礎一路學習到博士層級的 M&A 實證研究。',
+'14 堂課，從基礎觀念一路學習到 M&A 交易、策略與研究方法。',
 '法人、股份、股東、董事會、經理人、所有權與控制權。',
 '股權收購、資產收購、法定合併、母子公司與私有化。',
 'Buy／Build／Ally、綜效、規模經濟、併購動機與價值分配。',
@@ -22,7 +22,10 @@ const quizData={
 ['公司積欠銀行 500 萬元，已繳清股款的普通股東原則上如何負責？',['按比例償還所有欠款','不論情況均需清償','通常不會僅因股東身分負個人清償責任'],2,'有限責任是原則，仍須注意個人保證等例外。'],
 ['CEO 沒有股份，哪個敘述正確？',['仍可以受聘經營公司','不能擔任 CEO','必然控制所有股東投票權'],0,'公司管理與持股是不同身分。'],
 ['新投資人向原股東買股份，付款給原股東，通常發生什麼事？',['公司存款增加','既有股份持有人改變','公司一定發行新股'],1,'舊股交易不會因交易本身讓公司收到款項。'],
-['持股 40%，能確定擁有控制權嗎？',['一定可以','一定不可以','要看表決權、股東結構與治理安排'],2,'持股比例不是判斷控制權的唯一條件。']
+['持股 40%，能確定擁有控制權嗎？',['一定可以','一定不可以','要看表決權、股東結構與治理安排'],2,'持股比例不是判斷控制權的唯一條件。'],
+['公司用 15 萬元買了咖啡機，為什麼公司現金少了 15 萬元，卻不代表股東直接損失了 15 萬元財產？',['公司同時取得設備資產','股東已經把公司資產直接領回家','因為設備不具有任何價值'],0,'公司現金變成設備等另一種資產，不能只看銀行帳戶判斷價值。'],
+['投資人花 100 萬元認購公司新發行的 250 股，原股東一股也沒賣，持股比例為什麼仍可能下降？',['因為分母的總股數增加','因為每位原股東都收到股款','因為公司原有的股票自動消失'],0,'新股發行使股份總數增加，原股東的比例可能被稀釋。'],
+['CEO 的獎金若只按新開分店數量計算，較合理的判斷為何？',['一定會讓每家分店獲利','可能讓經理人更注意展店數量，但不保證創造價值','CEO 不可能受到獎金制度影響'],1,'獎酬制度可能改變經理人關注的指標，但不等於能確定實際行為。']
 ],
 2:[
 ['A 用一千萬元買下 B 原股東全部股份，通常由誰收款？',['B 原股東','B 公司','B 的債權人'],0,'舊股出售的對價支付給出售股份的股東。'],
@@ -140,7 +143,7 @@ h3('Microsoft × Nokia 手機業務（2014）')+p('Microsoft 希望結合手機�
 h3('Trautwein（1990）')+p('將併購動機分為效率、市場力量、估值、管理者帝國擴張、組織決策過程等多種理論，提醒我們不能只用「綜效」解釋所有併購。'))}
 function quizHtml(n){
 let items=quizData[n].map((q,i)=>'<div class="quiz-question"><fieldset><legend>'+(i+1)+'. '+esc(q[0])+'</legend>'+q[1].map((option,j)=>'<label class="answer"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+String.fromCharCode(65+j)+'. '+esc(option)+'</span></label>').join('')+'</fieldset><div id="feedback-'+i+'"></div></div>').join('');
-return card('課後理解檢查｜5 題',p('請先完成五題，再檢查解析。測驗成績會儲存於此瀏覽器。')+'<form id="quiz" novalidate>'+items+'<div class="quiz-actions"><button type="submit" class="btn primary">提交答案並查看解析</button><span class="score" id="quiz-score" aria-live="polite"></span></div></form>');
+return card('課後理解檢查｜'+quizData[n].length+' 題',p('請先完成五題，再檢查解析。測驗成績會儲存於此瀏覽器。')+'<form id="quiz" novalidate>'+items+'<div class="quiz-actions"><button type="submit" class="btn primary">提交答案並查看解析</button><span class="score" id="quiz-score" aria-live="polite"></span></div></form>');
 }
 function referencesHtml(n){return card('閱讀依據｜看完故事後再認識原始論文與公告','<div class="references">'+references[n].map((r,i)=>'<div class="refs-item"><strong>'+(i+1)+'. '+esc(r[0])+'</strong><p><a href="'+esc(r[1])+'" target="_blank" rel="noopener noreferrer">開啟來源 ↗</a></p></div>').join('')+'</div>');}
 function initShare(){
@@ -187,7 +190,7 @@ function renderNav(active){
  el('progress-fill').style.width=(completed.length/14*100)+'%';el('progress-text').textContent=completed.length+' / 14';el('progress-percent').textContent=Math.round(completed.length/14*100)+'%';
 }
 function overview(){
- return '<div class="main-inner"><section class="hero"><div class="eyebrow">WELCOME TO M&A ACADEMY</div><h1>從零開始，真正理解<br>企業如何被收購與合併。</h1><p>14 堂系統性課程：從公司、股份與控制權開始，逐步走向真實交易、企業估值、PE Fund、LBO，以及策略管理與博士研究。</p><div class="hero-tags"><span>14 LESSONS</span><span>INTERACTIVE LEARNING</span><span>RESEARCH-BASED</span></div></section>'+
+ return '<div class="main-inner"><section class="hero"><div class="eyebrow">WELCOME TO M&A ACADEMY</div><h1>從零開始，真正理解<br>企業如何被收購與合併。</h1><p>14 堂系統性課程：從公司、股份與控制權開始，逐步走向真實交易、企業估值、PE Fund、LBO，以及策略管理與研究方法。</p><div class="hero-tags"><span>14 LESSONS</span><span>INTERACTIVE LEARNING</span><span>RESEARCH-BASED</span></div></section>'+
  card('你的學習路徑',div2(mini('第一階段｜01–04','核心概念','公司、股權、併購動機與交易流程'),mini('第二階段｜05–08','策略與估值','併購類型、標的選擇與收購價格'))+'<div style="height:14px"></div>'+div2(mini('第三階段｜09–12','PE 與交易實務','基金、LBO、盡職調查、整合'),mini('第四階段｜13–14','研究與實證','理論、公告事件研究與因果識別')))+
  card('生活常識與學術理論，一起學才有意義',p('保留最容易理解的咖啡店故事、名詞解釋與數字例子，再沿著同一個問題加入互動實驗、真實交易與研究機制；學術不是另一套艱深的版本，而是把直覺解釋得更深入。')+p('模擬中的金額與機率都是教學假設，與真實公司資料分開標示；不必先讀懂艱深期刊，也能學習代理問題、公司控制權與併購綜效。'))+
  '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>4?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=4?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
@@ -196,7 +199,7 @@ function future(n){return '<div class="main-inner"><section class="hero"><div cl
 function lesson(n){
  const body=(window.MA_FULL_LESSONS && window.MA_FULL_LESSONS[n]) || (n===1?lesson1():n===2?lesson2():lesson3());
  const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。';
- return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>五題理解檢查</span></div></section>'+
+ return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span></div></section>'+
  body+quizHtml(n)+referencesHtml(n)+
  '<div class="lesson-footer"><button type="button" class="btn" data-go="'+(n-1)+'">← 上一堂</button><button type="button" class="btn primary" id="complete-btn">'+(completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成')+'</button><button type="button" class="btn" data-go="'+(n+1)+'">下一堂 →</button></div><p class="status">完成狀態與測驗結果保留在此瀏覽器的 localStorage；跨裝置不會自動同步。</p></div>';
 }
@@ -225,6 +228,14 @@ function render(){
  }
 
 
+ if(n===1&&window.MA_L1_DEEP){
+  const originals=Array.from(el('main').querySelectorAll('.main-inner > .section')).filter(section=>!section.classList.contains('bridge-section'));
+  window.MA_L1_DEEP.blocks.forEach(part=>{
+   const anchor=originals[part.after];
+   if(anchor)anchor.insertAdjacentHTML('afterend',part.html);
+  });
+ }
+
  if(n>=1&&n<=4){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   const toc=document.createElement('nav');
@@ -238,7 +249,8 @@ function render(){
  document.querySelectorAll('[data-go],[data-open]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go??b.dataset.open))));
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
- if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=4)initQuiz(n);if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
+ if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=4)initQuiz(n);
+ if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
 }
