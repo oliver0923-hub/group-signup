@@ -225,3 +225,42 @@
 .lesson8-section details.lesson8-more summary{cursor:pointer;font-weight:700;line-height:1.7}
 .lesson8-section details.lesson8-more:focus-within{outline-offset:3px}
 @media(max-width:550px){.lesson8-section .lesson8-scene{padding:12px 13px;margin-bottom:18px}.lesson8-section .lesson8-realworld{padding-top:18px}}
+
+/* Lessons 07–08 guided calculation design: concept -> derivation -> action -> interpretation. */
+.lesson7-section .lesson7-scene,
+.lesson8-section .ma-guided-current,
+.lesson7-section .ma-guided-current{background:#f2f6f4;border-left:3px solid #398a77;border-radius:0 10px 10px 0;padding:12px 15px;margin:12px 0 21px;line-height:1.85;font-size:14px}
+.lesson7-section .lesson7-scene strong{display:block;margin-bottom:4px;color:#236959;font-size:12px;letter-spacing:.025em}
+.lesson7-section .ma-guided-current,.lesson8-section .ma-guided-current{font-weight:650;color:#235649}
+.lesson7-section .ma-guided-steps,.lesson8-section .ma-guided-steps{display:grid;gap:10px;margin:16px 0 22px}
+.lesson7-section .ma-guided-step,.lesson8-section .ma-guided-step{display:flex;gap:13px;align-items:flex-start;border:1px solid #d7e6df;background:#f9fcfa;border-radius:12px;padding:13px 15px}
+.lesson7-section .ma-guided-step>span,.lesson8-section .ma-guided-step>span{background:#daeee4;color:#236958;font-size:12px;font-weight:800;display:flex;flex:0 0 28px;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-variant-numeric:tabular-nums}
+.lesson7-section .ma-guided-step>div,.lesson8-section .ma-guided-step>div{flex:1;min-width:0}
+.lesson7-section .ma-guided-step strong,.lesson8-section .ma-guided-step strong{display:block;line-height:1.6}
+.lesson7-section .ma-guided-step p,.lesson8-section .ma-guided-step p{margin:5px 0 0;line-height:1.8;font-size:13px}
+.lesson7-section .ma-guide-hint,.lesson8-section .ma-guide-hint{font-size:13px;line-height:1.8;margin:-2px 0 11px;color:#60766f}
+.lesson7-section .ma-guide-presets,.lesson8-section .ma-guide-presets{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:17px 0 19px}
+.lesson7-section .ma-guide-presets .btn,.lesson8-section .ma-guide-presets .btn{white-space:normal;text-align:center;font-size:12px;line-height:1.5}
+.lesson7-section .ma-guided-change,.lesson8-section .ma-guided-change{border-left:3px solid #bb9466;background:#fbf7f0;border-radius:0 9px 9px 0;padding:12px 14px;line-height:1.8;font-size:13px;margin:12px 0 18px}
+.lesson7-section .ma-guided-change p,.lesson8-section .ma-guided-change p{margin:4px 0 0}
+.lesson7-section .ma-guide-task,.lesson8-section .ma-guide-task{background:#f6f7f8;border:1px solid #dde3e6;padding:13px 16px;border-radius:11px;margin:18px 0 21px;line-height:1.85;font-size:13px}
+.lesson7-section .ma-guide-task p,.lesson8-section .ma-guide-task p{margin:6px 0}
+.lesson8-section .ma-guide-timeline,.lesson7-section .ma-guide-timeline{display:flex;align-items:stretch;gap:10px;margin:16px 0 19px}
+.lesson8-section .ma-guide-moment,.lesson7-section .ma-guide-moment{flex:1;min-width:0;background:#f2f7f4;border:1px solid #dce8df;border-radius:11px;padding:14px}
+.lesson8-section .ma-guide-moment strong,.lesson7-section .ma-guide-moment strong{display:block;font-size:14px;line-height:1.65}
+.lesson8-section .ma-guide-moment p,.lesson7-section .ma-guide-moment p{margin:7px 0 0;line-height:1.75;font-size:12px}
+.lesson8-section .ma-guide-step-tag,.lesson7-section .ma-guide-step-tag{display:block;color:#407564;font-size:12px;font-weight:750;margin-bottom:9px}
+.lesson8-section .ma-guide-arrow,.lesson7-section .ma-guide-arrow{align-self:center;color:#547665;font-size:23px;font-weight:800}
+.lesson8-section .ma-guide-check{border:1px solid #d9e4dd;border-radius:9px;padding:15px;margin-top:13px}
+.lesson8-section .ma-guide-check legend{font-size:13px;font-weight:750;padding:0 7px}
+.lesson8-section .ma-guide-check label{display:block;margin:10px 0;cursor:pointer;font-size:13px;line-height:1.65}
+.lesson8-section .ma-guide-check input{margin:0 6px 0 0;vertical-align:middle;accent-color:#238970}
+.lesson8-section #l8-e-check-feedback{margin:11px 0;line-height:1.8;font-size:13px}
+.lesson7-section .model-result,.lesson8-section .model-result{overflow-wrap:anywhere}
+@media(max-width:640px){
+ .lesson7-section .ma-guide-timeline,.lesson8-section .ma-guide-timeline{flex-direction:column}
+ .lesson7-section .ma-guide-arrow,.lesson8-section .ma-guide-arrow{transform:rotate(90deg)}
+ .lesson7-section .ma-guided-step,.lesson8-section .ma-guided-step{padding:11px 12px;gap:10px}
+ .lesson7-section .ma-guide-presets .btn,.lesson8-section .ma-guide-presets .btn{flex:1}
+ .lesson7-section .lesson7-scene{padding:11px 13px}
+}
