@@ -35,13 +35,54 @@ function pay(){
 function earnout(){
  if(!el('l8-earnout-tool'))return;
  const ids=['l8-upfront','l8-contingent','l8-prob','l8-discount'];
- const draw=()=>{
-  const upfront=val('l8-upfront'),extra=val('l8-contingent'),prob=val('l8-prob')/100,r=val('l8-discount')/100,pv=prob*extra/(1+r),expected=upfront+pv;
+ const original={'l8-upfront':520,'l8-contingent':40,'l8-prob':60,'l8-discount':10};
+ let previous=null;
+ function draw(changed){
+  const upfront=val('l8-upfront'),extra=val('l8-contingent'),prob=val('l8-prob')/100,r=val('l8-discount')/100;
+  const future=prob*extra,pv=future/(1+r),expected=upfront+pv,nominal=upfront+extra,undiscounted=upfront+future;
   ids.forEach(id=>el(id+'-out').textContent=id==='l8-prob'||id==='l8-discount'?val(id)+'%':fmt(val(id))+' 萬');
-  cards('l8-earnout-results',[['現在確定的約定價款',fmt(upfront)+' 萬'],['名目最高總額',fmt(upfront+extra)+' 萬'],['一年後額外對價預期現值',fmt(pv)+' 萬'],['全部預期對價現值',fmt(expected)+' 萬']]);
-  el('l8-earnout-explain').innerHTML='<strong>估算：'+fmt(upfront)+'＋('+fmt(prob*100)+'% × '+fmt(extra)+') ÷(1＋'+fmt(r*100)+'%)＝'+fmt(expected)+' 萬。</strong><p>多寫「最高可得 '+fmt(upfront+extra)+' 萬」不能當作今天已收到這筆錢。真正支付仍取決於合約、達標指標、績效認定與雙方義務；模型採單一年期、單一風險調整折現率。</p>';
+  el('l8-earnout-current').textContent='你目前的情境｜交割時固定付 '+fmt(upfront)+' 萬；一年後達標再付 '+fmt(extra)+' 萬；預估達標機率 '+fmt(prob*100)+'%；示意折現率 '+fmt(r*100)+'%。'+(upfront!==520||extra!==40||prob!==.6||r!==.1?'（這是你已修改的情境，不是上方故事的起始條件。）':'（與上方故事起始條件相同。）');
+  cards('l8-earnout-results',[
+   ['① 交割時固定付款',fmt(upfront)+' 萬'],
+   ['② 達標情況名目最高價',fmt(nominal)+' 萬'],
+   ['③ 未折現的期望總額',fmt(undiscounted)+' 萬'],
+   ['④ 折現後的期望現值',fmt(expected)+' 萬']
+  ]);
+  el('l8-earnout-steps').innerHTML=
+   '<div class="ma-guided-step"><span>01</span><div><strong>交割時固定支付</strong><p>'+fmt(upfront)+' 萬：在本例交割完成的前提下，這部分與明年續約是否達標無關。</p></div></div>'+
+   '<div class="ma-guided-step"><span>02</span><div><strong>一年後額外付款的期望金額</strong><p>'+fmt(extra)+' 萬 × '+fmt(prob*100)+'% ＋ 0 萬 × '+fmt(100-prob*100)+'% ＝ <strong>'+fmt(future)+' 萬</strong>。這是統計意義上的期望，不是約定實際支付 '+fmt(future)+' 萬。</p></div></div>'+
+   '<div class="ma-guided-step"><span>03</span><div><strong>把一年後的期望金額折回今天</strong><p>'+fmt(future)+' ÷ (1＋'+fmt(r*100)+'%) ＝ <strong>'+fmt(pv)+' 萬</strong>。折現率只影響不同時間點金額的比較，不會修改合約所寫的名目付款額。</p></div></div>'+
+   '<div class="ma-guided-step"><span>04</span><div><strong>兩筆現值相加</strong><p>'+fmt(upfront)+' ＋ '+fmt(pv)+' ＝ <strong>'+fmt(expected)+' 萬</strong>。與最高名目 '+fmt(nominal)+' 萬不同，因為績效不一定達標，而且部分付款要等一年。</p></div></div>';
+  el('l8-earnout-explain').innerHTML='<strong>完整驗算：'+fmt(upfront)+'＋('+fmt(prob*100)+'% × '+fmt(extra)+') ÷(1＋'+fmt(r*100)+'%)＝'+fmt(expected)+' 萬。</strong><p>若不折現，期望總額是 '+fmt(upfront)+'＋'+fmt(future)+'＝'+fmt(undiscounted)+' 萬；「成功時才可能拿到」的最高名目總額是 '+fmt(nominal)+' 萬。這四個數字都有不同用途。</p>';
+  const labels={'l8-upfront':'交割時固定價款','l8-contingent':'未來達標追加價款','l8-prob':'達標機率','l8-discount':'折現率'};
+  if(previous&&changed&&Object.prototype.hasOwnProperty.call(labels,changed)){
+   const del=expected-previous.expected;
+   const explanation=changed==='l8-upfront'?'這次改的是「不論是否達標都會支付」的部分，明年成功機率沒有因此變化。':
+      changed==='l8-contingent'?'這次改的是「達標後能再拿多少」，沒有改變交割日固定付款。':
+      changed==='l8-prob'?'你改變的是預期達標可能性；最高名目價格與固定付款保持不變。':
+      '你改變了把未來金額換成今天價值的假設；交割價款、名目最高額與達標機率不變。';
+   el('l8-earnout-change').innerHTML='<strong>你剛剛調整了「'+labels[changed]+'」：</strong>折現後期望現值較上個情境 '+(del>0?'增加 ':del<0?'減少 ':'維持 ')+fmt(Math.abs(del))+' 萬元。<p>'+explanation+'</p>';
+  }else if(!previous)el('l8-earnout-change').innerHTML='<strong>操作建議：</strong>先調整達標機率，再改折現率。觀察「最高名目價」與「期望現值」是否都一起變化。';
+  previous={upfront,extra,prob,r,expected};
+ }
+ ids.forEach(id=>el(id)?.addEventListener('input',()=>draw(id)));
+ const setPreset=(id,updates)=>{
+  el(id)?.addEventListener('click',()=>{
+   Object.keys(updates).forEach(k=>{el(k).value=updates[k]});
+   draw(Object.keys(updates).length===4?'l8-upfront':'l8-prob');
+   if(id==='l8-e-reset')el('l8-earnout-change').innerHTML='<strong>已回到故事起始條件：</strong>交割時固定 520 萬、達標追加 40 萬、達標機率 60%、折現率 10%。';
+  });
  };
- ids.forEach(id=>el(id)?.addEventListener('input',draw));draw();
+ setPreset('l8-e-reset',original);
+ setPreset('l8-e-fail',{'l8-prob':0});
+ setPreset('l8-e-success',{'l8-prob':100});
+ el('l8-e-check-button')?.addEventListener('click',()=>{
+  const checked=el('l8-earnout-tool').querySelector('input[name="l8-earnout-check"]:checked');
+  el('l8-e-check-feedback').innerHTML=!checked?'請先選一個答案。':checked.value==='b'?
+  '<strong>答對了。</strong>改動達標機率只影響未來條件付款的期望值與其現值，不影響交割時原本約定的固定付款。':
+  '<strong>再想想：</strong>機率是用來加權未來「達標／未達標」的兩種結果；哪筆付款根本不用等明年結果？';
+ });
+ draw(null);
 }
 function scenario(){
  const root=el('l8-journey');if(!root)return;
