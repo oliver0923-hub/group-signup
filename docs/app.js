@@ -179,6 +179,7 @@ references[6]=[
 
 
 references[7]=[
+['CFA Institute (2026), Free Cash Flow Valuation: FCFF, FCFE, EBIT, WACC and terminal value definitions','https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/free-cash-flow-valuation'],
 ['Kaplan & Ruback (1995), The Valuation of Cash Flow Forecasts, Journal of Finance','https://doi.org/10.1111/j.1540-6261.1995.tb04050.x'],
 ['Liu, Nissim & Thomas (2002), Equity Valuation Using Multiples, Journal of Accounting Research','https://doi.org/10.1111/1475-679X.00042'],
 ['Bhojraj & Lee (2002), Who Is My Peer?, Journal of Accounting Research','https://doi.org/10.1111/1475-679X.00054'],
@@ -195,6 +196,7 @@ references[7]=[
 
 
 references[8]=[
+['Cain, Denis & Denis (2011), Earnouts: A Study of Financial Contracting in Acquisition Agreements, Journal of Accounting and Economics','https://doi.org/10.1016/j.jacceco.2010.05.001'],
 ['Jensen & Ruback (1983), The Market for Corporate Control, Journal of Financial Economics','https://doi.org/10.1016/0304-405X(83)90004-1'],
 ['Andrade, Mitchell & Stafford (2001), New Evidence and Perspectives on Mergers, JEP','https://doi.org/10.1257/jep.15.2.103'],
 ['Travlos (1987), Corporate Takeover Bids, Methods of Payment and Bidding Firms Stock Returns, Journal of Finance','https://doi.org/10.1111/j.1540-6261.1987.tb03921.x'],
@@ -349,7 +351,7 @@ function future(n){return '<div class="main-inner"><section class="hero"><div cl
 function lesson(n){
  const body=(window.MA_FULL_LESSONS && window.MA_FULL_LESSONS[n]) || (n===1?lesson1():n===2?lesson2():lesson3());
  const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':n===5?'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。':n===6?'比較候選標的的策略適配、資源互補、關係熟悉、價格與整合風險，做出有依據的收購選擇。':n===7?'從三大財報、自由現金流、EV／股權價值、估值倍數到五年 DCF，理解價格與價值。':'認識收購溢價、議價區間、綜效分配、現金與股票支付及契約上的風險安排。';
- return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span>'+(n===8&&window.MA_LESSON8_REVISION?'<span>'+esc(window.MA_LESSON8_REVISION)+'</span>':'')+'</div></section>'+
+ return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / 14 · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span>'+(n===7&&window.MA_LESSON7_REVISION?'<span>'+esc(window.MA_LESSON7_REVISION)+'</span>':n===8&&window.MA_LESSON8_REVISION?'<span>'+esc(window.MA_LESSON8_REVISION)+'</span>':'')+'</div></section>'+
  body+quizHtml(n)+referencesHtml(n)+
  '<div class="lesson-footer"><button type="button" class="btn" data-go="'+(n-1)+'">← 上一堂</button><button type="button" class="btn primary" id="complete-btn">'+(completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成')+'</button><button type="button" class="btn" data-go="'+(n+1)+'">下一堂 →</button></div><p class="status">完成狀態與測驗結果保留在此瀏覽器的 localStorage；跨裝置不會自動同步。</p></div>';
 }
