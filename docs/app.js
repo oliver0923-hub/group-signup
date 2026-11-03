@@ -49,7 +49,7 @@ quizData[4]=[
 ['Adobe 與 Figma 宣布收購但未完成，最能說明什麼？',['所有收購都會失敗','監管核准可能使已簽約交易終止','企業宣布收購即成為股東'],1,'簽約不代表已交割，監管障礙可能影響交易是否完成。']
 ];
 const references={
-1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037']],
+1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Jensen & Meckling (1976), Agency Costs and Ownership Structure','https://doi.org/10.1016/0304-405X(76)90026-X'],['Microsoft (2023), acquisition completion SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm']],
 2:[['台灣企業併購法','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080028'],['Microsoft: Activision Blizzard acquisition, SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],['Jensen & Ruback (1983), The Market for Corporate Control','https://doi.org/10.1016/0304-405X(83)90004-1']],
 3:[['Andrade, Mitchell & Stafford (2001), New Evidence and Perspectives on Mergers','https://doi.org/10.1257/jep.15.2.103'],['Trautwein (1990), Merger Motives and Merger Prescriptions','https://doi.org/10.1002/smj.4250110404'],['Jensen (1986), Agency Costs of Free Cash Flow','https://www.jstor.org/stable/1818789'],['Roll (1986), The Hubris Hypothesis of Corporate Takeovers','https://doi.org/10.1086/296325'],['Disney and Pixar acquisition announcement (2006)','https://thewaltdisneycompany.com/press-releases/disney-to-acquire-pixar/'],['Microsoft Nokia restructuring (2015)','https://news.microsoft.com/source/2015/07/08/microsoft-announces-restructuring-of-phone-hardware-business']]
 };
@@ -176,10 +176,10 @@ function initQuiz(n){
  form.addEventListener('submit',e=>{
  e.preventDefault();
  const chosen=quizData[n].map((q,i)=>{const checked=form.querySelector('input[name="q'+i+'"]:checked');return checked?Number(checked.value):null});
- if(chosen.some(x=>x===null)){el('quiz-score').textContent='請先完成全部 5 題。';return}
+ if(chosen.some(x=>x===null)){el('quiz-score').textContent='請先完成全部 '+quizData[n].length+' 題。';return}
  const score=chosen.filter((v,i)=>v===quizData[n][i][2]).length;
  chosen.forEach((v,i)=>{const q=quizData[n][i],ok=v===q[2];el('feedback-'+i).innerHTML='<div class="feedback '+(ok?'':'bad')+'">'+(ok?'✓ 正確':'答案：'+String.fromCharCode(65+q[2]))+'。'+esc(q[3])+'</div>'});
- el('quiz-score').textContent='得分：'+score+' / 5'+(score===5?' · 已掌握本堂核心觀念':' · 可以依解析再複習');
+ el('quiz-score').textContent='得分：'+score+' / '+quizData[n].length+(score===quizData[n].length?' · 已掌握本堂核心觀念':' · 可以依解析再複習');
  try{localStorage.setItem('ma-academy-quiz-'+n,JSON.stringify({score,completedAt:new Date().toISOString()}))}catch{}
  });
 }
