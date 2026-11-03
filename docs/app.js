@@ -32,14 +32,20 @@ const quizData={
 ['A 只購買 B 某事業部的設備、技術與營業資產。',['B 必然消滅','A 必然取得全部股份','B 可繼續存在'],2,'資產交易不等於買下公司法人。'],
 ['A 吸收合併 B，A 存續、B 消滅，B 的權利義務原則上如何處理？',['全部消失','由 A 概括承受','由 B 原股東自行承受'],1,'法定合併與單純資產交易的結構不同。'],
 ['Microsoft 收購 Activision Blizzard 的結構為何？',['兩家公司都消滅','Activision Blizzard 存續為子公司','只買幾款遊戲商標'],1,'交易採反向三角合併的架構。'],
-['上市公司完成私有化後？',['必須停業','員工必須離職','可能繼續營業，但不再公開交易'],2,'私有化不同於解散。']
+['上市公司完成私有化後？',['必須停業','員工必須離職','可能繼續營業，但不再公開交易'],2,'私有化不同於解散。'],
+['你出售自己持有的晨光咖啡舊股，哪個說法最精確？',['晨光咖啡必然增加相同金額的資本','只有公司的股東可能換人，舊股款是原出售股東收到','咖啡店的設備會直接變成買方公司資產'],1,'股權收購交易與公司發行新股不同。'],
+['星河持有 60% 同權普通股，能保證通過公司每一項重大決議嗎？',['可以，超過 50% 就不需要其他程序','不可以，仍須依事項檢查股東會、董事會及特別決議門檻','只要有 CEO 同意就可以'],1,'取得過半股份通常代表重要影響，但不同公司法定程序可能有較高門檻。'],
+['Jensen 與 Ruback（1983）的公司控制權市場，可以用哪個白話問題理解？',['為什麼不同管理團隊可能競爭取得管理公司資源的權利','為什麼每一筆併購都一定成功','為什麼資產收購絕對沒有風險'],0,'研究討論控制權交易及股東價值，不能從中推出每筆交易保證成功。']
 ],
 3:[
 ['為何進入新市場可能選擇收購而非自行設立業務？',['一定更便宜','較快取得現有資源與市場基礎','完全沒有整合風險'],1,'收購可能加速進入，但通常需承擔收購溢價與整合風險。'],
 ['A 價值 100、B 價值 50、合併後 180，綜效是多少？',['30','50','180'],0,'180 − 100 − 50 = 30。'],
 ['哪項是成本綜效？',['增加海外客戶','合併採購降低單位成本','支付更高收購價格'],1,'共同採購可以減少成本。'],
 ['CEO 為擴大自己管理的規模而從事低報酬收購？',['規模經濟','營收綜效','Empire Building'],2,'這是代理問題的一種可能表現。'],
-['有綜效仍可能讓買方股東受損，主要因為？',['收購價格可能過高','有綜效就必然獲利','股權收購不改變控制權'],0,'綜效的好處可能全被出售價格吸收。']
+['有綜效仍可能讓買方股東受損，主要因為？',['收購價格可能過高','有綜效就必然獲利','股權收購不改變控制權'],0,'綜效的好處可能全被出售價格吸收。'],
+['目標公司獨立價值 100 萬、綜效 40 萬、整合成本 10 萬，買方以 140 萬收購。忽略其他條件，買方淨價值是多少？',['+10 萬','0 萬','−10 萬'],2,'100 + 40 − 10 − 140 = −10 萬；有綜效仍可能因出價過高而不划算。'],
+['CEO 有大量可支配現金但缺乏高報酬投資機會，仍持續以昂貴價格收購。這最適合拿來檢查什麼可能機制？',['Jensen（1986）的自由現金流代理問題','所有收購一定有規模經濟','法律上公司必須私有化'],0,'自由現金流與管理者誘因可能導致過度投資；但這個故事本身仍不足以證明自利。'],
+['某公司收購擁有很強研發能力的團隊，但主要工程師離職。哪個判斷比較合理？',['買到專利就必然保有全部創新能力','預期資源互補綜效可能因人才流失受損','取得股權後不需要整合'],1,'法律上取得企業，與有效保留組織知識及人才是兩回事。']
 ]};
 quizData[4]=[
 ['在股權收購中，買方支付價款購買原股東的舊股，通常是誰收到錢？',['目標公司','出售股份的原股東','收購方的顧問'],1,'舊股轉讓的價款支付給原股東；公司本身不會直接收到該款項。'],
@@ -50,7 +56,7 @@ quizData[4]=[
 ];
 const references={
 1:[['SEC Investor.gov — Stocks','https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks'],['台灣公司法（法規檢索）','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080001'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Jensen & Meckling (1976), Agency Costs and Ownership Structure','https://doi.org/10.1016/0304-405X(76)90026-X'],['Microsoft (2023), acquisition completion SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm']],
-2:[['台灣企業併購法','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080028'],['Microsoft: Activision Blizzard acquisition, SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],['Jensen & Ruback (1983), The Market for Corporate Control','https://doi.org/10.1016/0304-405X(83)90004-1']],
+2:[['台灣企業併購法','https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080041'],['Microsoft: Activision Blizzard acquisition, SEC 8-K','https://www.sec.gov/Archives/edgar/data/789019/000119312523255762/d537928d8k.htm'],['Jensen & Ruback (1983), The Market for Corporate Control','https://doi.org/10.1016/0304-405X(83)90004-1'],['Fama & Jensen (1983), Separation of Ownership and Control','https://doi.org/10.1086/467037'],['Lenovo (2014), IBM x86 server business initial closing','https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/']],
 3:[['Andrade, Mitchell & Stafford (2001), New Evidence and Perspectives on Mergers','https://doi.org/10.1257/jep.15.2.103'],['Trautwein (1990), Merger Motives and Merger Prescriptions','https://doi.org/10.1002/smj.4250110404'],['Jensen (1986), Agency Costs of Free Cash Flow','https://www.jstor.org/stable/1818789'],['Roll (1986), The Hubris Hypothesis of Corporate Takeovers','https://doi.org/10.1086/296325'],['Disney and Pixar acquisition announcement (2006)','https://thewaltdisneycompany.com/press-releases/disney-to-acquire-pixar/'],['Microsoft Nokia restructuring (2015)','https://news.microsoft.com/source/2015/07/08/microsoft-announces-restructuring-of-phone-hardware-business']]
 };
 references[4]=[
