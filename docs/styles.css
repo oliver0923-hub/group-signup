@@ -140,3 +140,20 @@
 .lesson4-section .deep-scene .deep-choice{line-height:1.6}
 .lesson4-section .deep-scene .deep-fieldset{margin-top:19px}
 @media(max-width:560px){.lesson4-section .deep-stats b.small-b,.l4-deep .deep-stats b.small-b{font-size:13px}}
+
+/* Lesson 05 uses existing readable chapter, research and multi-round decision components. */
+.lesson5-section .deep-stats b.small-b{font-size:15px;line-height:1.5;white-space:normal;overflow-wrap:anywhere;letter-spacing:0}
+.lesson5-section .deep-stats>div{min-width:0}
+.lesson5-section .deep-context,.lesson5-section .deep-feedback{line-height:1.8}
+.lesson5-section .model-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.lesson5-section .model-option{background:#f2f7f5;border:1px solid #d7e6de;border-radius:10px;padding:12px;min-width:0}
+.lesson5-section .model-option.winner{border-color:#62ad8d;background:#e4f5e9}
+.lesson5-section .model-option strong{font-size:13px;display:block}
+.lesson5-section .model-option>span{font-size:20px;font-weight:800;display:block;margin:6px 0;color:#20584c}
+.lesson5-section .model-meter{height:6px;background:#cfdfd8;overflow:hidden;border-radius:99px}
+.lesson5-section .model-meter span{display:block;background:#37947b;height:100%}
+.lesson5-section .controls input[type=range]{display:block;width:100%;accent-color:#168c73;margin:5px 0 18px}
+.lesson5-section .controls output{font-weight:800;color:#176e60}
+.lesson5-section .controls select{font:inherit;display:block;width:100%;padding:11px;border-radius:9px;border:1px solid #b9d1c8;background:#fff;color:#284f4b;margin:8px 0 16px;font-size:13px}
+.lesson5-section .controls select:focus-visible,.lesson5-section .controls input:focus-visible{outline:3px solid #e2b56b;outline-offset:2px}
+@media(max-width:570px){.lesson5-section .deep-stats b.small-b{font-size:13px}.lesson5-section .model-values{grid-template-columns:1fr}.lesson5-section .model-option>span{font-size:19px}}
