@@ -103,7 +103,17 @@ references[5]=[
 ['US DOJ, CVS / Aetna Medicare Part D remedy (2018)','https://www.justice.gov/archives/opa/pr/justice-department-requires-cvs-and-aetna-divest-aetna-s-medicare-individual-part-d'],
 ['Lenovo / IBM x86 server business initial closing (2014)','https://news.lenovo.com/pressroom/press-releases/lenovo-completes-initial-closing-for-acquisition-of-ibms-x86-server-business/'],
 ['Oracle / PeopleSoft negotiated merger agreement (2004)','https://www.oracle.com/corporate/pressrelease/oracle-buys-peoplesoft-121304.html'],
-['Oracle / PeopleSoft SEC tender offer closing announcement (2005)','https://www.sec.gov/Archives/edgar/data/875570/000119312505003124/dex99a5clxlxi.htm']
+['Oracle / PeopleSoft SEC tender offer closing announcement (2005)','https://www.sec.gov/Archives/edgar/data/875570/000119312505003124/dex99a5clxlxi.htm'],
+["T-Mobile 2022 annual integration report, customer migration and merger synergies","https://investor.t-mobile.com/static-files/e12e6af9-1a63-46ba-b987-8077a0914dfa"],
+["T-Mobile fiscal Q3 2026 earnings (2026-10-28)","https://www.t-mobile.com/news/business/t-mobile-q3-2026-earnings"],
+["CVS 2018 Aetna combined company management structure","https://investors.cvshealth.com/news/news-details/2018/CVS-Health-Announces-Management-Team-for-Combined-Company-Following-Close-of-Aetna-Acquisition-Transaction/default.aspx"],
+["CVS 2026 Q2 financial and Aetna segment results","https://investors.cvshealth.com/news/news-details/2026/CVS-HEALTH-CORPORATION-REPORTS-STRONG-SECOND-QUARTER-2026-RESULTS-AND-RAISES-FULL-YEAR-2026-GUIDANCE/default.aspx"],
+["Lenovo 2014 initial x86 acquisition rationale and business boundaries","https://news.lenovo.com/pressroom/press-releases/lenovo-plans-to-acquire-ibms-x86-server-business/"],
+["Lenovo 2025/26 full-year ISG results","https://news.lenovo.com/pressroom/press-releases/fy-2025-26/"],
+["Lenovo 2026/27 fiscal Q1 ISG results","https://news.lenovo.com/pressroom/press-releases/q1-fy-2026-27/"],
+["Oracle 2005 integration and restructuring SEC report","https://www.sec.gov/Archives/edgar/data/777676/000119312505248838/d10ka.htm"],
+["Oracle PeopleSoft support commitment to at least 2037","https://blogs.oracle.com/peoplesoft/peoplesoft-support-extended-through-at-least-2037-long-term-confidence-continued-innovation"],
+["Oracle PeopleTools 8.63 on-premise release (2026-10-20)","https://blogs.oracle.com/peoplesoft/peopletools-8-63-is-now-available-for-on-premises-installation"]
 ];
 
 const readProgress=()=>{try{const x=JSON.parse(localStorage.getItem('ma-academy-progress-v1')||'[]');return Array.isArray(x)?x.filter(n=>Number.isInteger(n)&&n>=1&&n<=14):[]}catch{return []}};
