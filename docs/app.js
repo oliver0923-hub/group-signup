@@ -236,6 +236,12 @@ function render(){
   });
  }
 
+ if((n===2||n===3)&&window['MA_L'+n+'_DEEP']){
+  const deep=window['MA_L'+n+'_DEEP'];
+  const sectionsBeforeDeep=Array.from(el('main').querySelectorAll('.main-inner > .section')).filter(section=>!section.classList.contains('bridge-section'));
+  deep.blocks.forEach(part=>{const target=sectionsBeforeDeep[part.after];if(target)target.insertAdjacentHTML('afterend',part.html)});
+ }
+
  if(n>=1&&n<=4){
   const sections=Array.from(el('main').querySelectorAll('.main-inner > .section'));
   const toc=document.createElement('nav');
@@ -250,7 +256,8 @@ function render(){
  const mark=el('complete-btn');
  if(mark)mark.addEventListener('click',()=>{completed=completed.includes(n)?completed.filter(x=>x!==n):[...completed,n].sort((a,b)=>a-b);saveProgress();renderNav(n);mark.textContent=completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成'});
  if(n===1)initShare();if(n===2)initControl();if(n===3)initPrice();if(n>=1&&n<=4)initQuiz(n);
- if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
+ if(n===1&&window.MA_L1_DEEP)window.MA_L1_DEEP.init();
+ if((n===2||n===3)&&window['MA_L'+n+'_DEEP'])window['MA_L'+n+'_DEEP'].init();if(n===4&&window.MA_LESSON4_INIT)window.MA_LESSON4_INIT();
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
 }
