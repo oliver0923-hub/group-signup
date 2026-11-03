@@ -78,3 +78,46 @@
 .think-detail p{margin:0;line-height:1.8;font-size:13px}
 .think-detail:focus-within{outline:2px solid #92c9b4;outline-offset:2px}
 @media(max-width:620px){.story-extension{padding:16px 14px}.learning-pair{grid-template-columns:1fr;gap:1px}.learning-pair .pair-arrow{text-align:center;line-height:1.3;transform:rotate(90deg)}}
+
+/* Lesson 01: progressive three-round decision narratives */
+.deep-section{scroll-margin-top:25px}
+.deep-section>h2{line-height:1.45}
+.deep-section>.card{border-color:#c4dcd1}
+.deep-section .card>p{line-height:1.95}
+.deep-game{border:1px solid #b9d7ca;background:#f5faf6;border-radius:14px;overflow:hidden;margin:22px 0 12px}
+.deep-progress{display:flex;align-items:center;gap:12px;background:#e8f3ec;border-bottom:1px solid #c7ded1;padding:13px 19px;font-size:11px;color:#376b56;font-weight:850;letter-spacing:.35px}
+.deep-progress-track{height:7px;min-width:65px;flex:1;background:#ceded4;border-radius:99px;overflow:hidden}
+.deep-progress-track i{display:block;height:100%;background:#368c6a;transition:width .2s ease}
+.deep-scene{padding:20px 23px 25px}
+.deep-scene-date{font-size:11px!important;color:#498c70!important;font-weight:850;letter-spacing:.9px;text-transform:uppercase}
+.deep-scene h3{font-size:18px;line-height:1.55;margin:10px 0 12px}
+.deep-scene p{line-height:1.86;color:#37594d;margin:9px 0 16px;font-size:14px}
+.deep-context{border-left:3px solid #83b5a1;background:#eaf5ed;padding:11px 15px;color:#376550;font-size:13px;border-radius:6px;margin:16px 0}
+.deep-fieldset{border:0;min-width:0;margin:20px 0 0;padding:0}
+.deep-fieldset legend{font-weight:800;color:#26483e;font-size:14px;margin-bottom:11px}
+.deep-choice{display:flex;position:relative;align-items:flex-start;gap:12px;border:1px solid #d6e6dd;background:#fff;border-radius:10px;padding:13px 15px;margin:8px 0;cursor:pointer;transition:border-color .15s,background .15s}
+.deep-choice:hover{border-color:#78af94}
+.deep-choice.chosen{background:#e6f4ec;border-color:#348a64;box-shadow:inset 3px 0 #348a64}
+.deep-choice input{position:relative;width:17px;height:17px;margin:3px 0 0;flex-shrink:0;accent-color:#287c5a}
+.deep-choice-dot{display:none}
+.deep-choice>span:last-child{display:block;flex:1}
+.deep-choice strong{display:block;color:#23463b;font-size:13px;line-height:1.6}
+.deep-choice small{display:block;color:#6d8579;font-size:12px;line-height:1.6;margin-top:2px}
+.deep-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:22px;border-top:1px solid #d9e9df;padding-top:16px}
+.deep-action-note{color:#73877b;font-size:11px;flex:1;text-align:center}
+.deep-actions .btn{font-size:12px}
+.deep-feedback{border-radius:9px;padding:13px 15px;margin:11px 0;background:#fff;border:1px solid #d8e5dc}
+.deep-feedback.good{border-color:#8fc4a4;background:#ecf8ee}
+.deep-feedback.review{border-color:#dbbe80;background:#fdf8eb}
+.deep-feedback strong{display:block;color:#2e6047;font-size:13px}
+.deep-feedback.review strong{color:#86662e}
+.deep-feedback p{margin:6px 0 0;font-size:13px}
+.deep-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:17px 0}
+.deep-stats>div{border-radius:11px;padding:13px 15px;background:#fff;border:1px solid #d7e6dc}
+.deep-stats small{display:block;color:#628471;font-size:12px}
+.deep-stats b{font-size:24px;display:block;color:#195e47;font-variant-numeric:tabular-nums;margin-top:3px}
+.deep-conclusion{background:#e8f4eb;padding:15px 18px;border-radius:11px;margin:18px 0;color:#2b5c44}
+.deep-conclusion strong{display:block;font-size:15px}
+.deep-conclusion p{margin:5px 0 0;font-size:13px}
+@media(max-width:680px){.deep-scene{padding:16px 14px 20px}.deep-progress{padding:13px 14px;gap:8px}.deep-stats{gap:7px}.deep-stats>div{padding:11px}.deep-stats b{font-size:19px}.deep-actions .btn{flex:1}.deep-action-note{flex:1 1 100%;order:4;text-align:left}.deep-choice{padding:11px 12px}}
+@media(prefers-reduced-motion:reduce){.deep-progress-track i,.deep-choice{transition:none!important}}
