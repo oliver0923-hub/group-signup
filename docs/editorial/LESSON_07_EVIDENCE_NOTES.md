@@ -1,5 +1,6 @@
 # M&A Academy｜第 07 堂企業估值基礎：學術來源、案例與模型驗收
 
+> **2026-11-04 教學修訂後的實際網站載入來源：** `docs/lesson-07-guided-20261104.js`（完整課文）及 `docs/lesson-07-simulations-guided-20261104.js`（互動），與同名未加 `guided` 的最新版正規原始檔內容一致。新版明確定義 FCFF、FCFE、EBITDA、CFO、CapEx、ΔNWC、WACC，新增四步計算、故事銜接與滑桿說明。參見 `docs/editorial/LESSON_07_08_PEDAGOGICAL_AUDIT_20261104.md`。
 > 更新：2026-11-04。遵循 `docs/MA_Academy_Authoring_Standard_v3.md`；正式教材 `docs/lesson-07-full.js`，互動 `docs/lesson-07-simulations.js`。教材及互動全部單人完成，不使用小組、分組或預設博士生身分；第 01–06 堂原有教材不修改。
 
 ## 01｜主要教學內容與故事假設
