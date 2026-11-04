@@ -1,0 +1,27 @@
+/* Lesson 11 only: PE fund story, role choices, capital flow and solo simulation. */
+.lesson11-section .card>p {line-height:1.9}
+.lesson11-section h3 {margin-top:22px;line-height:1.5}
+.lesson11-section .controls {margin-top:16px}
+.lesson11-section .controls input[type="range"] {display:block;width:100%;accent-color:#168c73;margin:10px 0 20px}
+.lesson11-section .controls output {font-weight:800;color:#176e60}
+.lesson11-section .model-values {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:17px 0}
+.lesson11-section .model-option {border:1px solid #d1e3d8;border-radius:10px;background:#f3f8f4;padding:12px;min-width:0}
+.lesson11-section .model-option strong {display:block;font-size:12px;line-height:1.55}
+.lesson11-section .model-option>span {display:block;color:#1b6250;font-weight:800;font-size:18px;line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
+.lesson11-section .model-options {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lesson11-section .model-choice {display:block;width:100%;min-width:0;text-align:left;cursor:pointer;background:#f5faf7;border:1px solid #c4dcd0;border-radius:11px;padding:15px 16px;color:#31544b;font:inherit;line-height:1.65;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
+.lesson11-section .model-choice>strong {display:block;font-size:14px;font-weight:800;margin-bottom:5px;color:#224c3e}
+.lesson11-section .model-choice>span {display:block;font-size:12px;color:#547268}
+.lesson11-section .model-choice:hover {border-color:#6da98e;background:#eff8f1}
+.lesson11-section .model-choice.selected,.lesson11-section .model-choice[aria-pressed="true"] {background:#e5f6e9;border-color:#328c6c;box-shadow:inset 4px 0 #328c6c}
+.lesson11-section button:focus-visible,.lesson11-section input:focus-visible {outline:3px solid #e2b56b;outline-offset:3px}
+.lesson11-section button:disabled {opacity:.5;cursor:not-allowed}
+.lesson11-section .deep-actions {margin-top:20px}
+.lesson11-section .model-result p {line-height:1.8}
+#l11-investment-journey>.card {margin-top:13px;border-color:#c9dfd2;background:#fbfdfb}
+#l11-investment-journey .story-timeline {margin-top:4px}
+@media(max-width:700px) {
+ .lesson11-section .model-options,.lesson11-section .model-values {grid-template-columns:1fr}
+ .lesson11-section .model-choice {padding:13px}
+ .lesson11-section .model-option>span {font-size:16px}
+}
