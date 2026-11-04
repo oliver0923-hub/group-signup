@@ -1,6 +1,6 @@
 'use strict';
 const courseTitles=["課程總綱與學習進度","公司、股份與股東","收購、合併與所有權","企業為什麼進行併購","併購交易如何進行","併購的主要類型","企業如何選擇收購標的","讀懂企業的財務資訊","一家公司究竟值多少？","收購價格如何談出來？","收購價款如何支付？","Private Equity Fund（PE Fund）","Leveraged Buyout（LBO）","盡職調查與交易完成","併購後整合與績效","M&A 策略管理理論","M&A 實證研究方法"];
-const COURSE_TOTAL=courseTitles.length-1,PUBLISHED_LESSONS=10;
+const COURSE_TOTAL=courseTitles.length-1,PUBLISHED_LESSONS=11;
 const summaries=["16 堂課，從基礎觀念一路學習到併購交易、策略與研究方法。","法人、股份、股東、董事會、經理人、所有權與控制權。","股權收購、資產收購、法定合併、母子公司與私有化。","Buy／Build／Ally、綜效、規模經濟、併購動機與價值分配。","買方、賣方、顧問、初步協商、交易流程與交割。","水平、垂直、多角化、跨國、友善與敵意收購。","策略適配、資源互補、Buy／Build／Ally、估值與整合風險。","三大財報、自由現金流、EBITDA、FCFF、EV／股權價值。","同業倍數、DCF、WACC、終值及估值敏感度。","議價上限、賣方底價、收購溢價與綜效分配。","現金、股票、股權稀釋、Earn-out 與契約風險。","GP、LP、基金募集、控股、投資期間、出場與投資報酬。","股權與債務、槓桿、債務償還、MOIC、IRR 與風險。","盡職調查、交易條款、法規、融資條件與交割。","併購後整合、文化差異、人才留任、綜效與併購失敗。","Agency Theory、RBV、TCE、RDT、組織學習與市場力量。","事件研究、長期績效、選擇偏誤、內生性與研究設計。"];
 const quizData={
 1:[
@@ -213,6 +213,8 @@ references[7]=prior7refs.filter((r,i)=>[0,1,2,4,7,8,9,10].includes(i));
 references[8]=prior7refs;
 references[9]=prior8refs.filter((r,i)=>[1,2,4,5,6,7,8,9].includes(i));
 references[10]=prior8refs;
+quizData[11]=[["PE 管理公司與旗下基金的關係，哪個正確？",["管理公司可任意挪用基金資產","基金、管理公司與被投資企業須分清","基金就是某一位經理人的個人帳戶"],1,"基金資產不等於管理公司的自有資產。"],["某 LP 承諾了基金 50% 資金，代表什麼？",["必然有權決定全部收購","直接持有被投資公司 50% 股份","提供 50% 的承諾資金，權利依契約決定"],2,"承諾比例不必然等於管理權或被投資公司的直接持股。"],["GP、管理公司和基金經理人如何區分？",["GP 是法律管理角色、管理公司提供服務、個人經理人執行工作","三者一定是同一自然人","LP 必定受僱於 GP"],0,"實際法律身分、責任及管理授權須依組織架構和契約確認。"],["基金總承諾 10,000 萬，首次催繳 4,000 萬。占 50% 承諾的退休基金按比例應繳多少？",["5,000 萬","2,000 萬","4,000 萬"],1,"4,000×50%＝2,000；承諾額不代表現金都已經入帳。"],["LP 的 Limited 在基金中通常代表？",["投資一定保本","只能出很小的資本","符合適用法規與契約時責任有限，但本金仍可能損失"],2,"有限責任不等於沒有市場風險，也不代表能任意拒繳合法催繳。"],["同一 GP 的兩檔基金都想投資同一家企業，LP 要注意什麼？",["跨基金投資機會分配與利益衝突","讓最大 LP 直接取得公司全部設備","完全沒有基金治理問題"],0,"LPA／LPAC 可能就利益衝突、估值和投資分配設計程序。"],["投入 6,000 萬、退出收回 9,000 萬，獲利的 20% 是 GP Carry，簡化金額多少？",["1,800 萬","600 萬","9,000 萬"],1,"投資獲利 3,000；GP Carry 為 3,000×20%＝600。"],["Hilton 與李長榮化工兩個 PE 收購，哪個說法合理？",["Hilton 2013 上市就表示 Blackstone 當天完全退出","李長榮化工 2019 下市就代表公司停業","PE 可能透過基金及聯盟取得控制權；上市和退出、下市和停業須分開"],2,"Hilton 在 2013 年重返股市、Blackstone 2018 才完成退出；李長榮化工 2019 私有化但公司仍經營。"]];
+references[11]=[["Kaplan & Strömberg (2009), Leveraged Buyouts and Private Equity, JEP","https://doi.org/10.1257/jep.23.1.121"],["Gompers, Kaplan & Mukharlyamov (2016), What Do Private Equity Firms Say They Do?, JFE","https://doi.org/10.1016/j.jfineco.2016.06.003"],["Kaplan & Schoar (2005), Private Equity Performance, Journal of Finance","https://doi.org/10.1111/j.1540-6261.2005.00780.x"],["ILPA Principles 3.0, Fund Governance and LP/GP Alignment","https://ilpa.org/industry-guidance/principles-best-practices/ilpa-principles/"],["Blackstone / Hilton: acquisition announcement (2007-07-03)","https://www.blackstone.com/news/press/hilton-hotels-corporation-to-be-acquired-by-blackstone-investments-funds/"],["Blackstone / Hilton: deal completion (2007-10-24)","https://www.blackstone.com/news/press/hilton-closes-merger-with-blackstone-investment-funds/"],["Blackstone / Hilton: appointment of Christopher Nassetta (2007-10-29)","https://www.blackstone.com/news/press/hilton-hotels-corporation-appoints-christopher-nassetta-as-president-and-ceo/"],["Blackstone 2018 Q2 Investor Media Call: Hilton investment gains","https://ir.blackstone.com/files/doc_events/BLACKSTONE-Second-Quarter-2018-Earnings-Media-Call.pdf"],["KKR / LCY Chemical: transaction completion (2019-01-29)","https://media.kkr.com/news-details?news_id=14f2c234-73d7-4f59-a210-d225562978d1"]];
 const readProgress=()=>{try{const key='ma-academy-progress-v2',raw=localStorage.getItem(key);if(raw!==null){const v=JSON.parse(raw);return Array.isArray(v)?[...new Set(v.filter(n=>Number.isInteger(n)&&n>=1&&n<=COURSE_TOTAL))]:[]}const old=JSON.parse(localStorage.getItem('ma-academy-progress-v1')||'[]');const v=Array.isArray(old)?old.filter(n=>Number.isInteger(n)&&n>=1&&n<=6):[];localStorage.setItem(key,JSON.stringify(v));return v}catch{return []}};
 let completed=readProgress();
 const saveProgress=()=>{try{localStorage.setItem('ma-academy-progress-v2',JSON.stringify(completed))}catch{}};
@@ -346,11 +348,11 @@ function overview(){
  card('生活常識與學術理論，一起學才有意義',p('保留最容易理解的咖啡店故事、名詞解釋與數字例子，再沿著同一個問題加入互動實驗、真實交易與研究機制；學術不是另一套艱深的版本，而是把直覺解釋得更深入。')+p('模擬中的金額與機率都是教學假設，與真實公司資料分開標示；不必先讀懂艱深期刊，也能學習代理問題、公司控制權與併購綜效。'))+
  '<section class="section"><h2>所有課程</h2><div class="grid-2">'+courseTitles.slice(1).map((t,i)=>'<button type="button" class="course-card '+(i+1>PUBLISHED_LESSONS?'future':'')+'" data-open="'+(i+1)+'"><span class="number">'+String(i+1).padStart(2,'0')+'</span><span><strong>'+esc(t)+'</strong><small>'+esc(summaries[i+1])+'</small><br><span class="pill">'+(completed.includes(i+1)?'已完成':i+1<=PUBLISHED_LESSONS?'完整教材已上架':'即將推出')+'</span></span></button>').join('')+'</div></section></div>';
 }
-function future(n){return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / '+COURSE_TOTAL+'</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(summaries[n])+'</p><div class="hero-tags"><span>課綱已規劃</span><span>完整內容尚未上架</span></div></section>'+card('這堂課將學習什麼？',p(summaries[n])+call('本課次目前只有課綱，尚未提供完整教學、互動練習與測驗。')+'<p>請先閱讀已上架的第 01–10 堂完整教材。後續新增教材時，此課次即可延伸。</p><button class="btn primary" data-go="0">返回課程總綱</button>')+'</div>'}
+function future(n){return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / '+COURSE_TOTAL+'</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(summaries[n])+'</p><div class="hero-tags"><span>課綱已規劃</span><span>完整內容尚未上架</span></div></section>'+card('這堂課將學習什麼？',p(summaries[n])+call('本課次目前只有課綱，尚未提供完整教學、互動練習與測驗。')+'<p>請先閱讀已上架的第 01–11 堂完整教材。後續新增教材時，此課次即可延伸。</p><button class="btn primary" data-go="0">返回課程總綱</button>')+'</div>'}
 function lesson(n){
  const body=(window.MA_FULL_LESSONS && window.MA_FULL_LESSONS[n]) || (n===1?lesson1():n===2?lesson2():lesson3());
- const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':n===5?'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。':n===6?'比較候選標的的策略適配、資源互補、關係熟悉、價格與整合風險，做出有依據的收購選擇。':n===7?'從三大財報、FCFF 到 EV／股權價值，先看懂公司的錢。':n===8?'比較倍數、DCF 與折現，理解估值不確定性。':n===9?'認識議價區間、競買者與買賣雙方綜效分配。':'理解現金、股票、混合支付、稀釋與或有對價。';
- return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / '+COURSE_TOTAL+' · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span>'+(n>=7&&n<=10&&window['MA_LESSON'+n+'_REVISION']?'<span>'+esc(window['MA_LESSON'+n+'_REVISION'])+'</span>':'')+'</div></section>'+
+ const sub=n===1?'了解公司是法人、股份代表什麼，以及股東、董事會、CEO 的差異。':n===2?'分辨股權收購、資產收購與合併，理解控制權、私有化及母子公司。':n===3?'了解成長、綜效、資源取得與代理問題，並判斷收購價格如何分配價值。':n===4?'從初步接洽到簽約、核准與交割；練習盡調、選標的與價格談判。':n===5?'辨認水平、垂直、多角化與跨境收購，並理解友善／敵意及企業邊界的選擇。':n===6?'比較候選標的的策略適配、資源互補、關係熟悉、價格與整合風險，做出有依據的收購選擇。':n===7?'從三大財報、FCFF 到 EV／股權價值，先看懂公司的錢。':n===8?'比較倍數、DCF 與折現，理解估值不確定性。':n===9?'認識議價區間、競買者與買賣雙方綜效分配。':n===10?'理解現金、股票、混合支付、稀釋與或有對價。':n===11?'理解 LP／GP、基金承諾與催繳、經營治理、退出及基金分配。':'理解企業併購的基本觀念。';
+ return '<div class="main-inner"><section class="hero"><div class="eyebrow">LESSON '+String(n).padStart(2,'0')+' / '+COURSE_TOTAL+' · FOUNDATION</div><h1>'+esc(courseTitles[n])+'</h1><p>'+esc(sub)+'</p><div class="hero-tags"><span>核心概念</span><span>真實案例</span><span>互動試算</span><span>課後理解檢查</span>'+(n>=7&&n<=11&&window['MA_LESSON'+n+'_REVISION']?'<span>'+esc(window['MA_LESSON'+n+'_REVISION'])+'</span>':'')+'</div></section>'+
  body+quizHtml(n)+referencesHtml(n)+
  '<div class="lesson-footer"><button type="button" class="btn" data-go="'+(n-1)+'">← 上一堂</button><button type="button" class="btn primary" id="complete-btn">'+(completed.includes(n)?'✓ 已標記完成｜點此取消':'標記本堂已完成')+'</button><button type="button" class="btn" data-go="'+(n+1)+'">下一堂 →</button></div><p class="status">完成狀態與測驗結果保留在此瀏覽器的 localStorage；跨裝置不會自動同步。</p></div>';
 }
@@ -376,6 +378,7 @@ function render(){
  if(n===8)el('main').querySelectorAll('.lesson8-section').forEach(s=>s.classList.add('bridge-section'));
   if(n===9)el('main').querySelectorAll('.lesson9-section').forEach(s=>s.classList.add('bridge-section'));
   if(n===10)el('main').querySelectorAll('.lesson10-section').forEach(s=>s.classList.add('bridge-section'));
+  if(n===11)el('main').querySelectorAll('.lesson11-section').forEach(s=>s.classList.add('bridge-section'));
 
 
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n]){
@@ -432,6 +435,7 @@ function render(){
   if(n===7&&window.MA_NEW_JOURNEYS)window.MA_NEW_JOURNEYS.init7();
  if((n===9||n===10)&&window.MA_LESSON8&&window.MA_LESSON8.init)window.MA_LESSON8.init();
   if(n===9&&window.MA_NEW_JOURNEYS)window.MA_NEW_JOURNEYS.init9();
+  if(n===11&&window.MA_LESSON11&&window.MA_LESSON11.init)window.MA_LESSON11.init();
 
  if(n>=1&&n<=4&&window.MA_EXTRA&&window.MA_EXTRA[n])window.MA_EXTRA[n].init();
  el('sidebar').classList.remove('open');el('menu-button').setAttribute('aria-expanded','false');
